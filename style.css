@@ -98,13 +98,10 @@ body {
 /* Responsive configurations for mobile displays */
 @media (max-width: 480px) {
     .name {
-        font-size: 3.5rem;
-    }
-    .accent-shape {
-        width: 320px;
-        height: 320px;
-    }
-    .bio {
-        font-size: 1.05rem;
-    }
+    font-family: 'Dancing Script', cursive;
+    font-size: 5.8rem;       /* Increased from 4.5rem to make it stand out */
+    color: #e63946;          /* A vibrant, clean red color */
+    margin: 5px 0 20px 0;
+    font-weight: 700;
+    transition: transform 0.3s ease;
 }
