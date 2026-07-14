@@ -378,3 +378,69 @@ a[href="blog.html"], a[href="Blog.html"], .btn {
     display: block;
     margin: 20px auto;
 }
+/* --- PROJECTS GRID STYLES --- */
+
+/* Fix button grouping to keep them side-by-side */
+.button-group {
+    margin-top: 25px;
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.projects-layout {
+    display: block;
+    min-height: 100vh;
+    padding: 60px 20px;
+}
+
+.projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 30px;
+    margin-top: 40px;
+    width: 100%;
+}
+
+.project-card {
+    background-color: rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    border-radius: 16px;
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
+    text-align: left;
+}
+
+body.dark-mode .project-card {
+    background-color: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.project-card h2 {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 1.3rem;
+    color: var(--accent-color);
+    margin-bottom: 12px;
+}
+
+.project-card-body {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.9rem;
+    line-height: 1.6;
+    opacity: 0.9;
+    flex-grow: 1;
+}
+
+/* Ensure project screenshots look crisp, centered, and never stretch */
+.project-card-body img {
+    max-width: 100%;
+    height: auto !important;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    display: block;
+    object-fit: contain;
+}
