@@ -476,3 +476,20 @@ body.dark-mode .project-card {
     0%, 100% { opacity: 0.3; }
     50% { opacity: 1; }
 }
+/* Diagonal Cut on Cards */
+.project-card, .blog-post {
+    clip-path: polygon(0 0, 100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0 100%);
+    border-left: 3px solid var(--accent-color) !important; /* Cool colored accent edge */
+    transition: transform 0.2s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.2s;
+}
+
+/* Diagonal Cut Buttons on Hover */
+.btn {
+    clip-path: polygon(0 0, 93% 0, 100% 30%, 100% 100%, 7% 100%, 0 70%);
+    transition: all 0.2s ease;
+}
+
+.btn:hover {
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 0 0 15px rgba(224, 90, 71, 0.4); /* Glow effect */
+}
