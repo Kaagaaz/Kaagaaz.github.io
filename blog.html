@@ -116,7 +116,7 @@
             const headerArea = document.getElementById('blog-header-area');
             
             // Reconfigure navigation for reader panel view
-            nav.innerHTML = `<a href="blog.html" class="back-btn"><i class="fas fa-arrow-left"></i> back to all logs</a>`;
+            nav.innerHTML = `<a href="blog.html" class="back-btn"><i class="fas fa-arrow-left"></i> back</a>`;
             headerArea.style.display = 'none'; // Closes out main list header
 
             const url = `https://api.github.com/repos/${GITHUB_USERNAME}/${REPO_NAME}/issues/${id}`;
