@@ -12,6 +12,13 @@
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 </head>
 <body class="projects-layout">
+    <script>
+    // Instantly apply dark mode class before the rest of the page renders to prevent flickering
+    if (localStorage.getItem('theme') === 'dark') {
+        document.body.classList.add('dark-mode');
+    }
+    </script>
+    
 
     <!-- Theme Switcher -->
     <button id="theme-toggle" class="theme-btn" aria-label="Toggle Theme">
