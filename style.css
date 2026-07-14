@@ -493,3 +493,13 @@ body.dark-mode .project-card {
     transform: translateY(-2px) scale(1.02);
     box-shadow: 0 0 15px rgba(224, 90, 71, 0.4); /* Glow effect */
 }
+/* Prevent card styles and clipping paths from affecting the full reading view */
+.blog-post.full-post-view {
+    clip-path: none !important;
+    border: none !important;
+    border-left: none !important;
+    background: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+    border-radius: 0 !important;
+}
