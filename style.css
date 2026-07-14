@@ -370,3 +370,11 @@ a[href="blog.html"], a[href="Blog.html"], .btn {
     margin-bottom: 35px !important;
     display: inline-block;
 }
+/* Fix stretched blog images and make them responsive */
+.post-body img {
+    max-width: 100% !important;
+    height: auto !important;
+    object-fit: contain;
+    display: block;
+    margin: 20px auto;
+}
