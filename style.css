@@ -365,3 +365,8 @@ body.dark-mode .blog-post {
         font-size: 1rem;
     }
 }
+/* Fix spacing between the Read Blog button and social icons */
+a[href="blog.html"], a[href="Blog.html"], .btn {
+    margin-bottom: 35px !important;
+    display: inline-block;
+}
