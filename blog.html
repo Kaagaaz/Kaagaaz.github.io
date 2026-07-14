@@ -8,44 +8,72 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
     
-    <!-- MarkedJS Parser: Converts raw Markdown from GitHub Issues into clean HTML on your site -->
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 </head>
 <body class="blog-layout">
 
-    <!-- Theme Switcher -->
     <button id="theme-toggle" class="theme-btn" aria-label="Toggle Theme">
         <i class="fas fa-moon"></i>
     </button>
 
     <div class="blog-container">
-        <!-- Back Button -->
-        <a href="index.html" class="back-btn"><i class="fas fa-arrow-left"></i> back home</a>
+        <div id="blog-nav">
+            <a href="index.html" class="back-btn"><i class="fas fa-arrow-left"></i> back home</a>
+        </div>
 
-        <header class="blog-header">
+        <header class="blog-header" id="blog-header-area">
             <h1>My Logs</h1>
             <p>Sharing my projects, thoughts, and lo-fi updates.</p>
         </header>
 
-        <!-- Blog Posts will load dynamically here -->
         <div id="blog-posts-container">
             <p class="no-posts">Booting up the logs...</p>
         </div>
     </div>
 
-    <!-- Script to Fetch your GitHub Issues as Blog Posts -->
     <script>
-        // Adjust these to match your account
         const GITHUB_USERNAME = "Kaagaaz";
         const REPO_NAME = "Kaagaaz.github.io";
         
-        async function loadBlogPosts() {
+        // Checks if a specific post ID is requested in the URL (e.g., blog.html?post=2)
+        const urlParams = new URLSearchParams(window.location.search);
+        const currentPostId = urlParams.get('post');
+
+        async function initBlog() {
+            if (currentPostId) {
+                // If an ID is present, render ONLY that full post
+                await loadSinglePost(currentPostId);
+            } else {
+                // Otherwise, show the clean, organized list of summaries
+                await loadBlogList();
+            }
+        }
+
+        // Cleans up Markdown to create a neat text snippet (hiding heavy elements)
+        function createSnippet(markdownText) {
+            if (!markdownText) return "No preview available.";
+            
+            let cleanText = markdownText
+                .replace(/!\[.*?\]\(.*?\)/g, '') // Filters out images
+                .replace(/\[.*?\]\(.*?\)/g, '')  // Filters out hyper-links
+                .replace(/`{3}[\s\S]*?`{3}/g, '') // Filters out giant code blocks
+                .replace(/`.*?`/g, '')            // Filters out inline code snippets
+                .replace(/[#*_-]/g, '')           // Cleans up bold/header markup formatting
+                .trim();
+            
+            if (cleanText.length > 140) {
+                return cleanText.substring(0, 140) + "...";
+            }
+            return cleanText || "View full entry for details.";
+        }
+
+        async function loadBlogList() {
             const container = document.getElementById('blog-posts-container');
             const url = `https://api.github.com/repos/${GITHUB_USERNAME}/${REPO_NAME}/issues?labels=blog&state=open`;
 
             try {
                 const response = await fetch(url);
-                if (!response.ok) throw new Error("Failed to load");
+                if (!response.ok) throw new Error("Failed to load archive");
                 const issues = await response.json();
 
                 if (issues.length === 0) {
@@ -53,7 +81,7 @@
                     return;
                 }
 
-                container.innerHTML = ''; // Clear loading screen
+                container.innerHTML = ''; 
 
                 issues.forEach(issue => {
                     const postCard = document.createElement('article');
@@ -65,24 +93,72 @@
                         day: 'numeric'
                     });
 
-                    // Parse the Markdown content of the issue into safe HTML
-                    const parsedBody = marked.parse(issue.body || "No text content.");
+                    const snippet = createSnippet(issue.body);
 
                     postCard.innerHTML = `
                         <h2 class="post-title">${issue.title}</h2>
                         <p class="post-date">Logged on ${date}</p>
-                        <div class="post-body">${parsedBody}</div>
+                        <p style="margin-bottom: 25px; font-family: 'JetBrains Mono', monospace; opacity: 0.85; line-height: 1.6;">${snippet}</p>
+                        <a href="?post=${issue.number}" class="btn" style="font-size: 0.85rem; padding: 7px 20px;">Read Full Post →</a>
                     `;
                     container.appendChild(postCard);
                 });
 
             } catch (error) {
                 console.error(error);
-                container.innerHTML = `<p class="no-posts">Oops! Failed to connect to the digital archive. Try reloading.</p>`;
+                container.innerHTML = `<p class="no-posts">Oops! Failed to connect to the digital archive.</p>`;
             }
         }
 
-        loadBlogPosts();
+        async function loadSinglePost(id) {
+            const container = document.getElementById('blog-posts-container');
+            const nav = document.getElementById('blog-nav');
+            const headerArea = document.getElementById('blog-header-area');
+            
+            // Reconfigure navigation for reader panel view
+            nav.innerHTML = `<a href="blog.html" class="back-btn"><i class="fas fa-arrow-left"></i> back to all logs</a>`;
+            headerArea.style.display = 'none'; // Closes out main list header
+
+            const url = `https://api.github.com/repos/${GITHUB_USERNAME}/${REPO_NAME}/issues/${id}`;
+
+            try {
+                const response = await fetch(url);
+                if (!response.ok) throw new Error("Entry missing");
+                const issue = await response.json();
+
+                container.innerHTML = ''; 
+
+                const postCard = document.createElement('article');
+                postCard.className = 'blog-post full-post-view';
+                
+                // Stripping background cards for clean full immersion reading experience
+                postCard.style.background = 'none';
+                postCard.style.border = 'none';
+                postCard.style.boxShadow = 'none';
+                postCard.style.padding = '0';
+
+                const date = new Date(issue.created_at).toLocaleDateString('en-US', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric'
+                });
+
+                const parsedBody = marked.parse(issue.body || "No content written.");
+
+                postCard.innerHTML = `
+                    <h1 class="post-title" style="font-size: 2.3rem; margin-bottom: 8px;">${issue.title}</h1>
+                    <p class="post-date" style="margin-bottom: 40px;">Logged on ${date}</p>
+                    <div class="post-body">${parsedBody}</div>
+                `;
+                container.appendChild(postCard);
+
+            } catch (error) {
+                console.error(error);
+                container.innerHTML = `<p class="no-posts">Oops! This log entry couldn't be found. <a href="blog.html" style="color: var(--accent-color);">Return to logs</a></p>`;
+            }
+        }
+
+        initBlog();
     </script>
     <script src="script.js"></script>
 </body>
