@@ -103,11 +103,16 @@ body {
 }
 
 .bio {
-    font-size: 1.2rem;
-    line-height: 1.6;
-    max-width: 460px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 1.05rem;       /* Clean, readable size for monospace */
+    font-weight: 400;         /* Normal weight, just like the screenshot */
+    line-height: 1.7;         /* Adds that open, airy vertical spacing */
+    letter-spacing: -0.01em;  /* Slightly brings the letters together for a premium look */
+    max-width: 500px;         /* Gives the text a nice structure */
     margin: 0 auto 35px auto;
+    opacity: 0.9;             /* Makes the text slightly softer on the eyes */
 }
+
 
 .social-icons a {
     color: var(--text-color);
