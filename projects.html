@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projects | Kaagaaz</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+    
+    <!-- Parser for turning markdown descriptions & images into HTML elements -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+</head>
+<body class="projects-layout">
+
+    <!-- Theme Switcher -->
+    <button id="theme-toggle" class="theme-btn" aria-label="Toggle Theme">
+        <i class="fas fa-moon"></i>
+    </button>
+
+    <div class="blog-container" style="max-width: 900px;">
+        <!-- Back Button -->
+        <a href="index.html" class="back-btn"><i class="fas fa-arrow-left"></i> back home</a>
+
+        <header class="blog-header">
+            <h1>My Creations</h1>
+            <p>Apps, tools, and tech concepts I build.</p>
+        </header>
+
+        <!-- Projects will load dynamically inside this showcase grid -->
+        <div id="projects-grid-container" class="projects-grid">
+            <p class="no-posts">Loading the project boards...</p>
+        </div>
+    </div>
+
+    <script>
+        const GITHUB_USERNAME = "Kaagaaz";
+        const REPO_NAME = "Kaagaaz.github.io";
+        
+        async function loadProjects() {
+            const container = document.getElementById('projects-grid-container');
+            // Pulls issues tagged specifically with the "project" label
+            const url = `https://api.github.com/repos/${GITHUB_USERNAME}/${REPO_NAME}/issues?labels=project&state=open`;
+
+            try {
+                const response = await fetch(url);
+                if (!response.ok) throw new Error("Could not load grid");
+                const issues = await response.json();
+
+                if (issues.length === 0) {
+                    container.removeAttribute('class'); // Removes grid formatting if empty
+                    container.innerHTML = `<p class="no-posts">No projects showcased yet. Check back soon!</p>`;
+                    return;
+                }
+
+                container.innerHTML = ''; 
+
+                issues.forEach(issue => {
+                    const projectCard = document.createElement('div');
+                    projectCard.className = 'project-card';
+
+                    const parsedContent = marked.parse(issue.body || "No documentation supplied.");
+
+                    projectCard.innerHTML = `
+                        <div>
+                            <h2>${issue.title}</h2>
+                            <div class="project-card-body">${parsedContent}</div>
+                        </div>
+                    `;
+                    container.appendChild(projectCard);
+                });
+
+            } catch (error) {
+                console.error(error);
+                container.removeAttribute('class');
+                container.innerHTML = `<p class="no-posts">Oops! Failed to connect to the creations grid.</p>`;
+            }
+        }
+
+        loadProjects();
+    </script>
+    <script src="script.js"></script>
+</body>
+</html>
