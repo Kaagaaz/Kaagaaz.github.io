@@ -13,6 +13,13 @@
 
 
 <body>
+    <script>
+    // Instantly apply dark mode class before the rest of the page renders to prevent flickering
+    if (localStorage.getItem('theme') === 'dark') {
+        document.body.classList.add('dark-mode');
+    }
+    </script>
+    
     <div class="system-hud">
     <span class="system-status"><span class="blink-dot"></span> SYSTEM: ONLINE</span>
     <span class="system-uid">UID: 100053721</span>
