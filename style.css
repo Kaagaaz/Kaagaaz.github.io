@@ -1,20 +1,18 @@
-/* Color Variable Definitions for Theme Switching */
+/* Color Variables based on the Cozy Sage & Coral Theme */
 :root {
-    --bg-color: #fcf8e3;       /* Soft cream background */
-    --text-color: #4a3b32;     /* Earthy dark brown text */
-    --accent-color: #b83b32;   /* Distinct deep red accent */
-    --shape-color: #f2d1b3;    /* Soft peach tint background shape */
-    --toggle-bg: #4a3b32;
-    --toggle-text: #fcf8e3;
+    --bg-color: #b1ceca;       /* Soft pastel sage green background */
+    --text-color: #152522;     /* Deep cozy spruce green for text */
+    --accent-color: #df5a4e;   /* Soft coral-red from the buttons */
+    --toggle-bg: #152522;
+    --toggle-text: #b1ceca;
 }
 
 body.dark-mode {
-    --bg-color: #121212;       /* Deep matte black background */
-    --text-color: #e0dcd3;     /* Off-white readable text */
-    --accent-color: #ff6b61;   /* Vibrant neon coral accent */
-    --shape-color: #241f1c;    /* Subdued dark brown background shape */
-    --toggle-bg: #e0dcd3;
-    --toggle-text: #121212;
+    --bg-color: #142220;       /* Deep dark forest-spruce background */
+    --text-color: #dce8e5;     /* Lighter pastel sage tint for readable text */
+    --accent-color: #ff7c70;   /* Vibrant neon coral-red for dark mode pop */
+    --toggle-bg: #dce8e5;
+    --toggle-text: #142220;
 }
 
 * {
@@ -31,7 +29,7 @@ body {
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    overflow: hidden;
+    overflow-x: hidden;
     /* Smooth transitions when switching themes */
     transition: background-color 0.4s ease, color 0.4s ease;
 }
@@ -65,22 +63,44 @@ body {
     position: relative;
     text-align: center;
     width: 100%;
-    max-width: 600px;
+    max-width: 650px;
     padding: 40px 20px;
 }
 
-.bio {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 1 rem;       /* Clean, readable size for monospace */
-    font-weight: 400;         /* Normal weight, just like the screenshot */
-    line-height: 1.7;         /* Adds that open, airy vertical spacing */
-    letter-spacing: -0.01em;  /* Slightly brings the letters together for a premium look */
-    max-width: 500px;         /* Gives the text a nice structure */
-    margin: 0 auto 35px auto;
-    opacity: 0.9;             /* Makes the text slightly softer on the eyes */
+.content {
+    position: relative;
+    z-index: 2;
 }
 
+.intro {
+    font-size: 1.3rem;
+    font-weight: 500;
+    opacity: 0.85;
+}
 
+/* Your Big Cursive Name */
+.name {
+    font-family: 'Dancing Script', cursive;
+    font-size: 5.8rem;       
+    color: var(--accent-color); /* Automatically uses the coral-red theme colors! */
+    margin: 5px 0 20px 0;
+    font-weight: 700;
+    transition: color 0.4s ease;
+}
+
+/* Your JetBrains Mono Description */
+.bio {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 1.05rem;       
+    font-weight: 400;         
+    line-height: 1.7;         
+    letter-spacing: -0.01em;  
+    max-width: 500px;         
+    margin: 0 auto 35px auto;
+    opacity: 0.9;             
+}
+
+/* Social Media Icons */
 .social-icons a {
     color: var(--text-color);
     font-size: 2rem;
@@ -95,13 +115,12 @@ body {
     color: var(--accent-color);
 }
 
-/* Responsive configurations for mobile displays */
+/* Responsive configurations for mobile/tablets */
 @media (max-width: 480px) {
     .name {
-    font-family: 'Dancing Script', cursive;
-    font-size: 5.8rem;       /* Increased from 4.5rem to make it stand out */
-    color: #e63946;          /* A vibrant, clean red color */
-    margin: 5px 0 20px 0;
-    font-weight: 700;
-    transition: transform 0.3s ease;
+        font-size: 4.5rem;
+    }
+    .bio {
+        font-size: 1rem;
+    }
 }
