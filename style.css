@@ -124,3 +124,244 @@ body {
         font-size: 1rem;
     }
 }
+
+/* 1. COLOR THEMES & SETUP */
+:root {
+    --bg-color: #b1ceca;       /* Soft pastel sage green background */
+    --text-color: #152522;     /* Deep cozy spruce green for text */
+    --accent-color: #df5a4e;   /* Soft coral-red from the buttons */
+    --toggle-bg: #152522;
+    --toggle-text: #b1ceca;
+}
+
+body.dark-mode {
+    --bg-color: #142220;       /* Deep dark forest-spruce background */
+    --text-color: #dce8e5;     /* Lighter pastel sage tint for readable text */
+    --accent-color: #ff7c70;   /* Vibrant neon coral-red for dark mode pop */
+    --toggle-bg: #dce8e5;
+    --toggle-text: #142220;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+/* 2. BODY & TOGGLE BUTTON */
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    overflow-x: hidden;
+    transition: background-color 0.4s ease, color 0.4s ease;
+}
+
+.theme-btn {
+    position: absolute;
+    top: 25px;
+    right: 25px;
+    background-color: var(--toggle-bg);
+    color: var(--toggle-text);
+    border: none;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 1.2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease, background-color 0.4s ease, color 0.4s ease;
+    z-index: 10;
+}
+
+.theme-btn:hover {
+    transform: scale(1.1);
+}
+/* 3. LAYOUT & NAME */
+.profile-container {
+    position: relative;
+    text-align: center;
+    width: 100%;
+    max-width: 650px;
+    padding: 40px 20px;
+}
+
+.content {
+    position: relative;
+    z-index: 2;
+}
+
+.intro {
+    font-size: 1.3rem;
+    font-weight: 500;
+    opacity: 0.85;
+}
+
+.name {
+    font-family: 'Dancing Script', cursive;
+    font-size: 5.8rem;       
+    color: var(--accent-color);
+    margin: 5px 0 20px 0;
+    font-weight: 700;
+    transition: color 0.4s ease;
+}
+/* 4. DESCRIPTION & SOCIAL LINKS */
+.bio {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 1.05rem;       
+    font-weight: 400;         
+    line-height: 1.7;         
+    letter-spacing: -0.01em;  
+    max-width: 500px;         
+    margin: 0 auto 35px auto;
+    opacity: 0.9;             
+}
+
+.social-icons a {
+    color: var(--text-color);
+    font-size: 2rem;
+    margin: 0 15px;
+    text-decoration: none;
+    display: inline-block;
+    transition: transform 0.2s ease, color 0.4s ease;
+}
+
+.social-icons a:hover {
+    transform: translateY(-5px);
+    color: var(--accent-color);
+}
+/* 5. BUTTONS & BLOG CONTAINER */
+.button-group {
+    margin-top: 25px;
+}
+
+.btn {
+    display: inline-block;
+    padding: 10px 28px;
+    background-color: var(--accent-color);
+    color: #ffffff;
+    border-radius: 25px;
+    text-decoration: none;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.95rem;
+    font-weight: 500;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease, opacity 0.2s ease, background-color 0.4s ease;
+}
+
+.btn:hover {
+    transform: scale(1.05);
+    opacity: 0.9;
+}
+
+.blog-layout {
+    display: block;
+    min-height: 100vh;
+    padding: 60px 20px;
+}
+
+.blog-container {
+    max-width: 650px;
+    width: 100%;
+    margin: 0 auto;
+}
+/* 6. BLOG HEADER & BACK NAVIGATION */
+.back-btn {
+    display: inline-block;
+    color: var(--text-color);
+    text-decoration: none;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.95rem;
+    margin-bottom: 40px;
+    transition: color 0.2s ease;
+}
+
+.back-btn:hover {
+    color: var(--accent-color);
+}
+
+.blog-header {
+    margin-bottom: 50px;
+}
+
+.blog-header h1 {
+    font-family: 'Dancing Script', cursive;
+    font-size: 4rem;
+    color: var(--accent-color);
+    margin-bottom: 10px;
+}
+
+.blog-header p {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 1rem;
+    opacity: 0.8;
+}
+/* 7. CARDS & MOBILE FIXES */
+.blog-post {
+    background-color: rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    border-radius: 16px;
+    padding: 25px;
+    margin-bottom: 30px;
+    text-align: left;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
+}
+
+body.dark-mode .blog-post {
+    background-color: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.post-title {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 1.4rem;
+    color: var(--accent-color);
+    margin-bottom: 8px;
+}
+
+.post-date {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.8rem;
+    opacity: 0.6;
+    margin-bottom: 20px;
+}
+
+.post-body {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.95rem;
+    line-height: 1.7;
+}
+
+.post-body p {
+    margin-bottom: 15px;
+}
+
+.post-body img {
+    max-width: 100%;
+    border-radius: 8px;
+    margin: 15px 0;
+}
+
+.no-posts {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 1rem;
+    opacity: 0.7;
+    margin-top: 50px;
+}
+
+@media (max-width: 480px) {
+    .name {
+        font-size: 4.5rem;
+    }
+    .bio {
+        font-size: 1rem;
+    }
+}
