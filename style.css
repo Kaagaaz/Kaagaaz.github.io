@@ -49,7 +49,12 @@ body {
     top: 0;
     left: 0;
     width: 100%;
-    padding: 20px 20px;
+    padding: 20px 40px;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
 
 .nav-item {
     font-family: 'Courier New', monospace;
@@ -64,12 +69,12 @@ body {
     margin: 0;
 }
 
-/* ADD THIS HERE */
-.nav-links-group > * {
+.nav-links-group {
     display: flex;
+    flex-direction: row;
     align-items: center;
-    justify-content: center;
-    height: 40px;
+    justify-content: flex-end;
+    gap: 20px;
 }
 
 /* Theme Toggle Button */
