@@ -42,8 +42,22 @@ document.addEventListener('DOMContentLoaded', () => {
     if (themeToggleBtn) {
         themeToggleBtn.addEventListener('click', () => {
             const isDark = document.body.classList.toggle('dark-mode');
-            localStorage.setItem('theme', isDark ? 'dark' : 'light');
-            updateToggleIcon(isDark);
-        });
-    }
+localStorage.setItem('theme', isDark ? 'dark' : 'light');
+updateToggleIcon(isDark);
+
+
+// Theme change GIF animation
+const animation = document.createElement('img');
+
+animation.src = 'tenor.gif';
+
+animation.className = 'theme-animation';
+
+document.body.appendChild(animation);
+
+setTimeout(() => {
+    animation.remove();
+}, 2000);
+
+});
 });
