@@ -58,12 +58,6 @@ body {
     background: transparent;
 } 
 
-.nav-links-group {
-    display: flex;
-    align-items: center;
-    gap: 35px;
-}
-
 .nav-item {
     font-family: 'Courier New', monospace;
     font-size: 14px;
@@ -71,19 +65,21 @@ body {
     text-decoration: none;
     color: var(--text-color);
     white-space: nowrap;
+    display: flex;
+    align-items: center;
+    line-height: 1;
+    margin: 0;
+}
 
+/* ADD THIS HERE */
+.nav-links-group > * {
     display: flex;
     align-items: center;
     justify-content: center;
-
-    height: 40px;      /* Add this */
-    line-height: 40px; /* Add this */
-
-    margin: 0;
-    padding: 0;
+    height: 40px;
 }
 
-/* Consolidated No-Nonsense Theme Toggle Button */
+/* Theme Toggle Button */
 #theme-toggle, .theme-btn {
     position: relative;
     display: inline-flex;
@@ -91,23 +87,7 @@ body {
     justify-content: center;
     width: 40px;
     height: 40px;
-    border-radius: 50%;
-    border: none;
-    cursor: pointer;
-    background-color: var(--toggle-bg);
-    color: var(--toggle-text);
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-    margin: 0;
-    transition: transform 0.2s ease, background-color 0.4s ease, color 0.4s ease;
-    z-index: 10;
-}
-
-#theme-toggle:hover, .theme-btn:hover {
-    transform: scale(1.1);
-}
-
-#theme-toggle i, .theme-btn i {
-    font-size: 16px;
+    ...
 }
 
 /* ==========================================
