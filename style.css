@@ -651,3 +651,62 @@ opacity:0;
 }
 
 }
+
+.music-btn {
+
+    position:absolute;
+
+    left:40px;
+    top:20px;
+
+
+    width:40px;
+    height:40px;
+
+
+    border-radius:50%;
+
+
+    border:none;
+
+
+    cursor:pointer;
+
+
+    background-color:var(--toggle-bg);
+
+
+    color:var(--toggle-text);
+
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+
+    transition:0.3s;
+
+}
+
+
+.music-btn:hover {
+
+    transform:scale(1.1);
+
+}
+
+
+
+@media(max-width:480px){
+
+    .music-btn{
+
+        left:15px;
+
+        top:20px;
+
+    }
+
+}
