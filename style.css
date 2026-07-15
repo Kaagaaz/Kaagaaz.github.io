@@ -503,26 +503,29 @@ body.dark-mode .project-card {
     padding: 0 !important;
     border-radius: 0 !important;
 }
-/* --- FIXED UPPER ROW NAVIGATION BAR --- */
+
+/* --- BULLETPROOF NAVBAR RESET --- */
 .navbar {
     display: flex;
-    justify-content: flex-end; /* Keeps links on the right side */
-    align-items: center;
-    /* REDUCED BOTTOM PADDING (10px) brings the orange line right up under the text */
-    padding: 25px 40px 10px 40px; 
+    justify-content: flex-end; /* Aligns the entire menu system to the right */
+    align-items: center;       /* Forces perfect vertical alignment for everything */
+    padding: 15px 40px;        /* Brings the line closer to the links cleanly */
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     box-sizing: border-box;
-    border-bottom: 1px solid var(--accent-color, #e25a5a); /* The orange accent line */
+    border-bottom: 1px solid var(--accent-color, #e25a5a); /* The crisp accent line */
     z-index: 1000;
+    gap: 25px;                 /* Perfectly balances spacing between text and the button */
 }
 
 .nav-links {
     display: flex;
-    gap: 25px; /* Spacing between menu items */
     align-items: center;
+    gap: 25px;
+    margin: 0;
+    padding: 0;
 }
 
 .nav-item {
@@ -535,23 +538,36 @@ body.dark-mode .project-card {
     letter-spacing: 1.5px;
     opacity: 0.7;
     transition: all 0.3s ease;
-    padding-bottom: 5px;
+    margin: 0 !important;
+    padding: 0 0 5px 0;        /* Tiny bottom padding for the hover line effect */
+    display: inline-block;
 }
 
 .nav-item:hover, .nav-item.active {
     opacity: 1;
 }
 
-/* --- FIXES THE HIDDEN THEME TOGGLE BUTTON --- */
-#theme-toggle {
-    position: static !important; /* Forces it to stay inside the row instead of flying off-screen */
-    margin-left: 25px;          /* Gives it clean breathing room to the right of the Blog link */
+/* --- THEME TOGGLE RADICAL ALIGNMENT FIXED --- */
+#theme-toggle, .theme-btn {
+    position: relative !important; /* Strips any rogue absolute positioning */
+    top: auto !important;
+    right: auto !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    background: none !important;
+    border: none !important;
     cursor: pointer;
-    background: none;
-    border: none;
-    display: flex;
+    display: inline-flex !important;
     align-items: center;
     justify-content: center;
+    width: 24px;                  /* Constrains sizes so it never warps the text line */
+    height: 24px;
     z-index: 1001;
 }
 
+/* Ensures the icon inside the button scales nicely inline */
+#theme-toggle svg, #theme-toggle img {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
