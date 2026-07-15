@@ -504,41 +504,44 @@ body.dark-mode .project-card {
     border-radius: 0 !important;
 }
 
-/* --- NAVBAR CONTAINER --- */
+/* 1. Force the navbar to float at the top of the screen, escaping the body flex */
 .navbar {
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
-    padding: 20px 0;
-    background-color: transparent;
-    /* Optional: if you want it to stay pinned at the top while scrolling, use fixed: */
-    /* position: fixed; top: 0; left: 0; z-index: 1000; */
-}
-
-.nav-container {
-    max-width: 1100px;
-    width: 90%;            /* Keeps a safe safety-margin on the edges when scaling */
-    margin: 0 auto;
+    padding: 30px 40px;      /* Spacing from the top and side edges of the screen */
+    box-sizing: border-box;
     display: flex;
-    justify-content: flex-end; /* Pushes the menu items to the far right */
-    align-items: center;       /* Keeps everything perfectly aligned vertically */
+    justify-content: flex-end; /* Pushes the entire menu group to the top-right */
+    align-items: center;
+    z-index: 100;            /* Ensures it sits on top of all other elements */
+    background: transparent;
 }
 
-/* --- THE MENU LINKS GROUP --- */
+/* 2. Group containing links and theme toggle */
 .nav-links-group {
     display: flex;
     align-items: center;
-    gap: 35px;             /* INCREASED SPACE: Fixes the tight button spacing */
+    gap: 35px;               /* Clean, generous spacing between links and button */
 }
 
+/* 3. Navigation Links */
 .nav-item {
     font-family: 'Courier New', monospace;
-    font-size: 15px;       
+    font-size: 14px;
+    font-weight: bold;
     text-decoration: none;
-    color: var(--text-color);
-    white-space: nowrap;   /* Prevents words from snapping onto a new line when scaled */
+    color: var(--text-color); /* Your text variable */
+    white-space: nowrap;      /* Stops text from wrapping on zoom/scale changes */
     transition: color 0.2s ease;
 }
 
-/* --- THE NAVBAR THEME TOGGLE BUTTON --- */
+.nav-item:hover {
+    color: var(--accent-color);
+}
+
+/* 4. The Circle Theme Button (Using simple flex layout) */
 .theme-btn {
     background: none;
     border: none;
@@ -546,16 +549,23 @@ body.dark-mode .project-card {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    padding: 8px;
+    width: 44px;
+    height: 44px;
     border-radius: 50%;
+    background-color: var(--btn-bg, #ffffff); /* Fallback to white if variable isn't active */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     transition: transform 0.2s ease;
+    padding: 0;
+    margin: 0;
 }
 
 .theme-btn:hover {
     transform: scale(1.1);
 }
 
+/* Align the actual icon inside the button */
 .theme-btn i {
-    font-size: 18px;       /* Clear, legible scale for the icon */
+    font-size: 18px;
     color: var(--text-color);
 }
+
