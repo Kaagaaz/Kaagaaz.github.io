@@ -417,6 +417,23 @@ body.dark-mode .project-card {
     }
 }
 
+/* Mobile spacing fix for back button and theme toggle */
+@media (max-width: 480px) {
+
+    .navbar {
+        padding: 20px 15px;
+    }
+
+    #theme-toggle {
+        margin-left: 10px;
+    }
+
+    .back-btn {
+        margin-top: 50px;
+    }
+
+}
+
 .theme-animation {
     position: fixed;
     inset: 0;
