@@ -115,13 +115,10 @@ function showThemeAnimation() {
 
         // Random butterfly size
 
-        const size =
-            0.4 + Math.random() * 0.8;
-
-
-        butterfly.style.transform =
-            `scale(${size})`;
-
+        butterfly.style.setProperty(
+    "--size",
+    0.5 + Math.random() * 0.3
+);
 
 
         // Random flying delay
