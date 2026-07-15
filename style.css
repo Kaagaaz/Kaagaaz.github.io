@@ -11,13 +11,14 @@
 }
 
 body.dark-mode {
-    --bg-color: #142220;       /* Deep dark forest-spruce background */
-    --text-color: #dce8e5;     /* Lighter pastel sage tint for readable text */
+    --bg-color: #2B2B2B;       /* Restored to your original black/dark-grey */
+    --text-color: #dce8e5;     /* Light pastel sage text for contrast */
     --accent-color: #ff7c70;   /* Vibrant neon coral-red for dark mode pop */
     --toggle-bg: #dce8e5;
-    --toggle-text: #142220;
-    --btn-bg: #142220;
+    --toggle-text: #2B2B2B;    /* Matches new bg */
+    --btn-bg: #dce8e5;
 }
+
 
 /* ==========================================
    2. GLOBAL RESETS & BODY
