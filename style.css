@@ -434,6 +434,7 @@ body.dark-mode .project-card {
 
 }
 
+
 .theme-animation {
     position: fixed;
     inset: 0;
@@ -441,35 +442,34 @@ body.dark-mode .project-card {
     pointer-events: none;
 
     background:
-    radial-gradient(circle at center,
-    rgba(0,191,255,0.45),
+    radial-gradient(circle,
+    rgba(76,201,240,0.45),
     transparent 60%);
 
-    animation: themeFlash 0.8s ease-out forwards;
+    animation: blueFlash 1.2s ease forwards;
 }
 
 
-.theme-animation::after {
-    content:"";
-    position:absolute;
-    inset:0;
+.butterfly {
 
-    background-image:
-    radial-gradient(circle,
-    rgba(255,255,255,0.8) 1px,
-    transparent 2px);
+    position: absolute;
+    bottom: 20%;
 
-    background-size:70px 70px;
+    color: white;
 
-    animation: floatingParticles 0.8s ease-out forwards;
+    text-shadow:
+    0 0 8px white,
+    0 0 15px #4cc9f0;
+
+    animation: flyButterfly 1.2s ease-out forwards;
+
 }
 
 
-@keyframes themeFlash {
+@keyframes blueFlash {
 
     0% {
         opacity:0;
-        transform:scale(0.8);
     }
 
     40% {
@@ -478,24 +478,41 @@ body.dark-mode .project-card {
 
     100% {
         opacity:0;
-        transform:scale(1.2);
     }
+
 }
 
 
-@keyframes floatingParticles {
+@keyframes flyButterfly {
 
     0% {
-        transform:translateY(30px);
+
+        transform:
+        translateY(0)
+        rotate(0deg)
+        scale(0.5);
+
         opacity:0;
+
     }
 
-    40% {
+
+    30% {
+
         opacity:1;
+
     }
+
 
     100% {
-        transform:translateY(-30px);
+
+        transform:
+        translateY(-250px)
+        rotate(180deg)
+        scale(1.2);
+
         opacity:0;
+
     }
+
 }
