@@ -1,6 +1,7 @@
 // --- GLOBAL THEME SYSTEM ---
 
 function applyTheme() {
+
     const savedTheme = localStorage.getItem("theme");
     const body = document.body;
 
@@ -16,28 +17,33 @@ function applyTheme() {
 
 // Change moon/sun icon
 function updateToggleIcon(isDark) {
+
     const icon = document.querySelector("#theme-toggle i");
 
     if (icon) {
-        icon.className = isDark ? "fas fa-sun" : "fas fa-moon";
+        icon.className = isDark 
+            ? "fas fa-sun" 
+            : "fas fa-moon";
     }
 }
 
 
-// Theme GIF animation
+// Blue flash + particle animation
 function showThemeAnimation() {
 
-    const animation = document.createElement("img");
+    const animation = document.createElement("div");
 
-    animation.src = "tenor.gif"; 
     animation.className = "theme-animation";
 
     document.body.appendChild(animation);
 
 
     setTimeout(() => {
+
         animation.remove();
-    }, 2000);
+
+    }, 800);
+
 }
 
 
@@ -47,17 +53,21 @@ applyTheme();
 
 // Fix browser cache issue
 window.addEventListener("pageshow", () => {
+
     applyTheme();
+
 });
 
 
 // Theme button
 document.addEventListener("DOMContentLoaded", () => {
 
+
     const themeToggleBtn = document.getElementById("theme-toggle");
 
 
     if (themeToggleBtn) {
+
 
         themeToggleBtn.addEventListener("click", () => {
 
@@ -74,7 +84,7 @@ document.addEventListener("DOMContentLoaded", () => {
             updateToggleIcon(isDark);
 
 
-            // Show GIF when theme changes
+            // Show blue theme transition
             showThemeAnimation();
 
 
