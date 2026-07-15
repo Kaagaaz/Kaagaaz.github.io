@@ -224,3 +224,55 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 });
+
+// --- HOME PAGE MUSIC SYSTEM ---
+
+document.addEventListener("DOMContentLoaded",()=>{
+
+
+const music = document.getElementById("bgm");
+
+const musicBtn = document.getElementById("music-toggle");
+
+
+
+if(music && musicBtn){
+
+
+const icon = musicBtn.querySelector("i");
+
+
+
+musicBtn.addEventListener("click",()=>{
+
+
+if(music.paused){
+
+
+    music.play();
+
+
+    icon.className="fa-solid fa-pause";
+
+
+}
+
+else{
+
+
+    music.pause();
+
+
+    icon.className="fa-solid fa-play";
+
+
+}
+
+
+});
+
+
+}
+
+
+});
