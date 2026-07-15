@@ -459,20 +459,14 @@ body.dark-mode .project-card {
 
 .butterfly {
 
-    position:absolute;
+    position: absolute;
 
-    width:24px;
-    height:24px;
+    width: 24px;
+    height: 24px;
 
-    transform:scale(var(--size));
+    animation: flyAway 3.5s ease-out forwards;
 
-}
-
-    animation:
-    flyAway 3.5s ease-out forwards;
-
-    filter:
-    drop-shadow(0 0 8px white);
+    filter: drop-shadow(0 0 8px white);
 
 }
 
@@ -548,11 +542,16 @@ body:not(.dark-mode) .butterfly {
 
     right:0;
 
-    transform:
-    scaleX(-1);
-
     transform-origin:left center;
 
+}
+.right {
+    animation-name: flapRight;
+}
+
+
+.left {
+    animation-name: flapLeft;
 }
 
 
@@ -574,20 +573,27 @@ body:not(.dark-mode) .butterfly {
 
 
 
-@keyframes flap {
+@keyframes flapLeft {
 
     from {
-
-        transform:
-        rotateY(0deg);
-
+        transform: rotateY(0deg);
     }
 
     to {
+        transform: rotateY(70deg);
+    }
 
-        transform:
-        rotateY(70deg);
+}
 
+
+@keyframes flapRight {
+
+    from {
+        transform: rotateY(0deg) scaleX(-1);
+    }
+
+    to {
+        transform: rotateY(70deg) scaleX(-1);
     }
 
 }
