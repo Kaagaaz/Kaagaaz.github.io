@@ -79,13 +79,16 @@ body {
 
 /* Theme Toggle Button */
 #theme-toggle, .theme-btn {
-    position: relative;
     display: inline-flex;
     align-items: center;
     justify-content: center;
     width: 40px;
     height: 40px;
-    ...
+    border-radius: 50%;  /* This makes it a circle */
+    border: none;
+    cursor: pointer;
+    background-color: var(--toggle-bg);
+    color: var(--toggle-text);
 }
 
 /* ==========================================
