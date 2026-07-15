@@ -49,20 +49,21 @@ body {
     top: 0;
     left: 0;
     width: 100%;
-    padding: 30px 40px;
+    padding: 20px 40px;
     box-sizing: border-box;
     display: flex;
     justify-content: flex-end;
-    align-items: center;
+    align-items: center; /* This ensures vertical centering */
     z-index: 1000;
     background: transparent;
-}
+} 
 
 .nav-links-group {
     display: flex;
     flex-direction: row;
-    align-items: center; /* Centers links and button vertically */
-    gap: 35px;           /* Comfortable spacing between items */
+    align-items: center; /* Forces all children (links + button) to center line */
+    gap: 35px;
+    height: 40px; /* Matches the button height to the text area */
 }
 
 .nav-item {
@@ -72,7 +73,8 @@ body {
     text-decoration: none;
     color: var(--text-color);
     white-space: nowrap;
-    display: inline-block;
+    display: flex;          /* Changed from inline-block to flex */
+    align-items: center;    /* Forces text centering */
     line-height: 1;
     margin: 0;
 }
