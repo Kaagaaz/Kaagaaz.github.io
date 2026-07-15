@@ -485,8 +485,8 @@ body.dark-mode .project-card {
     background:
     linear-gradient(
     135deg,
-    white,
-    #8de8ff
+    #102027,
+    #3b82f6
     );
 
     border-radius:
@@ -496,6 +496,37 @@ body.dark-mode .project-card {
 
     animation:
     flap 0.25s infinite alternate;
+
+}
+
+/* Dark mode butterfly */
+
+body.dark-mode .wing {
+
+    background:
+    linear-gradient(
+    135deg,
+    white,
+    #4cc9f0
+    );
+
+}
+
+
+body.dark-mode .butterfly {
+
+    filter:
+    drop-shadow(0 0 8px #4cc9f0);
+
+}
+
+
+/* Light mode butterfly glow */
+
+body:not(.dark-mode) .butterfly {
+
+    filter:
+    drop-shadow(0 0 6px #3b82f6);
 
 }
 
