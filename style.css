@@ -465,7 +465,7 @@ body.dark-mode .project-card {
     height:30px;
 
     animation:
-    flyAway 2.5s ease-out forwards;
+    flyAway 3.5s ease-out forwards;
 
     filter:
     drop-shadow(0 0 8px white);
