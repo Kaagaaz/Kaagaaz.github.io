@@ -1,63 +1,85 @@
-// --- GLOBAL THEME PERSISTENCE ENGINE ---
+// --- GLOBAL THEME SYSTEM ---
 
-// 1. Function to evaluate and apply the correct theme from localStorage
 function applyTheme() {
-    const savedTheme = localStorage.getItem('theme');
+    const savedTheme = localStorage.getItem("theme");
     const body = document.body;
-    
-    if (savedTheme === 'dark') {
-        body.classList.add('dark-mode');
+
+    if (savedTheme === "dark") {
+        body.classList.add("dark-mode");
         updateToggleIcon(true);
     } else {
-        body.classList.remove('dark-mode');
+        body.classList.remove("dark-mode");
         updateToggleIcon(false);
     }
 }
 
-// Helper function to swap the icon shape (Moon <-> Sun)
+
+// Change moon/sun icon
 function updateToggleIcon(isDark) {
-    const icon = document.querySelector('#theme-toggle i');
+    const icon = document.querySelector("#theme-toggle i");
+
     if (icon) {
-        if (isDark) {
-            icon.className = 'fas fa-sun'; // Sun icon for dark mode
-        } else {
-            icon.className = 'fas fa-moon'; // Moon icon for light mode
-        }
+        icon.className = isDark ? "fas fa-sun" : "fas fa-moon";
     }
 }
 
-// 2. Run immediately on script load (handles fresh page entries)
+
+// Theme GIF animation
+function showThemeAnimation() {
+
+    const animation = document.createElement("img");
+
+    animation.src = "tenor.gif"; 
+    animation.className = "theme-animation";
+
+    document.body.appendChild(animation);
+
+
+    setTimeout(() => {
+        animation.remove();
+    }, 2000);
+}
+
+
+// Load saved theme
 applyTheme();
 
-// 3. Crucial BF-Cache Fix: Listen to 'pageshow' to force-sync the theme
-// This triggers even if the browser restores a frozen page from cache memory
-window.addEventListener('pageshow', () => {
+
+// Fix browser cache issue
+window.addEventListener("pageshow", () => {
     applyTheme();
 });
 
-// 4. Bind the click event to toggle and save themes
-document.addEventListener('DOMContentLoaded', () => {
-    const themeToggleBtn = document.getElementById('theme-toggle');
-    
+
+// Theme button
+document.addEventListener("DOMContentLoaded", () => {
+
+    const themeToggleBtn = document.getElementById("theme-toggle");
+
+
     if (themeToggleBtn) {
-        themeToggleBtn.addEventListener('click', () => {
-            const isDark = document.body.classList.toggle('dark-mode');
-localStorage.setItem('theme', isDark ? 'dark' : 'light');
-updateToggleIcon(isDark);
+
+        themeToggleBtn.addEventListener("click", () => {
 
 
-// Theme change GIF animation
-const animation = document.createElement('img');
+            const isDark = document.body.classList.toggle("dark-mode");
 
-animation.src = 'tenor.gif';
 
-animation.className = 'theme-animation';
+            localStorage.setItem(
+                "theme",
+                isDark ? "dark" : "light"
+            );
 
-document.body.appendChild(animation);
 
-setTimeout(() => {
-    animation.remove();
-}, 2000);
+            updateToggleIcon(isDark);
 
-});
+
+            // Show GIF when theme changes
+            showThemeAnimation();
+
+
+        });
+
+    }
+
 });
