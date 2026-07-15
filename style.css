@@ -426,7 +426,7 @@ body.dark-mode .project-card {
     object-fit: cover;
     z-index: 9999;
     pointer-events: none;
-    opacity: 0.4;
+    opacity: 0.1;
     animation: fadeThemeGif 1s ease forwards;
 }
 
