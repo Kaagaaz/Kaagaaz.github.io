@@ -1,196 +1,13 @@
 /* ==========================================
-   FORCE-RESET NAVIGATION & LAYOUT ALIGNMENT 
+   1. COLOR THEMES & VARIABLES
    ========================================== */
-
-/* 1. This pulls the navbar out of the layout so your profile centers perfectly */
-.navbar {
-    position: absolute !important;
-    top: 0 !important;
-    left: 0 !important;
-    width: 100% !important;
-    padding: 30px 40px !important;
-    box-sizing: border-box !important;
-    display: flex !important;
-    justify-content: flex-end !important;
-    align-items: center !important;
-    z-index: 1000 !important;
-    background: transparent !important;
-}
-
-/* 2. This forces ABOUT ME, PROJECTS, BLOG, and the Button to sit flat on one line */
-.nav-links-group {
-    display: flex !important;
-    flex-direction: row !important;
-    align-items: center !important; /* Vertically centers everything */
-    gap: 35px !important;           /* Space between links */
-}
-
-/* 3. This cleans up the text alignment for the links */
-.nav-item {
-    font-family: 'Courier New', monospace !important;
-    font-size: 14px !important;
-    font-weight: bold !important;
-    text-decoration: none !important;
-    color: var(--text-color) !important;
-    white-space: nowrap !important;
-    display: inline-block !important;
-    vertical-align: middle !important;
-    line-height: 1 !important;
-    margin: 0 !important;
-}
-
-/* 4. This styles the theme button to sit perfectly in line with the text */
-#theme-toggle, .theme-btn {
-    position: relative !important;
-    display: inline-flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    width: 40px !important;
-    height: 40px !important;
-    border-radius: 50% !important;
-    border: none !important;
-    cursor: pointer !important;
-    background-color: var(--btn-bg, #ffffff) !important;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15) !important;
-    margin: 0 !important;
-}
-
-
-
-/* Color Variables based on the Cozy Sage & Coral Theme */
 :root {
     --bg-color: #b1ceca;       /* Soft pastel sage green background */
     --text-color: #152522;     /* Deep cozy spruce green for text */
     --accent-color: #df5a4e;   /* Soft coral-red from the buttons */
     --toggle-bg: #152522;
     --toggle-text: #b1ceca;
-}
-
-/* --- UPDATED DARK MODE COLOR --- */
-body.dark-mode {
-    background-color: #2B2B2B !important;
-    --bg-color: #2B2B2B; /* Updates the variable if your cards use it */
-    color: #f0f0f0; /* Soft white text so it doesn't strain the eyes against the dark gray */
-}
-
-
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
-
-body {
-    background-color: var(--bg-color);
-    color: var(--text-color);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    overflow-x: hidden;
-    /* Smooth transitions when switching themes */
-    transition: background-color 0.4s ease, color 0.4s ease;
-}
-
-/* Theme Toggle Button Styling */
-.theme-btn {
-    position: absolute;
-    top: 25px;
-    right: 25px;
-    background-color: var(--toggle-bg);
-    color: var(--toggle-text);
-    border: none;
-    width: 45px;
-    height: 45px;
-    border-radius: 50%;
-    cursor: pointer;
-    font-size: 1.2rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    transition: transform 0.2s ease, background-color 0.4s ease, color 0.4s ease;
-    z-index: 10;
-}
-
-.theme-btn:hover {
-    transform: scale(1.1);
-}
-
-.profile-container {
-    position: relative;
-    text-align: center;
-    width: 100%;
-    max-width: 650px;
-    padding: 40px 20px;
-}
-
-.content {
-    position: relative;
-    z-index: 2;
-}
-
-.intro {
-    font-size: 1.3rem;
-    font-weight: 500;
-    opacity: 0.85;
-}
-
-/* Your Big Cursive Name */
-.name {
-    font-family: 'Dancing Script', cursive;
-    font-size: 5.8rem;       
-    color: var(--accent-color); /* Automatically uses the coral-red theme colors! */
-    margin: 5px 0 20px 0;
-    font-weight: 700;
-    transition: color 0.4s ease;
-}
-
-/* Your JetBrains Mono Description */
-.bio {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 1.05rem;       
-    font-weight: 400;         
-    line-height: 1.7;         
-    letter-spacing: -0.01em;  
-    max-width: 500px;         
-    margin: 0 auto 35px auto;
-    opacity: 0.9;             
-}
-
-/* Social Media Icons */
-.social-icons a {
-    color: var(--text-color);
-    font-size: 2rem;
-    margin: 0 15px;
-    text-decoration: none;
-    display: inline-block;
-    transition: transform 0.2s ease, color 0.4s ease;
-}
-
-.social-icons a:hover {
-    transform: translateY(-5px);
-    color: var(--accent-color);
-}
-
-/* Responsive configurations for mobile/tablets */
-@media (max-width: 480px) {
-    .name {
-        font-size: 4.5rem;
-    }
-    .bio {
-        font-size: 1rem;
-    }
-}
-
-/* 1. COLOR THEMES & SETUP */
-:root {
-    --bg-color: #b1ceca;       /* Soft pastel sage green background */
-    --text-color: #152522;     /* Deep cozy spruce green for text */
-    --accent-color: #df5a4e;   /* Soft coral-red from the buttons */
-    --toggle-bg: #152522;
-    --toggle-text: #b1ceca;
+    --btn-bg: #ffffff;
 }
 
 body.dark-mode {
@@ -199,15 +16,19 @@ body.dark-mode {
     --accent-color: #ff7c70;   /* Vibrant neon coral-red for dark mode pop */
     --toggle-bg: #dce8e5;
     --toggle-text: #142220;
+    --btn-bg: #142220;
 }
 
+/* ==========================================
+   2. GLOBAL RESETS & BODY
+   ========================================== */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
-/* 2. BODY & TOGGLE BUTTON */
+
 body {
     background-color: var(--bg-color);
     color: var(--text-color);
@@ -219,36 +40,113 @@ body {
     transition: background-color 0.4s ease, color 0.4s ease;
 }
 
-.theme-btn {
+/* ==========================================
+   3. NAVIGATION BAR (FIXED & ALIGNED)
+   ========================================== */
+.navbar {
     position: absolute;
-    top: 25px;
-    right: 25px;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 30px 40px;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    z-index: 1000;
+    background: transparent;
+}
+
+.nav-links-group {
+    display: flex;
+    flex-direction: row;
+    align-items: center; /* Centers links and button vertically */
+    gap: 35px;           /* Comfortable spacing between items */
+}
+
+.nav-item {
+    font-family: 'Courier New', monospace;
+    font-size: 14px;
+    font-weight: bold;
+    text-decoration: none;
+    color: var(--text-color);
+    white-space: nowrap;
+    display: inline-block;
+    line-height: 1;
+    margin: 0;
+}
+
+/* Consolidated No-Nonsense Theme Toggle Button */
+#theme-toggle, .theme-btn {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
     background-color: var(--toggle-bg);
     color: var(--toggle-text);
-    border: none;
-    width: 45px;
-    height: 45px;
-    border-radius: 50%;
-    cursor: pointer;
-    font-size: 1.2rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    margin: 0;
     transition: transform 0.2s ease, background-color 0.4s ease, color 0.4s ease;
     z-index: 10;
 }
 
-.theme-btn:hover {
+#theme-toggle:hover, .theme-btn:hover {
     transform: scale(1.1);
 }
-/* 3. LAYOUT & NAME */
+
+#theme-toggle i, .theme-btn i {
+    font-size: 16px;
+}
+
+/* ==========================================
+   4. SYSTEM HUD
+   ========================================== */
+.system-hud {
+    position: absolute;
+    top: 25px;
+    left: 5%;
+    width: 90%;
+    max-width: 1100px;
+    display: flex;
+    justify-content: space-between;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    letter-spacing: 2px;
+    opacity: 0.6;
+    z-index: 10;
+    pointer-events: none;
+}
+
+.blink-dot {
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    background-color: var(--accent-color);
+    border-radius: 50%;
+    margin-right: 5px;
+    animation: pulse-dot 1.5s infinite ease-in-out;
+}
+
+@keyframes pulse-dot {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 1; }
+}
+
+/* ==========================================
+   5. PROFILE CONTAINER & TYPOGRAPHY
+   ========================================== */
 .profile-container {
     position: relative;
     text-align: center;
     width: 100%;
     max-width: 650px;
     padding: 40px 20px;
+    margin-top: 60px; /* Gives space so navbar doesn't overlap text */
 }
 
 .content {
@@ -270,7 +168,7 @@ body {
     font-weight: 700;
     transition: color 0.4s ease;
 }
-/* 4. DESCRIPTION & SOCIAL LINKS */
+
 .bio {
     font-family: 'JetBrains Mono', monospace;
     font-size: 1.05rem;       
@@ -282,22 +180,15 @@ body {
     opacity: 0.9;             
 }
 
-.social-icons a {
-    color: var(--text-color);
-    font-size: 2rem;
-    margin: 0 15px;
-    text-decoration: none;
-    display: inline-block;
-    transition: transform 0.2s ease, color 0.4s ease;
-}
-
-.social-icons a:hover {
-    transform: translateY(-5px);
-    color: var(--accent-color);
-}
-/* 5. BUTTONS & BLOG CONTAINER */
+/* ==========================================
+   6. BUTTONS & LINK SPACING
+   ========================================== */
 .button-group {
     margin-top: 25px;
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    flex-wrap: wrap;
 }
 
 .btn {
@@ -313,14 +204,42 @@ body {
     border: none;
     cursor: pointer;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    transition: transform 0.2s ease, opacity 0.2s ease, background-color 0.4s ease;
+    clip-path: polygon(0 0, 93% 0, 100% 30%, 100% 100%, 7% 100%, 0 70%);
+    transition: all 0.2s ease;
 }
 
 .btn:hover {
-    transform: scale(1.05);
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 0 0 15px rgba(224, 90, 71, 0.4);
     opacity: 0.9;
 }
 
+/* Fix spacing between buttons and social icons */
+a[href="blog.html"], a[href="Blog.html"] {
+    margin-bottom: 35px;
+    display: inline-block;
+}
+
+/* ==========================================
+   7. SOCIAL MEDIA ICONS
+   ========================================== */
+.social-icons a {
+    color: var(--text-color);
+    font-size: 2rem;
+    margin: 0 15px;
+    text-decoration: none;
+    display: inline-block;
+    transition: transform 0.2s ease, color 0.4s ease;
+}
+
+.social-icons a:hover {
+    transform: translateY(-5px);
+    color: var(--accent-color);
+}
+
+/* ==========================================
+   8. BLOG LAYOUT & CARDS
+   ========================================== */
 .blog-layout {
     display: block;
     min-height: 100vh;
@@ -332,7 +251,7 @@ body {
     width: 100%;
     margin: 0 auto;
 }
-/* 6. BLOG HEADER & BACK NAVIGATION */
+
 .back-btn {
     display: inline-block;
     color: var(--text-color);
@@ -363,7 +282,7 @@ body {
     font-size: 1rem;
     opacity: 0.8;
 }
-/* 7. CARDS & MOBILE FIXES */
+
 .blog-post {
     background-color: rgba(255, 255, 255, 0.15);
     border: 1px solid rgba(0, 0, 0, 0.05);
@@ -372,6 +291,9 @@ body {
     margin-bottom: 30px;
     text-align: left;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
+    clip-path: polygon(0 0, 100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0 100%);
+    border-left: 3px solid var(--accent-color) !important;
+    transition: transform 0.2s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.2s;
 }
 
 body.dark-mode .blog-post {
@@ -404,9 +326,12 @@ body.dark-mode .blog-post {
 }
 
 .post-body img {
-    max-width: 100%;
+    max-width: 100% !important;
+    height: auto !important;
+    object-fit: contain;
+    display: block;
+    margin: 20px auto;
     border-radius: 8px;
-    margin: 15px 0;
 }
 
 .no-posts {
@@ -416,38 +341,19 @@ body.dark-mode .blog-post {
     margin-top: 50px;
 }
 
-@media (max-width: 480px) {
-    .name {
-        font-size: 4.5rem;
-    }
-    .bio {
-        font-size: 1rem;
-    }
-}
-/* Fix spacing between the Read Blog button and social icons */
-a[href="blog.html"], a[href="Blog.html"], .btn {
-    margin-bottom: 35px !important;
-    display: inline-block;
-}
-/* Fix stretched blog images and make them responsive */
-.post-body img {
-    max-width: 100% !important;
-    height: auto !important;
-    object-fit: contain;
-    display: block;
-    margin: 20px auto;
-}
-/* --- PROJECTS GRID STYLES --- */
-
-/* Fix button grouping to keep them side-by-side */
-.button-group {
-    margin-top: 25px;
-    display: flex;
-    gap: 15px;
-    justify-content: center;
-    flex-wrap: wrap;
+.blog-post.full-post-view {
+    clip-path: none !important;
+    border: none !important;
+    border-left: none !important;
+    background: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+    border-radius: 0 !important;
 }
 
+/* ==========================================
+   9. PROJECTS GRID LAYOUT
+   ========================================== */
 .projects-layout {
     display: block;
     min-height: 100vh;
@@ -472,6 +378,9 @@ a[href="blog.html"], a[href="Blog.html"], .btn {
     justify-content: space-between;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
     text-align: left;
+    clip-path: polygon(0 0, 100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0 100%);
+    border-left: 3px solid var(--accent-color) !important;
+    transition: transform 0.2s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.2s;
 }
 
 body.dark-mode .project-card {
@@ -494,7 +403,6 @@ body.dark-mode .project-card {
     flex-grow: 1;
 }
 
-/* Ensure project screenshots look crisp, centered, and never stretch */
 .project-card-body img {
     max-width: 100%;
     height: auto !important;
@@ -503,128 +411,21 @@ body.dark-mode .project-card {
     display: block;
     object-fit: contain;
 }
-/* --- SYSTEM HUD (FIXED) --- */
-.system-hud {
-    position: absolute;
-    top: 25px;
-    left: 5%;
-    width: 90%;
-    max-width: 1100px;
-    display: flex;
-    justify-content: space-between;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.75rem;
-    letter-spacing: 2px;
-    opacity: 0.6;
-    z-index: 10;
-    pointer-events: none; /* Ensures it doesn't block any clicks */
-}
 
-/* Blinking online status dot */
-.blink-dot {
-    display: inline-block;
-    width: 6px;
-    height: 6px;
-    background-color: var(--accent-color);
-    border-radius: 50%;
-    margin-right: 5px;
-    animation: pulse-dot 1.5s infinite ease-in-out;
-}
-
-@keyframes pulse-dot {
-    0%, 100% { opacity: 0.3; }
-    50% { opacity: 1; }
-}
-/* Diagonal Cut on Cards */
-.project-card, .blog-post {
-    clip-path: polygon(0 0, 100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0 100%);
-    border-left: 3px solid var(--accent-color) !important; /* Cool colored accent edge */
-    transition: transform 0.2s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.2s;
-}
-
-/* Diagonal Cut Buttons on Hover */
-.btn {
-    clip-path: polygon(0 0, 93% 0, 100% 30%, 100% 100%, 7% 100%, 0 70%);
-    transition: all 0.2s ease;
-}
-
-.btn:hover {
-    transform: translateY(-2px) scale(1.02);
-    box-shadow: 0 0 15px rgba(224, 90, 71, 0.4); /* Glow effect */
-}
-/* Prevent card styles and clipping paths from affecting the full reading view */
-.blog-post.full-post-view {
-    clip-path: none !important;
-    border: none !important;
-    border-left: none !important;
-    background: none !important;
-    box-shadow: none !important;
-    padding: 0 !important;
-    border-radius: 0 !important;
-}
-
-/* --- FIXED NAV BAR BAR CONTAINER --- */
-.navbar {
-    position: absolute !important;
-    top: 0 !important;
-    left: 0 !important;
-    width: 100% !important;
-    padding: 30px 40px 10px 40px !important;
-    box-sizing: border-box !important;
-    display: flex !important;
-    justify-content: flex-end !important;
-    align-items: center !important;
-    z-index: 1000 !important;
-    background: transparent !important;
-}
-
-/* --- THE ROW HOLIDING THE LINKS & BUTTON --- */
-.nav-links-group {
-    display: flex !important;
-    align-items: center !important; /* FORCES EVERYTHING ON THE SAME VERTICAL LINE */
-    gap: 35px !important;           /* COMFORTABLE GAP BETWEEN BUTTONS */
-}
-
-/* --- FORCES MENU TEXT TO STAY FLAT --- */
-.nav-item {
-    display: inline-block !important;
-    font-family: 'Courier New', monospace !important;
-    font-size: 14px !important;
-    font-weight: bold !important;
-    text-decoration: none !important;
-    color: var(--text-color) !important;
-    white-space: nowrap !important;
-    line-height: 1 !important;       /* PREVENTS TEXT FROM FLOATING HIGH */
-    margin: 0 !important;
-    padding: 0 !important;
-}
-
-/* --- NO-NONSENSE THEME TOGGLE BUTTON --- */
-#theme-toggle, .theme-btn {
-    position: relative !important;   /* STRIPS ANY ROGUE FLOATING INSTRUCTIONS */
-    top: auto !important;
-    right: auto !important;
-    left: auto !important;
-    bottom: auto !important;
-    transform: none !important;
-    margin: 0 !important;
-    display: inline-flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    width: 40px !important;
-    height: 40px !important;
-    border-radius: 50% !important;
-    background-color: var(--btn-bg, #ffffff) !important;
-    border: none !important;
-    cursor: pointer !important;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15) !important;
-}
-
-#theme-toggle:hover {
-    transform: scale(1.1) !important;
-}
-
-#theme-toggle i {
-    font-size: 16px !important;
-    color: var(--text-color) !important;
+/* ==========================================
+   10. RESPONSIVE MEDIA QUERIES
+   ========================================== */
+@media (max-width: 480px) {
+    .name {
+        font-size: 4.5rem;
+    }
+    .bio {
+        font-size: 1rem;
+    }
+    .navbar {
+        padding: 20px;
+    }
+    .nav-links-group {
+        gap: 20px;
+    }
 }
