@@ -503,35 +503,35 @@ body.dark-mode .project-card {
     padding: 0 !important;
     border-radius: 0 !important;
 }
-
-/* --- UPPER ROW NAVIGATION BAR --- */
+/* --- FIXED UPPER ROW NAVIGATION BAR --- */
 .navbar {
     display: flex;
-    justify-content: flex-end; /* Aligns all menu links to the top right */
+    justify-content: flex-end; /* Keeps links on the right side */
     align-items: center;
-    padding: 20px 50px;
+    /* REDUCED BOTTOM PADDING (10px) brings the orange line right up under the text */
+    padding: 25px 40px 10px 40px; 
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     box-sizing: border-box;
-    border-bottom: 1px solid var(--accent-color, #e25a5a); /* Elegant accent line across the top */
+    border-bottom: 1px solid var(--accent-color, #e25a5a); /* The orange accent line */
     z-index: 1000;
-    gap: 30px;
 }
 
 .nav-links {
     display: flex;
-    gap: 25px; /* Spacing between your navigation items */
+    gap: 25px; /* Spacing between menu items */
+    align-items: center;
 }
 
 .nav-item {
     text-decoration: none;
     color: inherit;
-    font-family: inherit; /* Keeps your chosen site font */
+    font-family: inherit;
     font-size: 0.85rem;
     font-weight: bold;
-    text-transform: uppercase; /* Clean capital letter styling */
+    text-transform: uppercase;
     letter-spacing: 1.5px;
     opacity: 0.7;
     transition: all 0.3s ease;
@@ -540,19 +540,18 @@ body.dark-mode .project-card {
 
 .nav-item:hover, .nav-item.active {
     opacity: 1;
-    border-bottom: 2px solid var(--accent-color, #e25a5a); /* Red underline hover indicator */
 }
 
-/* Aligning your existing theme toggle to sit neatly in the navbar */
-#theme-toggle, .theme-btn {
+/* --- FIXES THE HIDDEN THEME TOGGLE BUTTON --- */
+#theme-toggle {
+    position: static !important; /* Forces it to stay inside the row instead of flying off-screen */
+    margin-left: 25px;          /* Gives it clean breathing room to the right of the Blog link */
+    cursor: pointer;
     background: none;
     border: none;
-    cursor: pointer;
-    padding: 5px;
-    margin-left: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1001;
 }
 
-/* Safe Area: Pushes your bio content wrapper down slightly so it doesn't overlap the navbar */
-body {
-    padding-top: 100px;
-}
