@@ -427,7 +427,7 @@ body.dark-mode .project-card {
     z-index: 9999;
     pointer-events: none;
     opacity: 0.4;
-    animation: fadeThemeGif 2s ease forwards;
+    animation: fadeThemeGif 1s ease forwards;
 }
 
 @keyframes fadeThemeGif {
