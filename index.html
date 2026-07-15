@@ -1,62 +1,204 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
     <meta charset="UTF-8">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>About Me | Kaagaaz</title>
+
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
     <link rel="stylesheet" href="style.css?v=2">
+
+
 </head>
+
+
 <body>
-    <script>
-    // Instantly apply dark mode class before the rest of the page renders to prevent flickering
+
+
+<script>
+
+    // Prevent theme flicker
+
     if (localStorage.getItem('theme') === 'dark') {
+
         document.body.classList.add('dark-mode');
+
     }
-    </script>
 
-    <header class="navbar">
-        <div class="nav-links-group">
-            <a href="index.html" class="nav-item">ABOUT ME</a>
-<a href="blog.html" class="nav-item">BLOG</a>
-<a href="projects.html" class="nav-item">PROJECTS</a>
+</script>
 
-<button id="theme-toggle" class="theme-btn">
-                <i class="fa-solid fa-moon"></i>
-            </button>
-        </div>
-    </header>    
 
-    <div class="profile-container">
-        <div class="accent-shape"></div>
 
-        <div class="content">
-            <p class="intro">Welcome here, I'm</p>
-            <h1 class="name">Kaagaaz</h1>
-            
-            <p class="bio">
-                Future cybersecurity specialist by day, professional daydreamer by night. I run entirely on high-voltage coffee and pure luck.  
-                When I'm not learning how to protect the digital frontier, you’ll find me searching for peace in my favorite escapes:
-                Deep Dives: Getting lost in manga, novels, and anime. 
-                Soundtrack: Music always on, volume up. 
-                The Grind: Testing my luck (and crying over pity pulls) in gacha games. 
-                Just a tech-minded soul finding quiet moments in fictional worlds. Let's chat tech or trade gacha luck!
-            </p>
-            
-            <div class="social-icons">
-                <a href="https://discord.gg/YCeYX6B4" target="_blank" rel="noopener noreferrer" title="Discord">
-                    <i class="fab fa-discord"></i>
-                </a>
-                <a href="https://www.instagram.com/kaagaaz_the_bukky" target="_blank" rel="noopener noreferrer" title="Instagram">
-                    <i class="fab fa-instagram"></i>
-                </a>
-                <a href="https://x.com/The_kaagaaz" target="_blank" rel="noopener noreferrer" title="X (Twitter)">
-                    <i class="fab fa-x-twitter"></i>
-                </a>
-            </div>
-        </div>
+
+<header class="navbar">
+
+
+    <!-- Music button (HOME PAGE ONLY) -->
+
+    <audio id="bgm" loop>
+
+        <source src="bgm.mp3" type="audio/mpeg">
+
+    </audio>
+
+
+    <button id="music-toggle" class="music-btn">
+
+        <i class="fa-solid fa-play"></i>
+
+    </button>
+
+
+
+
+
+    <div class="nav-links-group">
+
+
+        <a href="index.html" class="nav-item">
+            ABOUT ME
+        </a>
+
+
+        <a href="blog.html" class="nav-item">
+            BLOG
+        </a>
+
+
+        <a href="projects.html" class="nav-item">
+            PROJECTS
+        </a>
+
+
+
+
+        <button id="theme-toggle" class="theme-btn">
+
+            <i class="fa-solid fa-moon"></i>
+
+        </button>
+
+
+
     </div>
 
-    <script src="script.js"></script>
+
+
+</header>
+
+
+
+
+
+
+
+<div class="profile-container">
+
+
+    <div class="accent-shape"></div>
+
+
+
+    <div class="content">
+
+
+        <p class="intro">
+            Welcome here, I'm
+        </p>
+
+
+
+        <h1 class="name">
+            Kaagaaz
+        </h1>
+
+
+
+
+        <p class="bio">
+
+            Future cybersecurity specialist by day, professional daydreamer by night.
+            I run entirely on high-voltage coffee and pure luck.
+
+            When I'm not learning how to protect the digital frontier,
+            you’ll find me searching for peace in my favorite escapes:
+
+            Deep Dives: Getting lost in manga, novels, and anime.
+
+            Soundtrack: Music always on, volume up.
+
+            The Grind: Testing my luck (and crying over pity pulls) in gacha games.
+
+            Just a tech-minded soul finding quiet moments in fictional worlds.
+
+            Let's chat tech or trade gacha luck!
+
+        </p>
+
+
+
+
+        <div class="social-icons">
+
+
+            <a href="https://discord.gg/YCeYX6B4"
+            target="_blank"
+            rel="noopener noreferrer"
+            title="Discord">
+
+                <i class="fab fa-discord"></i>
+
+            </a>
+
+
+
+            <a href="https://www.instagram.com/kaagaaz_the_bukky"
+            target="_blank"
+            rel="noopener noreferrer"
+            title="Instagram">
+
+                <i class="fab fa-instagram"></i>
+
+            </a>
+
+
+
+
+            <a href="https://x.com/The_kaagaaz"
+            target="_blank"
+            rel="noopener noreferrer"
+            title="X (Twitter)">
+
+                <i class="fab fa-x-twitter"></i>
+
+            </a>
+
+
+
+        </div>
+
+
+
+    </div>
+
+
+
+</div>
+
+
+
+
+
+
+<script src="script.js"></script>
+
+
 </body>
+
 </html>
