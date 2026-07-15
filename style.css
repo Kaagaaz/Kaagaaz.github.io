@@ -14,14 +14,6 @@ body.dark-mode {
     color: #f0f0f0; /* Soft white text so it doesn't strain the eyes against the dark gray */
 }
 
-/* Optional: If your project cards or blog views look too bright against #2B2B2B, 
-   you can give them a slightly lighter gray container look in dark mode */
-body.dark-mode .project-card, 
-body.dark-mode .blog-post {
-    background-color: #333333 !important;
-    color: #e0e0e0;
-}
-
 
 * {
     margin: 0;
