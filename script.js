@@ -1,7 +1,7 @@
 // --- GLOBAL THEME SYSTEM ---
 
 
-// Apply saved theme when website loads
+// Apply saved theme
 function applyTheme() {
 
     const savedTheme = localStorage.getItem("theme");
@@ -27,7 +27,7 @@ function applyTheme() {
 
 
 
-// Change theme button icon
+// Change moon/sun icon
 function updateToggleIcon(isDark) {
 
     const icon = document.querySelector("#theme-toggle i");
@@ -45,7 +45,9 @@ function updateToggleIcon(isDark) {
 
 
 
-// Blue flash + butterfly animation
+
+// Blue flash + butterfly transition
+
 function showThemeAnimation() {
 
 
@@ -56,24 +58,14 @@ function showThemeAnimation() {
 
 
 
-    // Butterfly flying directions
+    // Number of butterflies
 
-    const directions = [
-
-        [-250, -200],
-        [-150, 120],
-        [0, -300],
-        [200, -180],
-        [260, 100],
-        [-220, 200],
-        [120, 230],
-        [300, -100]
-
-    ];
+    const butterflyCount = 30;
 
 
 
-    directions.forEach((direction, index) => {
+    for (let i = 0; i < butterflyCount; i++) {
+
 
 
         const butterfly = document.createElement("div");
@@ -83,7 +75,7 @@ function showThemeAnimation() {
 
 
 
-        // Create butterfly wings
+        // Butterfly structure
 
         butterfly.innerHTML = `
 
@@ -97,28 +89,52 @@ function showThemeAnimation() {
 
 
 
+        // Random scattering distance
+
+        const x =
+            (Math.random() - 0.5) * window.innerWidth * 1.2;
+
+
+        const y =
+            (Math.random() - 0.5) * window.innerHeight * 1.2;
+
+
+
         butterfly.style.setProperty(
             "--x",
-            direction[0] + "px"
+            x + "px"
         );
 
 
         butterfly.style.setProperty(
             "--y",
-            direction[1] + "px"
+            y + "px"
         );
 
 
 
+        // Random butterfly size
+
+        const size =
+            0.4 + Math.random() * 0.8;
+
+
+        butterfly.style.transform =
+            `scale(${size})`;
+
+
+
+        // Random flying delay
+
         butterfly.style.animationDelay =
-            (index * 0.1) + "s";
+            Math.random() * 0.7 + "s";
 
 
 
         animation.appendChild(butterfly);
 
 
-    });
+    }
 
 
 
@@ -126,11 +142,12 @@ function showThemeAnimation() {
 
 
 
+
     setTimeout(() => {
 
         animation.remove();
 
-    }, 2500);
+    }, 3000);
 
 
 
@@ -139,20 +156,23 @@ function showThemeAnimation() {
 
 
 
-// Load theme immediately
+// Load theme on opening
 
 applyTheme();
 
 
 
 
-// Fix browser back-forward cache issue
+
+// Fix browser cache issue
 
 window.addEventListener("pageshow", () => {
 
     applyTheme();
 
 });
+
+
 
 
 
@@ -192,7 +212,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 
-            // Run butterfly animation
+            // Start butterfly effect
 
             showThemeAnimation();
 
