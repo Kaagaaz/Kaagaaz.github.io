@@ -11,12 +11,12 @@
 }
 
 body.dark-mode {
-    --bg-color: #2B2B2B;       /* Restored to your original black/dark-grey */
-    --text-color: #dce8e5;     /* Light pastel sage text for contrast */
-    --accent-color: #ff7c70;   /* Vibrant neon coral-red for dark mode pop */
-    --toggle-bg: #dce8e5;
-    --toggle-text: #2B2B2B;    /* Matches new bg */
-    --btn-bg: #dce8e5;
+    --bg-color: #071426;
+    --text-color: #e6f7ff;
+    --accent-color: #00bfff;
+    --toggle-bg: #e6f7ff;
+    --toggle-text: #071426;
+    --btn-bg: #e6f7ff;
 }
 
 
