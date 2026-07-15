@@ -91,13 +91,19 @@ body {
     color: var(--toggle-text);
 }
 /* Persona 3 Inspired Music Button */
-
-/* Persona 3 Inspired Music Button */
+/* Music Button - Same Size as Theme Button */
 
 .music-btn {
 
     width: 40px;
     height: 40px;
+
+    padding: 0;
+    margin: 0;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
 
     border-radius: 50%;
 
@@ -105,34 +111,39 @@ body {
 
     background: rgba(0,191,255,0.15);
 
-    color: var(--text-color);
-
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
+    color: var(--toggle-text);
 
     cursor: pointer;
 
-    font-size: 16px;
+    font-size: 14px;
+
+    line-height: 1;
+
+    box-sizing: border-box;
 
     backdrop-filter: blur(8px);
 
     transition: 0.3s ease;
+}
 
-    margin-right: auto;
+
+.music-btn i {
+
+    font-size: 15px;
 
 }
 
 
 .music-btn:hover {
 
-    transform: scale(1.1);
+    transform: scale(1.08);
 
     box-shadow: 0 0 15px #00bfff;
 
     color:#00bfff;
 
 }
+
 /* ==========================================
    4. SYSTEM HUD
    ========================================== */
