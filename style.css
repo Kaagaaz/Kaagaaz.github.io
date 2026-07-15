@@ -1,16 +1,59 @@
-/* ... [Keep all your other CSS styles here] ... */
+/* ==========================================
+   1. COLOR THEMES & VARIABLES
+   ========================================== */
+:root {
+    --bg-color: #b1ceca;       /* Soft pastel sage green background */
+    --text-color: #152522;     /* Deep cozy spruce green for text */
+    --accent-color: #df5a4e;   /* Soft coral-red from the buttons */
+    --toggle-bg: #152522;
+    --toggle-text: #b1ceca;
+    --btn-bg: #ffffff;
+}
 
-/* UPDATED NAV BAR SECTION - REPLACE YOUR CURRENT .navbar AND .nav-links-group SECTION WITH THIS */
+body.dark-mode {
+    --bg-color: #2B2B2B;       /* Restored to your original black/dark-grey */
+    --text-color: #dce8e5;     /* Light pastel sage text for contrast */
+    --accent-color: #ff7c70;   /* Vibrant neon coral-red for dark mode pop */
+    --toggle-bg: #dce8e5;
+    --toggle-text: #2B2B2B;    /* Matches new bg */
+    --btn-bg: #dce8e5;
+}
+
+
+/* ==========================================
+   2. GLOBAL RESETS & BODY
+   ========================================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    overflow-x: hidden;
+    transition: background-color 0.4s ease, color 0.4s ease;
+}
+
+/* ==========================================
+   3. NAVIGATION BAR (FIXED & ALIGNED)
+   ========================================== */
 .navbar {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
-    padding: 20px 40px;
+    padding: 30px 40px;
     box-sizing: border-box;
     display: flex;
     justify-content: flex-end;
-    align-items: center; /* This ensures vertical centering */
+    align-items: center;
     z-index: 1000;
     background: transparent;
 }
@@ -18,9 +61,8 @@
 .nav-links-group {
     display: flex;
     flex-direction: row;
-    align-items: center; /* Forces all children (links + button) to center line */
-    gap: 35px;
-    height: 40px; /* Matches the button height to the text area */
+    align-items: center; /* Centers links and button vertically */
+    gap: 35px;           /* Comfortable spacing between items */
 }
 
 .nav-item {
@@ -30,10 +72,361 @@
     text-decoration: none;
     color: var(--text-color);
     white-space: nowrap;
-    display: flex;          /* Changed from inline-block to flex */
-    align-items: center;    /* Forces text centering */
+    display: inline-block;
     line-height: 1;
     margin: 0;
 }
 
-/* Remove the stray bracket at the very bottom of your file if it exists */
+/* Consolidated No-Nonsense Theme Toggle Button */
+#theme-toggle, .theme-btn {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+    background-color: var(--toggle-bg);
+    color: var(--toggle-text);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    margin: 0;
+    transition: transform 0.2s ease, background-color 0.4s ease, color 0.4s ease;
+    z-index: 10;
+}
+
+#theme-toggle:hover, .theme-btn:hover {
+    transform: scale(1.1);
+}
+
+#theme-toggle i, .theme-btn i {
+    font-size: 16px;
+}
+
+/* ==========================================
+   4. SYSTEM HUD
+   ========================================== */
+.system-hud {
+    position: absolute;
+    top: 25px;
+    left: 5%;
+    width: 90%;
+    max-width: 1100px;
+    display: flex;
+    justify-content: space-between;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    letter-spacing: 2px;
+    opacity: 0.6;
+    z-index: 10;
+    pointer-events: none;
+}
+
+.blink-dot {
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    background-color: var(--accent-color);
+    border-radius: 50%;
+    margin-right: 5px;
+    animation: pulse-dot 1.5s infinite ease-in-out;
+}
+
+@keyframes pulse-dot {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 1; }
+}
+
+/* ==========================================
+   5. PROFILE CONTAINER & TYPOGRAPHY
+   ========================================== */
+.profile-container {
+    position: relative;
+    text-align: center;
+    width: 100%;
+    max-width: 650px;
+    padding: 40px 20px;
+    margin-top: 60px; /* Gives space so navbar doesn't overlap text */
+}
+
+.content {
+    position: relative;
+    z-index: 2;
+}
+
+.intro {
+    font-size: 1.3rem;
+    font-weight: 500;
+    opacity: 0.85;
+}
+
+.name {
+    font-family: 'Dancing Script', cursive;
+    font-size: 5.8rem;       
+    color: var(--accent-color);
+    margin: 5px 0 20px 0;
+    font-weight: 700;
+    transition: color 0.4s ease;
+}
+
+.bio {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 1.05rem;       
+    font-weight: 400;         
+    line-height: 1.7;         
+    letter-spacing: -0.01em;  
+    max-width: 500px;         
+    margin: 0 auto 35px auto;
+    opacity: 0.9;             
+}
+
+/* ==========================================
+   6. BUTTONS & LINK SPACING
+   ========================================== */
+.button-group {
+    margin-top: 25px;
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.btn {
+    display: inline-block;
+    padding: 10px 28px;
+    background-color: var(--accent-color);
+    color: #ffffff;
+    border-radius: 25px;
+    text-decoration: none;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.95rem;
+    font-weight: 500;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    clip-path: polygon(0 0, 93% 0, 100% 30%, 100% 100%, 7% 100%, 0 70%);
+    transition: all 0.2s ease;
+}
+
+.btn:hover {
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 0 0 15px rgba(224, 90, 71, 0.4);
+    opacity: 0.9;
+}
+
+/* Fix spacing between buttons and social icons */
+a[href="blog.html"], a[href="Blog.html"] {
+    margin-bottom: 35px;
+    display: inline-block;
+}
+
+/* ==========================================
+   7. SOCIAL MEDIA ICONS
+   ========================================== */
+.social-icons a {
+    color: var(--text-color);
+    font-size: 2rem;
+    margin: 0 15px;
+    text-decoration: none;
+    display: inline-block;
+    transition: transform 0.2s ease, color 0.4s ease;
+}
+
+.social-icons a:hover {
+    transform: translateY(-5px);
+    color: var(--accent-color);
+}
+
+/* ==========================================
+   8. BLOG LAYOUT & CARDS
+   ========================================== */
+.blog-layout {
+    display: block;
+    min-height: 100vh;
+    padding: 60px 20px;
+}
+
+.blog-container {
+    max-width: 650px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.back-btn {
+    display: inline-block;
+    color: var(--text-color);
+    text-decoration: none;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.95rem;
+    margin-bottom: 40px;
+    transition: color 0.2s ease;
+}
+
+.back-btn:hover {
+    color: var(--accent-color);
+}
+
+.blog-header {
+    margin-bottom: 50px;
+}
+
+.blog-header h1 {
+    font-family: 'Dancing Script', cursive;
+    font-size: 4rem;
+    color: var(--accent-color);
+    margin-bottom: 10px;
+}
+
+.blog-header p {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 1rem;
+    opacity: 0.8;
+}
+
+.blog-post {
+    background-color: rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    border-radius: 16px;
+    padding: 25px;
+    margin-bottom: 30px;
+    text-align: left;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
+    clip-path: polygon(0 0, 100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0 100%);
+    border-left: 3px solid var(--accent-color) !important;
+    transition: transform 0.2s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.2s;
+}
+
+body.dark-mode .blog-post {
+    background-color: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.post-title {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 1.4rem;
+    color: var(--accent-color);
+    margin-bottom: 8px;
+}
+
+.post-date {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.8rem;
+    opacity: 0.6;
+    margin-bottom: 20px;
+}
+
+.post-body {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.95rem;
+    line-height: 1.7;
+}
+
+.post-body p {
+    margin-bottom: 15px;
+}
+
+.post-body img {
+    max-width: 100% !important;
+    height: auto !important;
+    object-fit: contain;
+    display: block;
+    margin: 20px auto;
+    border-radius: 8px;
+}
+
+.no-posts {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 1rem;
+    opacity: 0.7;
+    margin-top: 50px;
+}
+
+.blog-post.full-post-view {
+    clip-path: none !important;
+    border: none !important;
+    border-left: none !important;
+    background: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+    border-radius: 0 !important;
+}
+
+/* ==========================================
+   9. PROJECTS GRID LAYOUT
+   ========================================== */
+.projects-layout {
+    display: block;
+    min-height: 100vh;
+    padding: 60px 20px;
+}
+
+.projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 30px;
+    margin-top: 40px;
+    width: 100%;
+}
+
+.project-card {
+    background-color: rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    border-radius: 16px;
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
+    text-align: left;
+    clip-path: polygon(0 0, 100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0 100%);
+    border-left: 3px solid var(--accent-color) !important;
+    transition: transform 0.2s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.2s;
+}
+
+body.dark-mode .project-card {
+    background-color: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.project-card h2 {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 1.3rem;
+    color: var(--accent-color);
+    margin-bottom: 12px;
+}
+
+.project-card-body {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.9rem;
+    line-height: 1.6;
+    opacity: 0.9;
+    flex-grow: 1;
+}
+
+.project-card-body img {
+    max-width: 100%;
+    height: auto !important;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    display: block;
+    object-fit: contain;
+}
+
+/* ==========================================
+   10. RESPONSIVE MEDIA QUERIES
+   ========================================== */
+@media (max-width: 480px) {
+    .name {
+        font-size: 4.5rem;
+    }
+    .bio {
+        font-size: 1rem;
+    }
+    .navbar {
+        padding: 20px;
+    }
+    .nav-links-group {
+        gap: 20px;
+    }
+}
