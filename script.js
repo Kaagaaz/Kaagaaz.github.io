@@ -36,85 +36,56 @@ function showThemeAnimation() {
     animation.className = "theme-animation";
 
 
-    // Create glowing butterflies
-    for (let i = 0; i < 8; i++) {
+    const directions = [
+        [-250, -200],
+        [-150, 120],
+        [0, -300],
+        [200, -180],
+        [260, 100],
+        [-220, 200],
+        [120, 230],
+        [300, -100]
+    ];
+
+
+    directions.forEach((direction, index) => {
 
         const butterfly = document.createElement("span");
 
         butterfly.className = "butterfly";
 
-        butterfly.innerHTML = "🦋";
+        butterfly.innerHTML = `
+            <span class="wing left"></span>
+            <span class="wing right"></span>
+            <span class="body"></span>
+        `;
 
 
-        butterfly.style.left = Math.random() * 100 + "%";
+        butterfly.style.setProperty(
+            "--x",
+            direction[0] + "px"
+        );
+
+        butterfly.style.setProperty(
+            "--y",
+            direction[1] + "px"
+        );
+
 
         butterfly.style.animationDelay =
-            Math.random() * 0.5 + "s";
-
-
-        butterfly.style.fontSize =
-            (10 + Math.random() * 10) + "px";
+            index * 0.08 + "s";
 
 
         animation.appendChild(butterfly);
-    }
+
+    });
 
 
     document.body.appendChild(animation);
 
 
     setTimeout(() => {
-
         animation.remove();
-
-    }, 1200);
+    }, 2500);
 
 }
-
-
-// Load saved theme
-applyTheme();
-
-
-// Fix browser cache issue
-window.addEventListener("pageshow", () => {
-
-    applyTheme();
-
-});
-
-
-// Theme button
-document.addEventListener("DOMContentLoaded", () => {
-
-
-    const themeToggleBtn = document.getElementById("theme-toggle");
-
-
-    if (themeToggleBtn) {
-
-
-        themeToggleBtn.addEventListener("click", () => {
-
-
-            const isDark = document.body.classList.toggle("dark-mode");
-
-
-            localStorage.setItem(
-                "theme",
-                isDark ? "dark" : "light"
-            );
-
-
-            updateToggleIcon(isDark);
-
-
-            // Show blue butterfly transition
-            showThemeAnimation();
-
-
-        });
-
-    }
-
-});
