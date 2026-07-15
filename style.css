@@ -2,11 +2,11 @@
    1. COLOR THEMES & VARIABLES
    ========================================== */
 :root {
-    --bg-color: #b1ceca;       /* Soft pastel sage green background */
-    --text-color: #152522;     /* Deep cozy spruce green for text */
-    --accent-color: #df5a4e;   /* Soft coral-red from the buttons */
-    --toggle-bg: #152522;
-    --toggle-text: #b1ceca;
+    --bg-color: #e6f6ff;        /* soft light blue background */
+    --text-color: #102027;      /* deep navy text */
+    --accent-color: #0099ff;    /* electric blue accent */
+    --toggle-bg: #102027;       /* dark toggle button */
+    --toggle-text: #e6f6ff;     /* light icon color */
     --btn-bg: #ffffff;
 }
 
