@@ -7,13 +7,21 @@
     --toggle-text: #b1ceca;
 }
 
+/* --- UPDATED DARK MODE COLOR --- */
 body.dark-mode {
-    --bg-color: #142220;       /* Deep dark forest-spruce background */
-    --text-color: #dce8e5;     /* Lighter pastel sage tint for readable text */
-    --accent-color: #ff7c70;   /* Vibrant neon coral-red for dark mode pop */
-    --toggle-bg: #dce8e5;
-    --toggle-text: #142220;
+    background-color: #2B2B2B !important;
+    --bg-color: #2B2B2B; /* Updates the variable if your cards use it */
+    color: #f0f0f0; /* Soft white text so it doesn't strain the eyes against the dark gray */
 }
+
+/* Optional: If your project cards or blog views look too bright against #2B2B2B, 
+   you can give them a slightly lighter gray container look in dark mode */
+body.dark-mode .project-card, 
+body.dark-mode .blog-post {
+    background-color: #333333 !important;
+    color: #e0e0e0;
+}
+
 
 * {
     margin: 0;
