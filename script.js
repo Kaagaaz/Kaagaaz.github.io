@@ -21,19 +21,44 @@ function updateToggleIcon(isDark) {
     const icon = document.querySelector("#theme-toggle i");
 
     if (icon) {
-        icon.className = isDark 
-            ? "fas fa-sun" 
+        icon.className = isDark
+            ? "fas fa-sun"
             : "fas fa-moon";
     }
 }
 
 
-// Blue flash + particle animation
+// Blue flash + floating butterfly animation
 function showThemeAnimation() {
 
     const animation = document.createElement("div");
 
     animation.className = "theme-animation";
+
+
+    // Create glowing butterflies
+    for (let i = 0; i < 8; i++) {
+
+        const butterfly = document.createElement("span");
+
+        butterfly.className = "butterfly";
+
+        butterfly.innerHTML = "🦋";
+
+
+        butterfly.style.left = Math.random() * 100 + "%";
+
+        butterfly.style.animationDelay =
+            Math.random() * 0.5 + "s";
+
+
+        butterfly.style.fontSize =
+            (10 + Math.random() * 10) + "px";
+
+
+        animation.appendChild(butterfly);
+    }
+
 
     document.body.appendChild(animation);
 
@@ -42,7 +67,7 @@ function showThemeAnimation() {
 
         animation.remove();
 
-    }, 800);
+    }, 1200);
 
 }
 
@@ -84,7 +109,7 @@ document.addEventListener("DOMContentLoaded", () => {
             updateToggleIcon(isDark);
 
 
-            // Show blue theme transition
+            // Show blue butterfly transition
             showThemeAnimation();
 
 
