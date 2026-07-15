@@ -416,3 +416,69 @@ body.dark-mode .project-card {
         gap: 20px;
     }
 }
+
+.theme-animation {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    pointer-events: none;
+
+    background:
+    radial-gradient(circle at center,
+    rgba(0,191,255,0.45),
+    transparent 60%);
+
+    animation: themeFlash 0.8s ease-out forwards;
+}
+
+
+.theme-animation::after {
+    content:"";
+    position:absolute;
+    inset:0;
+
+    background-image:
+    radial-gradient(circle,
+    rgba(255,255,255,0.8) 1px,
+    transparent 2px);
+
+    background-size:70px 70px;
+
+    animation: floatingParticles 0.8s ease-out forwards;
+}
+
+
+@keyframes themeFlash {
+
+    0% {
+        opacity:0;
+        transform:scale(0.8);
+    }
+
+    40% {
+        opacity:1;
+    }
+
+    100% {
+        opacity:0;
+        transform:scale(1.2);
+    }
+}
+
+
+@keyframes floatingParticles {
+
+    0% {
+        transform:translateY(30px);
+        opacity:0;
+    }
+
+    40% {
+        opacity:1;
+    }
+
+    100% {
+        transform:translateY(-30px);
+        opacity:0;
+    }
+}
