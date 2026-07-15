@@ -436,83 +436,177 @@ body.dark-mode .project-card {
 
 
 .theme-animation {
+
     position: fixed;
     inset: 0;
-    z-index: 9999;
-    pointer-events: none;
+
+    z-index:9999;
+
+    pointer-events:none;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
 
     background:
     radial-gradient(circle,
-    rgba(76,201,240,0.45),
-    transparent 60%);
+    rgba(80,200,255,0.35),
+    transparent 35%);
 
-    animation: blueFlash 1.2s ease forwards;
+    animation:flash 2.5s forwards;
 }
 
 
 .butterfly {
 
-    position: absolute;
-    bottom: 20%;
+    position:absolute;
 
-    color: white;
+    width:30px;
+    height:30px;
 
-    text-shadow:
-    0 0 8px white,
-    0 0 15px #4cc9f0;
+    animation:
+    flyAway 2.5s ease-out forwards;
 
-    animation: flyButterfly 1.2s ease-out forwards;
-
-}
-
-
-@keyframes blueFlash {
-
-    0% {
-        opacity:0;
-    }
-
-    40% {
-        opacity:1;
-    }
-
-    100% {
-        opacity:0;
-    }
+    filter:
+    drop-shadow(0 0 8px white);
 
 }
 
 
-@keyframes flyButterfly {
+/* wings */
 
-    0% {
+.wing {
+
+    position:absolute;
+
+    width:15px;
+    height:22px;
+
+    background:
+    linear-gradient(
+    135deg,
+    white,
+    #8de8ff
+    );
+
+    border-radius:
+    80% 20% 80% 20%;
+
+    top:5px;
+
+    animation:
+    flap 0.25s infinite alternate;
+
+}
+
+
+.left {
+
+    left:0;
+
+    transform-origin:right center;
+
+}
+
+
+.right {
+
+    right:0;
+
+    transform:
+    scaleX(-1);
+
+    transform-origin:left center;
+
+}
+
+
+.body {
+
+    position:absolute;
+
+    width:3px;
+    height:18px;
+
+    background:white;
+
+    left:14px;
+    top:8px;
+
+    border-radius:50%;
+
+}
+
+
+
+@keyframes flap {
+
+    from {
 
         transform:
-        translateY(0)
-        rotate(0deg)
-        scale(0.5);
-
-        opacity:0;
+        rotateY(0deg);
 
     }
 
-
-    30% {
-
-        opacity:1;
-
-    }
-
-
-    100% {
+    to {
 
         transform:
-        translateY(-250px)
-        rotate(180deg)
-        scale(1.2);
-
-        opacity:0;
+        rotateY(70deg);
 
     }
+
+}
+
+
+
+@keyframes flyAway {
+
+
+0% {
+
+    transform:
+    translate(0,0)
+    scale(.2);
+
+    opacity:0;
+
+}
+
+
+20% {
+
+    opacity:1;
+
+}
+
+
+100% {
+
+    transform:
+    translate(var(--x),var(--y))
+    scale(1)
+    rotate(360deg);
+
+    opacity:0;
+
+}
+
+}
+
+
+
+@keyframes flash {
+
+0% {
+opacity:0;
+}
+
+30% {
+opacity:1;
+}
+
+100% {
+opacity:0;
+}
 
 }
