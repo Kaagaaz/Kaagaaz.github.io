@@ -204,8 +204,7 @@ body {
 
 /* Fix spacing between buttons and social icons */
 a[href="blog.html"], a[href="Blog.html"] {
-    margin-bottom: 35px;
-    display: inline-block;
+    margin-bottom: 0;
 }
 
 /* ==========================================
