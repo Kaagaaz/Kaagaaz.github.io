@@ -48,7 +48,7 @@ body {
     top: 0;
     left: 0;
     width: 100%;
-    padding: 30px 40px;
+    padding: 20px 40px; /* Make sure this is 20px, not 30px */
     box-sizing: border-box;
     display: flex;
     justify-content: flex-end;
@@ -56,6 +56,7 @@ body {
     z-index: 1000;
     background: transparent;
 }
+
 
 .nav-links-group {
     display: flex;
@@ -146,8 +147,9 @@ body {
     width: 100%;
     max-width: 650px;
     padding: 40px 20px;
-    margin-top: 60px; /* Gives space so navbar doesn't overlap text */
+    margin-top: 80px; /* Add this margin-top if it's missing */
 }
+
 
 .content {
     position: relative;
