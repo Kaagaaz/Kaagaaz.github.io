@@ -10,28 +10,33 @@
     <title>About Me | Kaagaaz</title>
 
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" 
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
+
+    <!-- CSS -->
     <link rel="stylesheet" href="style.css?v=2">
 
 
 </head>
 
 
+
 <body>
 
 
+<!-- Prevent theme flicker -->
 <script>
 
-    // Prevent theme flicker
+if(localStorage.getItem("theme") === "dark"){
 
-    if (localStorage.getItem('theme') === 'dark') {
+    document.body.classList.add("dark-mode");
 
-        document.body.classList.add('dark-mode');
-
-    }
+}
 
 </script>
+
 
 
 
@@ -39,13 +44,17 @@
 <header class="navbar">
 
 
-    <!-- Music button (HOME PAGE ONLY) -->
+    <!-- ==========================
+         HOME PAGE MUSIC SYSTEM
+         ========================== -->
+
 
     <audio id="bgm" loop>
 
         <source src="bgm.mp3" type="audio/mpeg">
 
     </audio>
+
 
 
     <button id="music-toggle" class="music-btn">
@@ -58,7 +67,13 @@
 
 
 
+
+
+    <!-- Navigation -->
+
+
     <div class="nav-links-group">
+
 
 
         <a href="index.html" class="nav-item">
@@ -66,9 +81,11 @@
         </a>
 
 
+
         <a href="blog.html" class="nav-item">
             BLOG
         </a>
+
 
 
         <a href="projects.html" class="nav-item">
@@ -77,6 +94,9 @@
 
 
 
+
+
+        <!-- Theme Button -->
 
         <button id="theme-toggle" class="theme-btn">
 
@@ -98,6 +118,11 @@
 
 
 
+
+
+<!-- Main Profile Section -->
+
+
 <div class="profile-container">
 
 
@@ -108,15 +133,25 @@
     <div class="content">
 
 
+
         <p class="intro">
+
             Welcome here, I'm
+
         </p>
 
 
 
+
+
         <h1 class="name">
+
             Kaagaaz
+
         </h1>
+
+
+
 
 
 
@@ -144,7 +179,14 @@
 
 
 
+
+
+
+        <!-- Social Links -->
+
+
         <div class="social-icons">
+
 
 
             <a href="https://discord.gg/YCeYX6B4"
@@ -155,6 +197,8 @@
                 <i class="fab fa-discord"></i>
 
             </a>
+
+
 
 
 
@@ -170,10 +214,11 @@
 
 
 
+
             <a href="https://x.com/The_kaagaaz"
             target="_blank"
             rel="noopener noreferrer"
-            title="X (Twitter)">
+            title="X">
 
                 <i class="fab fa-x-twitter"></i>
 
@@ -196,7 +241,11 @@
 
 
 
+
+<!-- JavaScript -->
+
 <script src="script.js"></script>
+
 
 
 </body>
