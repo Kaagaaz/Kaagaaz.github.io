@@ -504,67 +504,58 @@ body.dark-mode .project-card {
     border-radius: 0 !important;
 }
 
-/* Navbar structural container */
+/* --- NAVBAR CONTAINER --- */
 .navbar {
     width: 100%;
-    border-bottom: 1.5px solid var(--accent-color, #e15a47); /* Your thin red accent line */
-    padding: 15px 0;
+    padding: 20px 0;
     background-color: transparent;
+    /* Optional: if you want it to stay pinned at the top while scrolling, use fixed: */
+    /* position: fixed; top: 0; left: 0; z-index: 1000; */
 }
 
 .nav-container {
-    max-width: 1200px;
+    max-width: 1100px;
+    width: 90%;            /* Keeps a safe safety-margin on the edges when scaling */
     margin: 0 auto;
     display: flex;
-    justify-content: flex-end; /* Align elements to the right side */
-    align-items: center;       /* Perfectly center elements vertically */
-    padding: 0 24px;
+    justify-content: flex-end; /* Pushes the menu items to the far right */
+    align-items: center;       /* Keeps everything perfectly aligned vertically */
 }
 
-/* Flex wrapper holding links and button */
+/* --- THE MENU LINKS GROUP --- */
 .nav-links-group {
     display: flex;
-    align-items: center;       /* Align links and the button vertically */
-    gap: 25px;                 /* Clean, uniform spacing between elements */
+    align-items: center;
+    gap: 35px;             /* INCREASED SPACE: Fixes the tight button spacing */
 }
 
-/* Navigation items */
 .nav-item {
-    font-family: 'Courier New', monospace; /* Matches your retro system aesthetic */
-    font-size: 14px;
-    font-weight: bold;
+    font-family: 'Courier New', monospace;
+    font-size: 15px;       
     text-decoration: none;
-    color: var(--text-color, #2b3a3a);
+    color: var(--text-color);
+    white-space: nowrap;   /* Prevents words from snapping onto a new line when scaled */
     transition: color 0.2s ease;
 }
 
-.nav-item:hover, .nav-item.active {
-    color: var(--accent-color, #e15a47);
-}
-
-/* Theme Toggle Button */
+/* --- THE NAVBAR THEME TOGGLE BUTTON --- */
 .theme-btn {
     background: none;
     border: none;
     cursor: pointer;
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
-    background-color: var(--btn-bg, #ffffff); /* Theme-friendly background circle */
-    display: flex;
+    display: inline-flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    transition: transform 0.2s ease, background-color 0.2s ease;
-    padding: 0;
+    padding: 8px;
+    border-radius: 50%;
+    transition: transform 0.2s ease;
 }
 
 .theme-btn:hover {
-    transform: scale(1.05);
+    transform: scale(1.1);
 }
 
-/* Align icon inside button */
 .theme-btn i {
-    font-size: 16px;
-    color: var(--btn-icon-color, #2b3a3a);
+    font-size: 18px;       /* Clear, legible scale for the icon */
+    color: var(--text-color);
 }
