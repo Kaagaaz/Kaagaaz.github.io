@@ -90,6 +90,47 @@ body {
     background-color: var(--toggle-bg);
     color: var(--toggle-text);
 }
+/* Persona 3 Inspired Music Button */
+
+.music-btn {
+
+    width: 42px;
+    height: 42px;
+
+    border-radius: 50%;
+
+    border: 1px solid rgba(0,191,255,0.5);
+
+    background: rgba(0,191,255,0.15);
+
+    color: var(--text-color);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    cursor: pointer;
+
+    font-size: 18px;
+
+    backdrop-filter: blur(8px);
+
+    transition: 0.3s ease;
+
+    margin-right: auto;
+
+}
+
+
+.music-btn:hover {
+
+    transform: scale(1.1);
+
+    box-shadow: 0 0 15px #00bfff;
+
+    color:#00bfff;
+
+}
 
 /* ==========================================
    4. SYSTEM HUD
