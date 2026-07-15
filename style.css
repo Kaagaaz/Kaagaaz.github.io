@@ -60,10 +60,8 @@ body {
 
 .nav-links-group {
     display: flex;
-    flex-direction: row;
-    align-items: center; /* Forces all children (links + button) to center line */
+    align-items: center;
     gap: 35px;
-    height: 40px; /* Matches the button height to the text area */
 }
 
 .nav-item {
