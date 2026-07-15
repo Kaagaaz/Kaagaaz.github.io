@@ -134,13 +134,9 @@ body {
 }
 
 
-.music-btn:hover {
+.music-btn:active {
 
-    transform: scale(1.08);
-
-    box-shadow: 0 0 15px #00bfff;
-
-    color:#00bfff;
+    transform: none;
 
 }
 
