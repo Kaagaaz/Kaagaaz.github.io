@@ -461,8 +461,12 @@ body.dark-mode .project-card {
 
     position:absolute;
 
-    width:30px;
-    height:30px;
+    width:24px;
+    height:24px;
+
+    transform:scale(var(--size));
+
+}
 
     animation:
     flyAway 3.5s ease-out forwards;
