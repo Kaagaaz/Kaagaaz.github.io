@@ -6,23 +6,13 @@ function applyTheme() {
 
     const savedTheme = localStorage.getItem("theme");
 
-    const body = document.body;
-
-
-    if (savedTheme === "dark") {
-
-        body.classList.add("dark-mode");
-
-        updateToggleIcon(true);
-
-    } else {
-
-        body.classList.remove("dark-mode");
-
-        updateToggleIcon(false);
-
-    }
-
+if (savedTheme === "light") {
+    body.classList.remove("dark-mode");
+    updateToggleIcon(false);
+} else {
+    // Default = Dark
+    body.classList.add("dark-mode");
+    updateToggleIcon(true);
 }
 
 
