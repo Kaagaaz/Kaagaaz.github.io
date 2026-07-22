@@ -29,10 +29,8 @@
 <!-- Prevent theme flicker -->
 <script>
 
-if(localStorage.getItem("theme") === "light"){
-
+if(localStorage.getItem("theme") !== "light"){
     document.body.classList.add("dark-mode");
-
 }
 
 </script>
