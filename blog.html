@@ -13,8 +13,8 @@
 <body class="blog-layout">
     <script>
     // Instantly apply dark mode class before the rest of the page renders to prevent flickering
-    if (localStorage.getItem('theme') === 'light') {
-        document.body.classList.add('dark-mode');
+    if(localStorage.getItem("theme") !== "light"){
+    document.body.classList.add("dark-mode");
     }
     </script>
     
