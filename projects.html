@@ -1,181 +1,613 @@
-<DOCTYPE html>  <html lang="en">  
-<head>  
-    <meta charset="UTF-8">  
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">  
-    <title>Projects | Kaagaaz</title>  
-    <link rel="stylesheet" href="style.css">  
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">  
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">  <!-- MarkedJS Parser: Converts raw Markdown/Code into clean HTML -->  
-<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<!DOCTYPE html>
+<html lang="en">
 
-</head>  
-<body class="projects-layout">  
-    <script>  
-    // Instantly apply dark mode class before the rest of the page renders to prevent flickering  
-    if(localStorage.getItem("theme") !== "light"){  
-    document.body.classList.add("dark-mode");  
-    }  
-    </script>  <!-- Theme Switcher -->  
-<button id="theme-toggle" class="theme-btn" aria-label="Toggle Theme">  
-    <i class="fas fa-moon"></i>  
-</button>  
+<head>
 
-<div class="blog-container" style="max-width: 900px;" id="main-wrapper">  
-    <!-- Navigation Link Area -->  
-    <div id="project-nav">  
-        <a href="index.html" class="back-btn"><i class="fas fa-arrow-left"></i> back home</a>  
-    </div>  
+    <meta charset="UTF-8">
 
-    <header class="blog-header" id="project-header-area">  
-        <h1>My Creations</h1>  
-        <p>Apps, tools, and tech concepts I build.</p>  
-    </header>  
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- Dynamic Grid/Single content injection target -->  
-    <div id="projects-grid-container" class="projects-grid">  
-        <p class="no-posts">Loading the project boards...</p>  
-    </div>  
-</div>  
+    <title>Projects | Kaagaaz</title>
 
-<script>  
-    const GITHUB_USERNAME = "Kaagaaz";  
-    const REPO_NAME = "Kaagaaz.github.io";  
-      
-    // Checks if a specific project ID is requested in the URL parameter (e.g., projects.html?project=4)  
-    const urlParams = new URLSearchParams(window.location.search);  
-    const currentProjectId = urlParams.get('project');  
+    <!-- Your original global CSS -->
+    <link rel="stylesheet" href="style.css">
 
-    async function initProjects() {  
-        if (currentProjectId) {  
-            // If a project ID is present, render ONLY that full project sheet  
-            await loadSingleProject(currentProjectId);  
-        } else {  
-            // Otherwise, show the clean, organized list of card previews  
-            await loadProjectsList();  
-        }  
-    }  
+    <!-- Font Awesome -->
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    >
 
-    // Cleans up code snippets and text strings to prevent grid card blowouts  
-    function createSnippet(markdownText) {  
-        if (!markdownText) return "No description available.";  
-          
-        let cleanText = markdownText  
-            .replace(/<!--[\s\S]*?-->/g, '')  /* Strips out raw HTML comments */  
-            .replace(/<[^>]*>/g, '')          /* Strips out stray HTML tags */  
-            .replace(/!.*?.*?/g, '') /* Filters out markdown image assets */  
-            .replace(/.*?.*?/g, '')  /* Filters out hyperlinks */  
-            .replace(/`{3}[\s\S]*?`{3}/g, '') /* Filters out code blocks completely */  
-            .replace(/`.*?`/g, '')            /* Filters out inline snippets */  
-            .replace(/[#*_-]/g, '')           /* Cleans up remaining structural markdown */  
-            .trim();  
-          
-        if (cleanText.length > 120) {  
-            return cleanText.substring(0, 120) + "...";  
-        }  
-        return cleanText || "View project details for comprehensive documentation.";  
-    }  
+    <!-- Project page font -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
 
-            async function loadProjectsList() {  
-        const container = document.getElementById('projects-grid-container');  
-        const url = `https://api.github.com/repos/${GITHUB_USERNAME}/${REPO_NAME}/issues?labels=project&state=open`;  
+    <!-- Projects-only CSS -->
+    <link rel="stylesheet" href="projects.css">
 
-        try {  
-            const response = await fetch(url);  
-            if (!response.ok) throw new Error("Could not load grid");  
-            const issues = await response.json();  
+    <!-- Markdown parser -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 
-            if (issues.length === 0) {  
-                container.removeAttribute('class'); // Drops grid framework alignment if empty  
-                container.innerHTML = `<p class="no-posts">No projects showcased yet. Check back soon!</p>`;  
-                return;  
-            }  
+</head>
 
-            container.innerHTML = '';   
 
-            issues.forEach(issue => {  
-                const projectCard = document.createElement('div');  
-                projectCard.className = 'project-card';  
+<body class="projects-layout">
 
-                const snippet = createSnippet(issue.body);  
+    <!-- Prevent dark-mode flicker -->
+    <script>
+        if (localStorage.getItem("theme") !== "light") {
+            document.body.classList.add("dark-mode");
+        }
+    </script>
 
-                // Gacha-stylized project card layout  
-                projectCard.innerHTML = `  
-                    <div style="display: flex; flex-direction: column; height: 100%; justify-content: space-between; position: relative;">  
-                        <!-- Small Technical Top-Bar -->  
-                        <div style="display: flex; justify-content: space-between; font-size: 0.7rem; opacity: 0.6; margin-bottom: 5px; font-family: 'JetBrains Mono', monospace;">  
-                            <span>[ SYSTEM_FILE: PROJ_${issue.number} ]</span>  
-                            <span class="gacha-stars">✦ ✦ ✦ ✦ ✦</span>  
-                  
-                        </div>  
-                        <div>  
-                            <h2>${issue.title}</h2>  
-                            <p class="project-card-body" style="margin-bottom: 20px; opacity: 0.8; font-size: 0.9rem;">${snippet}</p>  
-                        </div>  
-                        <a href="?project=${issue.number}" class="btn" style="font-size: 0.85rem; padding: 7px 18px; text-align: center; align-self: flex-start;">View →</a>  
-                    </div>  
-                `;  
-                container.appendChild(projectCard);  
-            });  
 
-        } catch (error) {  
-            console.error(error);  
-            container.removeAttribute('class');  
-            container.innerHTML = `<p class="no-posts">Oops! Failed to connect to the creations grid.</p>`;  
-        }  
-            }  
-      
+    <!-- ==============================
+         THEME BUTTON
+         ============================== -->
 
-    async function loadSingleProject(id) {  
-        const container = document.getElementById('projects-grid-container');  
-        const nav = document.getElementById('project-nav');  
-        const headerArea = document.getElementById('project-header-area');  
-        const wrapper = document.getElementById('main-wrapper');  
-          
-        // Alter alignment attributes for full-immersion text mode reading  
-        container.removeAttribute('class');   
-        wrapper.style.maxWidth = "750px";   
-          
-        // Reconfigure navigation headers dynamically  
-        nav.innerHTML = `<a href="projects.html" class="back-btn"><i class="fas fa-arrow-left"></i> back to all projects</a>`;  
-        headerArea.style.display = 'none';  
+    <button
+        id="theme-toggle"
+        class="theme-btn"
+        aria-label="Toggle Theme"
+    >
+        <i class="fas fa-moon"></i>
+    </button>
 
-        const url = `https://api.github.com/repos/${GITHUB_USERNAME}/${REPO_NAME}/issues/${id}`;  
 
-        try {  
-            const response = await fetch(url);  
-            if (!response.ok) throw new Error("Entry missing");  
-            const issue = await response.json();  
+    <!-- ==============================
+         MAIN PROJECT PAGE
+         ============================== -->
 
-            container.innerHTML = '';   
+    <main class="projects-page">
 
-            const projectDetails = document.createElement('article');  
-            projectDetails.className = 'full-post-view';  
-              
-          
-              
-            // Strips layout cards for a clean full view interface  
-            projectDetails.style.background = 'none';  
-            projectDetails.style.border = 'none';  
-            projectDetails.style.boxShadow = 'none';  
-            projectDetails.style.padding = '0';  
+        <div class="projects-container" id="main-wrapper">
 
-            const parsedContent = marked.parse(issue.body || "No documentation supplied.");  
 
-            projectDetails.innerHTML = `  
-                <h1 class="post-title" style="font-size: 2.3rem; margin-bottom: 30px;">${issue.title}</h1>  
-                <div class="post-body">${parsedContent}</div>  
-            `;  
-            container.appendChild(projectDetails);  
+            <!-- ==============================
+                 NAVIGATION
+                 ============================== -->
 
-        } catch (error) {  
-            console.error(error);  
-            container.innerHTML = `<p class="no-posts">Oops! This project detail could not be loaded. <a href="projects.html" style="color: var(--accent-color);">Return to projects grid</a></p>`;  
-        }  
-    }  
+            <div id="project-nav" class="project-nav">
 
-    initProjects();  
-</script>  
-<script src="script.js"></script>
+                <a href="index.html" class="project-back-btn">
 
-</body>  
+                    <i class="fas fa-arrow-left"></i>
+
+                    <span>back home</span>
+
+                </a>
+
+            </div>
+
+
+            <!-- ==============================
+                 HEADER
+                 ============================== -->
+
+            <header
+                class="projects-header"
+                id="project-header-area"
+            >
+
+                <h1>My Creations</h1>
+
+                <p>
+                    Apps, tools, and tech concepts I build.
+                </p>
+
+            </header>
+
+
+            <!-- ==============================
+                 PROJECT GRID
+                 ============================== -->
+
+            <section
+                id="projects-grid-container"
+                class="projects-grid"
+            >
+
+                <p class="projects-message">
+
+                    Loading the project boards...
+
+                </p>
+
+            </section>
+
+
+        </div>
+
+    </main>
+
+
+    <!-- ==============================
+         PROJECT JAVASCRIPT
+         ============================== -->
+
+    <script>
+
+        const GITHUB_USERNAME = "Kaagaaz";
+        const REPO_NAME = "Kaagaaz.github.io";
+
+
+        /*
+         * Check whether a single project
+         * has been requested.
+         *
+         * Example:
+         * projects.html?project=4
+         */
+
+        const urlParams =
+            new URLSearchParams(window.location.search);
+
+        const currentProjectId =
+            urlParams.get("project");
+
+
+        /*
+         * ==============================
+         * INITIALIZE
+         * ==============================
+         */
+
+        async function initProjects() {
+
+            if (currentProjectId) {
+
+                await loadSingleProject(currentProjectId);
+
+            } else {
+
+                await loadProjectsList();
+
+            }
+
+        }
+
+
+        /*
+         * ==============================
+         * CREATE PROJECT SNIPPET
+         * ==============================
+         */
+
+        function createSnippet(markdownText) {
+
+            if (!markdownText) {
+                return "No description available.";
+            }
+
+
+            let cleanText = markdownText
+
+                // Remove HTML comments
+                .replace(
+                    /<!--[\s\S]*?-->/g,
+                    ""
+                )
+
+                // Remove HTML tags
+                .replace(
+                    /<[^>]*>/g,
+                    ""
+                )
+
+                // Remove images
+                .replace(
+                    /!\[.*?\]\(.*?\)/g,
+                    ""
+                )
+
+                // Remove links
+                .replace(
+                    /\[.*?\]\(.*?\)/g,
+                    ""
+                )
+
+                // Remove code blocks
+                .replace(
+                    /`{3}[\s\S]*?`{3}/g,
+                    ""
+                )
+
+                // Remove inline code
+                .replace(
+                    /`.*?`/g,
+                    ""
+                )
+
+                // Remove markdown symbols
+                .replace(
+                    /[#*_-]/g,
+                    ""
+                )
+
+                .trim();
+
+
+            if (cleanText.length > 120) {
+
+                return cleanText.substring(0, 120) + "...";
+
+            }
+
+
+            return (
+                cleanText ||
+                "View project details for comprehensive documentation."
+            );
+
+        }
+
+
+        /*
+         * ==============================
+         * LOAD PROJECT LIST
+         * ==============================
+         */
+
+        async function loadProjectsList() {
+
+            const container =
+                document.getElementById(
+                    "projects-grid-container"
+                );
+
+
+            const url =
+                `https://api.github.com/repos/${GITHUB_USERNAME}/${REPO_NAME}/issues?labels=project&state=open`;
+
+
+            try {
+
+                const response = await fetch(url);
+
+
+                if (!response.ok) {
+                    throw new Error("Could not load projects");
+                }
+
+
+                const issues = await response.json();
+
+
+                /*
+                 * No projects
+                 */
+
+                if (issues.length === 0) {
+
+                    container.className =
+                        "projects-empty";
+
+                    container.innerHTML = `
+
+                        <p class="projects-message">
+
+                            No projects showcased yet.
+                            Check back soon!
+
+                        </p>
+
+                    `;
+
+                    return;
+
+                }
+
+
+                /*
+                 * Clear loading message
+                 */
+
+                container.innerHTML = "";
+
+
+                /*
+                 * Create cards
+                 */
+
+                issues.forEach(issue => {
+
+                    const projectCard =
+                        document.createElement("article");
+
+
+                    projectCard.className =
+                        "project-card";
+
+
+                    const snippet =
+                        createSnippet(issue.body);
+
+
+                    projectCard.innerHTML = `
+
+                        <div class="project-card-inner">
+
+
+                            <!-- Technical top bar -->
+
+                            <div class="project-card-top">
+
+                                <span>
+                                    [ SYSTEM_FILE:
+                                    PROJ_${issue.number} ]
+                                </span>
+
+                                <span class="gacha-stars">
+                                    ✦ ✦ ✦ ✦ ✦
+                                </span>
+
+                            </div>
+
+
+                            <!-- Project information -->
+
+                            <div class="project-card-content">
+
+                                <h2>
+                                    ${escapeHTML(issue.title)}
+                                </h2>
+
+                                <p class="project-card-body">
+                                    ${escapeHTML(snippet)}
+                                </p>
+
+                            </div>
+
+
+                            <!-- View button -->
+
+                            <a
+                                href="?project=${issue.number}"
+                                class="project-view-btn"
+                            >
+                                View →
+                            </a>
+
+
+                        </div>
+
+                    `;
+
+
+                    container.appendChild(projectCard);
+
+                });
+
+
+            } catch (error) {
+
+                console.error(error);
+
+
+                container.className =
+                    "projects-empty";
+
+
+                container.innerHTML = `
+
+                    <p class="projects-message">
+
+                        Oops! Failed to connect
+                        to the creations grid.
+
+                    </p>
+
+                `;
+
+            }
+
+        }
+
+
+        /*
+         * ==============================
+         * LOAD SINGLE PROJECT
+         * ==============================
+         */
+
+        async function loadSingleProject(id) {
+
+            const container =
+                document.getElementById(
+                    "projects-grid-container"
+                );
+
+
+            const nav =
+                document.getElementById(
+                    "project-nav"
+                );
+
+
+            const header =
+                document.getElementById(
+                    "project-header-area"
+                );
+
+
+            const wrapper =
+                document.getElementById(
+                    "main-wrapper"
+                );
+
+
+            /*
+             * Switch page into
+             * single-project mode
+             */
+
+            container.className =
+                "single-project-container";
+
+
+            wrapper.classList.add(
+                "single-project-mode"
+            );
+
+
+            /*
+             * Change navigation
+             */
+
+            nav.innerHTML = `
+
+                <a
+                    href="projects.html"
+                    class="project-back-btn"
+                >
+
+                    <i class="fas fa-arrow-left"></i>
+
+                    <span>back to all projects</span>
+
+                </a>
+
+            `;
+
+
+            /*
+             * Hide header
+             */
+
+            header.style.display = "none";
+
+
+            /*
+             * GitHub API
+             */
+
+            const url =
+                `https://api.github.com/repos/${GITHUB_USERNAME}/${REPO_NAME}/issues/${id}`;
+
+
+            try {
+
+                const response =
+                    await fetch(url);
+
+
+                if (!response.ok) {
+                    throw new Error("Project not found");
+                }
+
+
+                const issue =
+                    await response.json();
+
+
+                /*
+                 * Parse Markdown
+                 */
+
+                const parsedContent =
+                    marked.parse(
+                        issue.body ||
+                        "No documentation supplied."
+                    );
+
+
+                /*
+                 * Render project
+                 */
+
+                container.innerHTML = `
+
+                    <article class="full-project">
+
+                        <h1 class="full-project-title">
+
+                            ${escapeHTML(issue.title)}
+
+                        </h1>
+
+
+                        <div class="full-project-body">
+
+                            ${parsedContent}
+
+                        </div>
+
+                    </article>
+
+                `;
+
+
+            } catch (error) {
+
+                console.error(error);
+
+
+                container.innerHTML = `
+
+                    <div class="projects-empty">
+
+                        <p class="projects-message">
+
+                            Oops! This project detail
+                            could not be loaded.
+
+                        </p>
+
+
+                        <a
+                            href="projects.html"
+                            class="project-view-btn"
+                        >
+
+                            Return to projects
+
+                        </a>
+
+                    </div>
+
+                `;
+
+            }
+
+        }
+
+
+        /*
+         * ==============================
+         * ESCAPE HTML
+         * ==============================
+         *
+         * Prevents GitHub issue titles
+         * from accidentally becoming HTML.
+         */
+
+        function escapeHTML(text) {
+
+            const div =
+                document.createElement("div");
+
+            div.textContent =
+                text || "";
+
+            return div.innerHTML;
+
+        }
+
+
+        /*
+         * START
+         */
+
+        initProjects();
+
+    </script>
+
+
+    <!-- Your existing global JavaScript -->
+    <script src="script.js"></script>
+
+</body>
+
 </html>
