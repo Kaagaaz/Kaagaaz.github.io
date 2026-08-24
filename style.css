@@ -1,779 +1,813 @@
-/* ==========================================
+/* =========================================================
+   PROJECTS PAGE ONLY
+   ========================================================= */
 
-1. COLOR THEMES & VARIABLES
-========================================== /
-:root {
---bg-color: #e6f6ff;        / soft light blue background /
---text-color: #102027;      / deep navy text /
---accent-color: #0099ff;    / electric blue accent /
---toggle-bg: #102027;       / dark toggle button /
---toggle-text: #e6f6ff;     / light icon color */
---btn-bg: #ffffff;
-}
 
+/* =========================================================
+   1. PROJECT PAGE BASE
+   ========================================================= */
 
-
-body.dark-mode {
---bg-color: #071426;
---text-color: #e6f7ff;
---accent-color: #00bfff;
---toggle-bg: #e6f7ff;
---toggle-text: #071426;
---btn-bg: #e6f7ff;
-}
-
-/* ==========================================
-2. GLOBAL RESETS & BODY
-========================================== */
-
-{
-margin: 0;
-padding: 0;
-box-sizing: border-box;
-font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
-
-
-body {
-background-color: var(--bg-color);
-color: var(--text-color);
-display: flex;
-justify-content: center;
-align-items: center;
-min-height: 100vh;
-overflow-x: hidden;
-transition: background-color 0.4s ease, color 0.4s ease;
-}
-
-/* ==========================================
-3. NAVIGATION BAR (FIXED & ALIGNED)
-========================================== */
-.navbar {
-position: absolute;
-top: 0;
-left: 0;
-width: 100%;
-padding: 20px 40px;
-box-sizing: border-box;
-display: flex;
-justify-content: flex-end;
-align-items: center;
-}
-
-/* ==========================================
-NAVBAR BLUE STRIPE
-========================================== */
-
-.navbar::after {
-
-content: "";  
-
-position: absolute;  
-
-bottom: 0;  
-left: 0;  
-
-width: 100%;  
-height: 2px;  
-
-background: #00bfff;  
-
-box-shadow:  
-0 0 8px #00bfff,  
-0 0 15px rgba(0,191,255,0.6);
-
-}
-
-.nav-item {
-font-family: 'Courier New', monospace;
-font-size: 14px;
-font-weight: bold;
-text-decoration: none;
-color: var(--text-color);
-white-space: nowrap;
-display: flex;
-align-items: center;
-line-height: 1;
-margin: 0;
-}
-
-.nav-links-group {
-display: flex;
-flex-direction: row;
-align-items: center;
-justify-content: flex-end;
-gap: 20px;
-}
-
-/* Theme Toggle Button /
-#theme-toggle, .theme-btn {
-display: inline-flex;
-align-items: center;
-justify-content: center;
-width: 40px;
-height: 40px;
-border-radius: 50%;  / This makes it a circle /
-border: none;
-cursor: pointer;
-background-color: var(--toggle-bg);
-color: var(--toggle-text);
-}
-/ Persona 3 Inspired Music Button /
-/ Music Button - Same Size as Theme Button */
-
-.music-btn {
-
-width: 35px;  
-height: 35px;  
-
-padding: 0;  
-margin: 0;  
-
-display: inline-flex;  
-align-items: center;  
-justify-content: center;  
-
-border-radius: 50%;  
-
-border: 1px solid rgba(0,191,255,0.5);  
-
-background: rgba(0,191,255,0.15);  
-
-color: var(--toggle-text);  
-
-cursor: pointer;  
-
-font-size: 14px;  
-
-line-height: 1;  
-
-box-sizing: border-box;  
-
-backdrop-filter: blur(8px);  
-
-transition: 0.3s ease;
-
-}
-
-.music-btn i {
-
-font-size: 15px;
-
-}
-
-.music-btn:active {
-
-transform: none;
-
-}
-
-/* ==========================================
-4. SYSTEM HUD
-========================================== */
-.system-hud {
-position: absolute;
-top: 25px;
-left: 5%;
-width: 90%;
-max-width: 1100px;
-display: flex;
-justify-content: space-between;
-font-family: 'JetBrains Mono', monospace;
-font-size: 0.75rem;
-letter-spacing: 2px;
-opacity: 0.6;
-z-index: 10;
-pointer-events: none;
-}
-
-.blink-dot {
-display: inline-block;
-width: 6px;
-height: 6px;
-background-color: var(--accent-color);
-border-radius: 50%;
-margin-right: 5px;
-animation: pulse-dot 1.5s infinite ease-in-out;
-}
-
-@keyframes pulse-dot {
-0%, 100% { opacity: 0.3; }
-50% { opacity: 1; }
-}
-
-/* ==========================================
-5. PROFILE CONTAINER & TYPOGRAPHY
-========================================== /
-.profile-container {
-position: relative;
-text-align: center;
-width: 100%;
-max-width: 650px;
-padding: 40px 20px;
-margin-top: 60px; / Gives space so navbar doesn't overlap text */
-}
-
-.content {
-position: relative;
-z-index: 2;
-}
-
-.intro {
-font-size: 1.3rem;
-font-weight: 500;
-opacity: 0.85;
-}
-
-.name {
-font-family: 'Dancing Script', cursive;
-font-size: 5.8rem;
-color: var(--accent-color);
-margin: 5px 0 20px 0;
-font-weight: 700;
-transition: color 0.4s ease;
-}
-
-.bio {
-font-family: 'JetBrains Mono', monospace;
-font-size: 1.05rem;
-font-weight: 400;
-line-height: 1.7;
-letter-spacing: -0.01em;
-max-width: 500px;
-margin: 0 auto 35px auto;
-opacity: 0.9;
-}
-
-/* ==========================================
-6. BUTTONS & LINK SPACING
-========================================== */
-.button-group {
-margin-top: 25px;
-display: flex;
-gap: 15px;
-justify-content: center;
-flex-wrap: wrap;
-}
-
-.btn {
-display: inline-block;
-padding: 10px 28px;
-background-color: var(--accent-color);
-color: #ffffff;
-border-radius: 25px;
-text-decoration: none;
-font-family: 'JetBrains Mono', monospace;
-font-size: 0.95rem;
-font-weight: 500;
-border: none;
-cursor: pointer;
-box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-clip-path: polygon(0 0, 93% 0, 100% 30%, 100% 100%, 7% 100%, 0 70%);
-transition: all 0.2s ease;
-}
-
-.btn:hover {
-transform: translateY(-2px) scale(1.02);
-box-shadow: 0 0 15px rgba(224, 90, 71, 0.4);
-opacity: 0.9;
-}
-
-/* Fix spacing between buttons and social icons */
-a[href="blog.html"], a[href="Blog.html"] {
-margin-bottom: 0;
-}
-
-/* ==========================================
-7. SOCIAL MEDIA ICONS
-========================================== */
-.social-icons a {
-color: var(--text-color);
-font-size: 2rem;
-margin: 0 15px;
-text-decoration: none;
-display: inline-block;
-transition: transform 0.2s ease, color 0.4s ease;
-}
-
-.social-icons a:hover {
-transform: translateY(-5px);
-color: var(--accent-color);
-}
-
-/* ==========================================
-8. BLOG LAYOUT & CARDS
-========================================== */
-.blog-layout {
-display: block;
-min-height: 100vh;
-padding: 60px 20px;
-}
-
-.blog-container {
-max-width: 650px;
-width: 100%;
-margin: 0 auto;
-}
-
-.back-btn {
-display: inline-block;
-color: var(--text-color);
-text-decoration: none;
-font-family: 'JetBrains Mono', monospace;
-font-size: 0.95rem;
-margin-bottom: 40px;
-transition: color 0.2s ease;
-}
-
-.back-btn:hover {
-color: var(--accent-color);
-}
-
-.blog-header {
-margin-bottom: 50px;
-}
-
-.blog-header h1 {
-font-family: 'Dancing Script', cursive;
-font-size: 4rem;
-color: var(--accent-color);
-margin-bottom: 10px;
-}
-
-.blog-header p {
-font-family: 'JetBrains Mono', monospace;
-font-size: 1rem;
-opacity: 0.8;
-}
-
-.blog-post {
-background-color: rgba(255, 255, 255, 0.15);
-border: 1px solid rgba(0, 0, 0, 0.05);
-border-radius: 16px;
-padding: 25px;
-margin-bottom: 30px;
-text-align: left;
-box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
-clip-path: polygon(0 0, 100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0 100%);
-border-left: 3px solid var(--accent-color) !important;
-transition: transform 0.2s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.2s;
-}
-
-body.dark-mode .blog-post {
-background-color: rgba(255, 255, 255, 0.03);
-border: 1px solid rgba(255, 255, 255, 0.05);
-}
-
-.post-title {
-font-family: 'JetBrains Mono', monospace;
-font-size: 1.4rem;
-color: var(--accent-color);
-margin-bottom: 8px;
-}
-
-.post-date {
-font-family: 'JetBrains Mono', monospace;
-font-size: 0.8rem;
-opacity: 0.6;
-margin-bottom: 20px;
-}
-
-.post-body {
-font-family: 'JetBrains Mono', monospace;
-font-size: 0.95rem;
-line-height: 1.7;
-}
-
-.post-body p {
-margin-bottom: 15px;
-}
-
-.post-body img {
-max-width: 100% !important;
-height: auto !important;
-object-fit: contain;
-display: block;
-margin: 20px auto;
-border-radius: 8px;
-}
-
-.no-posts {
-font-family: 'JetBrains Mono', monospace;
-font-size: 1rem;
-opacity: 0.7;
-margin-top: 50px;
-}
-
-.blog-post.full-post-view {
-clip-path: none !important;
-border: none !important;
-border-left: none !important;
-background: none !important;
-box-shadow: none !important;
-padding: 0 !important;
-border-radius: 0 !important;
-}
-
-/* ==========================================
-9. PROJECTS GRID LAYOUT
-========================================== */
 .projects-layout {
-display: block;
-min-height: 100vh;
-padding: 60px 20px;
+
+    display: block;
+
+    min-height: 100vh;
+
+    padding: 60px 20px;
+
+    overflow-x: hidden;
+
 }
+
+
+/*
+ * Everything on the Projects page uses Orbitron.
+ *
+ * This is intentionally scoped to
+ * .projects-layout so it cannot affect
+ * index.html or blog.html.
+ */
+
+.projects-layout,
+.projects-layout * {
+
+    font-family: "Orbitron", sans-serif;
+
+}
+
+
+/* =========================================================
+   2. PROJECT PAGE CONTAINER
+   ========================================================= */
+
+.projects-page {
+
+    width: 100%;
+
+    min-height: calc(100vh - 120px);
+
+}
+
+
+.projects-container {
+
+    width: 100%;
+
+    max-width: 900px;
+
+    margin: 0 auto;
+
+}
+
+
+.projects-container.single-project-mode {
+
+    max-width: 750px;
+
+}
+
+
+/* =========================================================
+   3. THEME BUTTON
+   ========================================================= */
+
+.projects-layout #theme-toggle {
+
+    position: fixed;
+
+    top: 20px;
+
+    right: 25px;
+
+    z-index: 100;
+
+    width: 40px;
+
+    height: 40px;
+
+    border-radius: 50%;
+
+    border: none;
+
+    cursor: pointer;
+
+    background-color: var(--toggle-bg);
+
+    color: var(--toggle-text);
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+}
+
+
+/* =========================================================
+   4. NAVIGATION
+   ========================================================= */
+
+.project-nav {
+
+    width: 100%;
+
+    margin-bottom: 40px;
+
+}
+
+
+.project-back-btn {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    color: var(--text-color);
+
+    text-decoration: none;
+
+    font-size: 0.9rem;
+
+    font-weight: 500;
+
+    letter-spacing: 0.3px;
+
+    transition:
+        color 0.2s ease,
+        transform 0.2s ease;
+
+}
+
+
+.project-back-btn:hover {
+
+    color: var(--accent-color);
+
+    transform: translateX(-3px);
+
+}
+
+
+.project-back-btn i {
+
+    font-family:
+        "Font Awesome 6 Free" !important;
+
+    font-weight: 900;
+
+}
+
+
+/* =========================================================
+   5. PROJECT HEADER
+   ========================================================= */
+
+.projects-header {
+
+    margin-bottom: 50px;
+
+}
+
+
+.projects-header h1 {
+
+    margin: 0 0 12px 0;
+
+    color: var(--accent-color);
+
+    font-size: 3.5rem;
+
+    font-weight: 700;
+
+    line-height: 1.15;
+
+    letter-spacing: 1px;
+
+}
+
+
+.projects-header p {
+
+    margin: 0;
+
+    font-size: 0.95rem;
+
+    font-weight: 400;
+
+    opacity: 0.75;
+
+    line-height: 1.7;
+
+}
+
+
+/* =========================================================
+   6. PROJECT GRID
+   ========================================================= */
 
 .projects-grid {
-display: grid;
-grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-gap: 30px;
-margin-top: 40px;
-width: 100%;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(
+            auto-fill,
+            minmax(300px, 1fr)
+        );
+
+    gap: 30px;
+
+    width: 100%;
+
 }
+
+
+.projects-empty {
+
+    width: 100%;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: flex-start;
+
+    gap: 25px;
+
+}
+
+
+.projects-message {
+
+    font-size: 0.9rem;
+
+    line-height: 1.7;
+
+    opacity: 0.7;
+
+}
+
+
+/* =========================================================
+   7. PROJECT CARD
+   ========================================================= */
 
 .project-card {
-background-color: rgba(255, 255, 255, 0.15);
-border: 1px solid rgba(0, 0, 0, 0.05);
-border-radius: 16px;
-padding: 25px;
-display: flex;
-flex-direction: column;
-justify-content: space-between;
-box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
-text-align: left;
-clip-path: polygon(0 0, 100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0 100%);
-border-left: 3px solid var(--accent-color) !important;
-transition: transform 0.2s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.2s;
+
+    position: relative;
+
+    min-height: 250px;
+
+    background-color:
+        rgba(255, 255, 255, 0.15);
+
+    border: 1px solid
+        rgba(0, 0, 0, 0.05);
+
+    border-left:
+        3px solid var(--accent-color);
+
+    border-radius: 16px;
+
+    padding: 25px;
+
+    text-align: left;
+
+    box-shadow:
+        0 4px 15px
+        rgba(0, 0, 0, 0.02);
+
+    clip-path:
+        polygon(
+            0 0,
+            100% 0,
+            100% calc(100% - 15px),
+            calc(100% - 15px) 100%,
+            0 100%
+        );
+
+    transition:
+        transform 0.2s
+        cubic-bezier(0.25, 1, 0.5, 1),
+        box-shadow 0.2s;
+
 }
+
 
 body.dark-mode .project-card {
-background-color: rgba(255, 255, 255, 0.03);
-border: 1px solid rgba(255, 255, 255, 0.05);
+
+    background-color:
+        rgba(255, 255, 255, 0.03);
+
+    border-color:
+        rgba(255, 255, 255, 0.05);
+
+    border-left:
+        3px solid var(--accent-color);
+
 }
+
+
+.project-card:hover {
+
+    transform: translateY(-4px);
+
+    box-shadow:
+        0 8px 25px
+        rgba(0, 191, 255, 0.12);
+
+}
+
+
+.project-card-inner {
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: space-between;
+
+    min-height: 200px;
+
+}
+
+
+/* =========================================================
+   8. CARD TOP SYSTEM BAR
+   ========================================================= */
+
+.project-card-top {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    gap: 10px;
+
+    margin-bottom: 20px;
+
+    font-size: 0.65rem;
+
+    line-height: 1.4;
+
+    letter-spacing: 0.5px;
+
+    opacity: 0.55;
+
+}
+
+
+.gacha-stars {
+
+    white-space: nowrap;
+
+    letter-spacing: 2px;
+
+}
+
+
+/* =========================================================
+   9. CARD CONTENT
+   ========================================================= */
+
+.project-card-content {
+
+    flex: 1;
+
+}
+
 
 .project-card h2 {
-font-family: 'JetBrains Mono', monospace;
-font-size: 1.3rem;
-color: var(--accent-color);
-margin-bottom: 12px;
+
+    margin: 0 0 12px 0;
+
+    color: var(--accent-color);
+
+    font-size: 1.25rem;
+
+    font-weight: 600;
+
+    line-height: 1.4;
+
+    letter-spacing: 0.3px;
+
+    overflow-wrap: anywhere;
+
 }
+
 
 .project-card-body {
-font-family: 'JetBrains Mono', monospace;
-font-size: 0.9rem;
-line-height: 1.6;
-opacity: 0.9;
-flex-grow: 1;
-}
 
-.project-card-body img {
-max-width: 100%;
-height: auto !important;
-border-radius: 8px;
-margin-bottom: 15px;
-display: block;
-object-fit: contain;
-}
+    margin: 0 0 25px 0;
 
-/* ==========================================
-10. RESPONSIVE MEDIA QUERIES
-========================================== */
-@media (max-width: 480px) {
-.name {
-font-size: 4.5rem;
-}
-.bio {
-font-size: 1rem;
-}
-.navbar {
-padding: 20px;
-}
-.nav-links-group {
-gap: 20px;
-}
-}
+    font-size: 0.82rem;
 
-/* Mobile spacing fix for back button and theme toggle */
-@media (max-width: 480px) {
+    font-weight: 400;
 
-.navbar {  
-    padding: 20px 15px;  
-}  
+    line-height: 1.7;
 
-#theme-toggle {  
-    margin-left: 10px;  
-}  
-
-.back-btn {  
-    margin-top: 50px;  
-}
+    opacity: 0.8;
 
 }
 
-.theme-animation {
 
-position: fixed;  
-inset: 0;  
+/* =========================================================
+   10. VIEW BUTTON
+   ========================================================= */
 
-z-index:9999;  
+.project-view-btn {
 
-pointer-events:none;  
+    display: inline-flex;
 
-display:flex;  
-justify-content:center;  
-align-items:center;  
+    align-items: center;
 
-background:  
-radial-gradient(circle,  
-rgba(80,200,255,0.35),  
-transparent 35%);  
+    justify-content: center;
 
-animation:flash 2.5s forwards;
+    align-self: flex-start;
 
-}
+    width: fit-content;
 
-.butterfly {
+    padding: 8px 18px;
 
-position: absolute;  
+    background-color:
+        var(--accent-color);
 
-width: 24px;  
-height: 24px;  
+    color: #ffffff;
 
-animation: flyAway 3.5s ease-out forwards;  
+    text-decoration: none;
 
-filter: drop-shadow(0 0 8px white);
+    font-size: 0.78rem;
 
-}
+    font-weight: 500;
 
-/* wings */
+    border-radius: 25px;
 
-.wing {
+    clip-path:
+        polygon(
+            0 0,
+            93% 0,
+            100% 30%,
+            100% 100%,
+            7% 100%,
+            0 70%
+        );
 
-position:absolute;  
-
-width:15px;  
-height:22px;  
-
-background:  
-linear-gradient(  
-135deg,  
-#102027,  
-#3b82f6  
-);  
-
-border-radius:  
-80% 20% 80% 20%;  
-
-top:5px;  
-
-animation:  
-flap 0.25s infinite alternate;
+    transition:
+        transform 0.2s ease,
+        opacity 0.2s ease,
+        box-shadow 0.2s ease;
 
 }
 
-/* Dark mode butterfly */
 
-body.dark-mode .wing {
+.project-view-btn:hover {
 
-background:  
-linear-gradient(  
-135deg,  
-white,  
-#4cc9f0  
-);
+    transform:
+        translateY(-2px)
+        scale(1.02);
 
-}
+    opacity: 0.9;
 
-body.dark-mode .butterfly {
-
-filter:  
-drop-shadow(0 0 8px #4cc9f0);
+    box-shadow:
+        0 0 15px
+        rgba(0, 191, 255, 0.3);
 
 }
 
-/* Light mode butterfly glow */
 
-body:not(.dark-mode) .butterfly {
+/* =========================================================
+   11. SINGLE PROJECT VIEW
+   ========================================================= */
 
-filter:  
-drop-shadow(0 0 6px #3b82f6);
+.single-project-container {
 
-}
-
-.left {
-
-left:0;  
-
-transform-origin:right center;
+    width: 100%;
 
 }
 
-.right {
 
-right:0;  
+.full-project {
 
-transform-origin:left center;
-
-}
-.right {
-animation-name: flapRight;
-}
-
-.left {
-animation-name: flapLeft;
-}
-
-.body {
-
-position:absolute;  
-
-width:3px;  
-height:18px;  
-
-background:white;  
-
-left:14px;  
-top:8px;  
-
-border-radius:50%;
+    width: 100%;
 
 }
 
-@keyframes flapLeft {
 
-from {  
-    transform: rotateY(0deg);  
-}  
+.full-project-title {
 
-to {  
-    transform: rotateY(70deg);  
-}
+    margin: 0 0 30px 0;
 
-}
+    color: var(--accent-color);
 
-@keyframes flapRight {
+    font-size: 2.3rem;
 
-from {  
-    transform: rotateY(0deg) scaleX(-1);  
-}  
+    font-weight: 700;
 
-to {  
-    transform: rotateY(70deg) scaleX(-1);  
-}
+    line-height: 1.35;
+
+    overflow-wrap: anywhere;
 
 }
 
-@keyframes flyAway {
 
-0% {
+.full-project-body {
 
-transform:  
-translate(0,0)  
-scale(.2);  
+    font-size: 0.92rem;
 
-opacity:0;
+    line-height: 1.8;
 
-}
-
-20% {
-
-opacity:1;
+    overflow-wrap: anywhere;
 
 }
 
-100% {
 
-transform:  
-translate(var(--x),var(--y))  
-scale(1)  
-rotate(360deg);  
+.full-project-body p {
 
-opacity:0;
+    margin: 0 0 18px 0;
 
 }
 
-}
 
-@keyframes flash {
+.full-project-body h1,
+.full-project-body h2,
+.full-project-body h3,
+.full-project-body h4 {
 
-0% {
-opacity:0;
-}
+    color: var(--accent-color);
 
-30% {
-opacity:1;
-}
+    margin-top: 30px;
 
-100% {
-opacity:0;
-}
+    margin-bottom: 15px;
+
+    line-height: 1.4;
 
 }
 
-/* ==============================
-MUSIC BUTTON
-============================== */
 
-.music-btn {
+.full-project-body h1 {
 
-position:absolute;  
-
-left:25px;  
-top:20px;  
-
-
-width:45px;  
-height:45px;  
-
-
-border-radius:50%;  
-
-
-border:none;  
-
-
-cursor:pointer;  
-
-
-background-color:var(--toggle-bg);  
-
-
-color:var(--toggle-text);  
-
-
-display:flex;  
-
-align-items:center;  
-
-justify-content:center;  
-
-
-font-size:18px;  
-
-
-z-index:20;  
-
-
-transition:0.3s;
+    font-size: 1.8rem;
 
 }
 
-.music-btn:hover {
 
-transform:scale(1.1);
+.full-project-body h2 {
+
+    font-size: 1.5rem;
+
+}
+
+
+.full-project-body h3 {
+
+    font-size: 1.25rem;
 
 }
 
-/* Mobile */
 
-@media(max-width:480px){
+.full-project-body ul,
+.full-project-body ol {
 
-.music-btn{  
+    margin:
 
-    left:15px;  
-
-    top:20px;  
+        0 0 20px 25px;
 
 }
+
+
+.full-project-body li {
+
+    margin-bottom: 8px;
+
+}
+
+
+.full-project-body a {
+
+    color: var(--accent-color);
+
+}
+
+
+.full-project-body img {
+
+    display: block;
+
+    max-width: 100%;
+
+    height: auto;
+
+    margin: 25px auto;
+
+    border-radius: 8px;
+
+}
+
+
+.full-project-body blockquote {
+
+    margin: 20px 0;
+
+    padding: 12px 18px;
+
+    border-left:
+        3px solid var(--accent-color);
+
+    background:
+        rgba(255, 255, 255, 0.04);
+
+    opacity: 0.85;
+
+}
+
+
+.full-project-body pre {
+
+    width: 100%;
+
+    overflow-x: auto;
+
+    margin: 20px 0;
+
+    padding: 18px;
+
+    border-radius: 10px;
+
+    background:
+        rgba(0, 0, 0, 0.12);
+
+    font-family:
+        "JetBrains Mono",
+        monospace !important;
+
+}
+
+
+.full-project-body code {
+
+    font-family:
+        "JetBrains Mono",
+        monospace !important;
+
+}
+
+
+.full-project-body :not(pre) > code {
+
+    padding: 2px 5px;
+
+    border-radius: 4px;
+
+    background:
+        rgba(127, 127, 127, 0.15);
+
+}
+
+
+/* =========================================================
+   12. DARK MODE SINGLE PROJECT
+   ========================================================= */
+
+body.dark-mode .full-project-body blockquote {
+
+    background:
+        rgba(255, 255, 255, 0.03);
+
+}
+
+
+/* =========================================================
+   13. MOBILE
+   ========================================================= */
+
+@media (max-width: 700px) {
+
+    .projects-layout {
+
+        padding:
+            60px 20px 40px 20px;
+
+    }
+
+
+    .projects-header {
+
+        margin-bottom: 35px;
+
+    }
+
+
+    .projects-header h1 {
+
+        font-size: 2.7rem;
+
+    }
+
+
+    .projects-grid {
+
+        grid-template-columns: 1fr;
+
+        gap: 20px;
+
+    }
+
+
+    .project-card {
+
+        min-height: 230px;
+
+        padding: 22px;
+
+    }
+
+
+    .project-card-top {
+
+        font-size: 0.58rem;
+
+    }
+
+
+    .project-card h2 {
+
+        font-size: 1.1rem;
+
+    }
+
+
+    .project-card-body {
+
+        font-size: 0.78rem;
+
+    }
+
+
+    .full-project-title {
+
+        font-size: 1.8rem;
+
+    }
+
+
+    .full-project-body {
+
+        font-size: 0.86rem;
+
+    }
+
+
+    .projects-layout #theme-toggle {
+
+        top: 20px;
+
+        right: 15px;
+
+    }
+
+}
+
+
+/* =========================================================
+   14. VERY SMALL SCREENS
+   ========================================================= */
+
+@media (max-width: 400px) {
+
+    .projects-layout {
+
+        padding-left: 15px;
+
+        padding-right: 15px;
+
+    }
+
+
+    .projects-header h1 {
+
+        font-size: 2.3rem;
+
+    }
+
+
+    .project-card {
+
+        padding: 18px;
+
+    }
+
+
+    .project-card-top {
+
+        flex-direction: column;
+
+        align-items: flex-start;
+
+    }
 
 }
