@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Projects | Kaagaaz</title>
 
     <link rel="stylesheet" href="style.css">
@@ -10,49 +11,129 @@
     <link rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
-    <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600&family=Orbitron:wght@400;500;600;700;800&display=swap"
+    <!-- Font used ONLY on the Projects page -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800&display=swap"
           rel="stylesheet">
 
     <!-- MarkedJS Parser -->
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
+
+    <!-- ==========================================
+         PROJECTS PAGE FONT OVERRIDES
+         These affect ONLY projects.html
+         ========================================== -->
+
+    <style>
+
+        /* Project page headings */
+        .projects-layout .blog-header h1,
+        .projects-layout .project-card h2,
+        .projects-layout .post-title {
+
+            font-family: 'Orbitron', sans-serif;
+
+        }
+
+
+        /* Main project page heading */
+        .projects-layout .blog-header h1 {
+
+            font-weight: 700;
+
+            letter-spacing: 1px;
+
+        }
+
+
+        /* Project card titles */
+        .projects-layout .project-card h2 {
+
+            font-weight: 600;
+
+            letter-spacing: 0.5px;
+
+        }
+
+
+        /* Full project title */
+        .projects-layout .post-title {
+
+            font-weight: 700;
+
+            letter-spacing: 0.5px;
+
+        }
+
+    </style>
+
 </head>
+
 
 <body class="projects-layout">
 
     <script>
-        // Instantly apply dark mode before page renders
+
+        // Instantly apply dark mode class before
+        // the rest of the page renders
+
         if (localStorage.getItem("theme") !== "light") {
+
             document.body.classList.add("dark-mode");
+
         }
+
     </script>
 
+
     <!-- Theme Switcher -->
+
     <button id="theme-toggle"
             class="theme-btn"
             aria-label="Toggle Theme">
+
         <i class="fas fa-moon"></i>
+
     </button>
+
 
     <div class="blog-container"
          style="max-width: 900px;"
          id="main-wrapper">
 
-        <!-- Navigation -->
+
+        <!-- Navigation Link Area -->
+
         <div id="project-nav">
-            <a href="index.html" class="back-btn">
+
+            <a href="index.html"
+               class="back-btn">
+
                 <i class="fas fa-arrow-left"></i>
+
                 back home
+
             </a>
+
         </div>
 
-        <!-- Header -->
-        <header class="blog-header" id="project-header-area">
+
+        <!-- Project Header -->
+
+        <header class="blog-header"
+                id="project-header-area">
+
             <h1>My Creations</h1>
-            <p>Apps, tools, and tech concepts I build.</p>
+
+            <p>
+                Apps, tools, and tech concepts I build.
+            </p>
+
         </header>
 
-        <!-- Projects -->
+
+        <!-- Dynamic Project Grid -->
+
         <div id="projects-grid-container"
              class="projects-grid">
 
@@ -61,68 +142,110 @@
             </p>
 
         </div>
+
     </div>
 
 
     <script>
 
         const GITHUB_USERNAME = "Kaagaaz";
+
         const REPO_NAME = "Kaagaaz.github.io";
 
+
         // Check URL for project ID
-        const urlParams = new URLSearchParams(window.location.search);
-        const currentProjectId = urlParams.get('project');
+
+        const urlParams =
+            new URLSearchParams(window.location.search);
+
+        const currentProjectId =
+            urlParams.get('project');
+
 
 
         async function initProjects() {
 
             if (currentProjectId) {
 
-                // Show one project
-                await loadSingleProject(currentProjectId);
+                // Show single project
+
+                await loadSingleProject(
+                    currentProjectId
+                );
 
             } else {
 
                 // Show project grid
+
                 await loadProjectsList();
 
             }
+
         }
 
 
+
         // Clean project descriptions
+
         function createSnippet(markdownText) {
 
             if (!markdownText)
                 return "No description available.";
 
+
             let cleanText = markdownText
 
-                .replace(/<!--[\s\S]*?-->/g, '')
+                .replace(
+                    /<!--[\s\S]*?-->/g,
+                    ''
+                )
 
-                .replace(/<[^>]*>/g, '')
+                .replace(
+                    /<[^>]*>/g,
+                    ''
+                )
 
-                .replace(/!\[.*?\]\(.*?\)/g, '')
+                .replace(
+                    /!.*?.*?/g,
+                    ''
+                )
 
-                .replace(/\[.*?\]\(.*?\)/g, '')
+                .replace(
+                    /.*?.*?/g,
+                    ''
+                )
 
-                .replace(/`{3}[\s\S]*?`{3}/g, '')
+                .replace(
+                    /`{3}[\s\S]*?`{3}/g,
+                    ''
+                )
 
-                .replace(/`.*?`/g, '')
+                .replace(
+                    /`.*?`/g,
+                    ''
+                )
 
-                .replace(/[#*_-]/g, '')
+                .replace(
+                    /[#*_-]/g,
+                    ''
+                )
 
                 .trim();
 
 
             if (cleanText.length > 120) {
 
-                return cleanText.substring(0, 120) + "...";
+                return (
+                    cleanText.substring(0, 120)
+                    + "..."
+                );
 
             }
 
+
             return cleanText ||
                 "View project details for comprehensive documentation.";
+
         }
 
 
@@ -130,7 +253,10 @@
         async function loadProjectsList() {
 
             const container =
-                document.getElementById('projects-grid-container');
+                document.getElementById(
+                    'projects-grid-container'
+                );
+
 
             const url =
                 `https://api.github.com/repos/${GITHUB_USERNAME}/${REPO_NAME}/issues?labels=project&state=open`;
@@ -138,25 +264,40 @@
 
             try {
 
-                const response = await fetch(url);
+                const response =
+                    await fetch(url);
+
 
                 if (!response.ok)
-                    throw new Error("Could not load grid");
+                    throw new Error(
+                        "Could not load grid"
+                    );
 
 
-                const issues = await response.json();
+                const issues =
+                    await response.json();
 
 
                 if (issues.length === 0) {
 
-                    container.removeAttribute('class');
+                    container.removeAttribute(
+                        'class'
+                    );
 
-                    container.innerHTML =
-                        `<p class="no-posts">
-                            No projects showcased yet. Check back soon!
-                        </p>`;
+
+                    container.innerHTML = `
+
+                        <p class="no-posts">
+
+                            No projects showcased yet.
+                            Check back soon!
+
+                        </p>
+
+                    `;
 
                     return;
+
                 }
 
 
@@ -166,14 +307,19 @@
                 issues.forEach(issue => {
 
                     const projectCard =
-                        document.createElement('div');
+                        document.createElement(
+                            'div'
+                        );
+
 
                     projectCard.className =
                         'project-card';
 
 
                     const snippet =
-                        createSnippet(issue.body);
+                        createSnippet(
+                            issue.body
+                        );
 
 
                     projectCard.innerHTML = `
@@ -185,6 +331,7 @@
                             justify-content:space-between;
                             position:relative;
                         ">
+
 
                             <!-- Technical Top Bar -->
 
@@ -198,11 +345,17 @@
                             ">
 
                                 <span>
-                                    [ SYSTEM_FILE: PROJ_${issue.number} ]
+
+                                    [ SYSTEM_FILE:
+                                    PROJ_${issue.number} ]
+
                                 </span>
 
+
                                 <span class="gacha-stars">
+
                                     ✦ ✦ ✦ ✦ ✦
+
                                 </span>
 
                             </div>
@@ -214,12 +367,15 @@
                                     ${issue.title}
                                 </h2>
 
-                                <p class="project-card-body"
-                                   style="
+
+                                <p
+                                    class="project-card-body"
+                                    style="
                                         margin-bottom:20px;
                                         opacity:0.8;
                                         font-size:0.9rem;
-                                   ">
+                                    "
+                                >
 
                                     ${snippet}
 
@@ -228,24 +384,30 @@
                             </div>
 
 
-                            <a href="?project=${issue.number}"
-                               class="btn"
-                               style="
+                            <a
+                                href="?project=${issue.number}"
+                                class="btn"
+                                style="
                                     font-size:0.85rem;
                                     padding:7px 18px;
                                     text-align:center;
                                     align-self:flex-start;
-                               ">
+                                "
+                            >
 
                                 View →
 
                             </a>
 
+
                         </div>
+
                     `;
 
 
-                    container.appendChild(projectCard);
+                    container.appendChild(
+                        projectCard
+                    );
 
                 });
 
@@ -254,13 +416,25 @@
 
                 console.error(error);
 
-                container.removeAttribute('class');
 
-                container.innerHTML =
-                    `<p class="no-posts">
-                        Oops! Failed to connect to the creations grid.
-                    </p>`;
+                container.removeAttribute(
+                    'class'
+                );
+
+
+                container.innerHTML = `
+
+                    <p class="no-posts">
+
+                        Oops! Failed to connect
+                        to the creations grid.
+
+                    </p>
+
+                `;
+
             }
+
         }
 
 
@@ -268,38 +442,60 @@
         async function loadSingleProject(id) {
 
             const container =
-                document.getElementById('projects-grid-container');
+                document.getElementById(
+                    'projects-grid-container'
+                );
+
 
             const nav =
-                document.getElementById('project-nav');
+                document.getElementById(
+                    'project-nav'
+                );
+
 
             const headerArea =
-                document.getElementById('project-header-area');
+                document.getElementById(
+                    'project-header-area'
+                );
+
 
             const wrapper =
-                document.getElementById('main-wrapper');
+                document.getElementById(
+                    'main-wrapper'
+                );
 
 
             // Full project view
-            container.removeAttribute('class');
 
-            wrapper.style.maxWidth = "750px";
+            container.removeAttribute(
+                'class'
+            );
+
+
+            wrapper.style.maxWidth =
+                "750px";
 
 
             // Navigation
+
             nav.innerHTML = `
 
-                <a href="projects.html"
-                   class="back-btn">
+                <a
+                    href="projects.html"
+                    class="back-btn"
+                >
 
                     <i class="fas fa-arrow-left"></i>
+
                     back to all projects
 
                 </a>
+
             `;
 
 
-            headerArea.style.display = 'none';
+            headerArea.style.display =
+                'none';
 
 
             const url =
@@ -308,20 +504,28 @@
 
             try {
 
-                const response = await fetch(url);
+                const response =
+                    await fetch(url);
+
 
                 if (!response.ok)
-                    throw new Error("Entry missing");
+                    throw new Error(
+                        "Entry missing"
+                    );
 
 
-                const issue = await response.json();
+                const issue =
+                    await response.json();
 
 
-                container.innerHTML = '';
+                container.innerHTML =
+                    '';
 
 
                 const projectDetails =
-                    document.createElement('article');
+                    document.createElement(
+                        'article'
+                    );
 
 
                 projectDetails.className =
@@ -329,10 +533,18 @@
 
 
                 // Clean full view
-                projectDetails.style.background = 'none';
-                projectDetails.style.border = 'none';
-                projectDetails.style.boxShadow = 'none';
-                projectDetails.style.padding = '0';
+
+                projectDetails.style.background =
+                    'none';
+
+                projectDetails.style.border =
+                    'none';
+
+                projectDetails.style.boxShadow =
+                    'none';
+
+                projectDetails.style.padding =
+                    '0';
 
 
                 const parsedContent =
@@ -344,11 +556,13 @@
 
                 projectDetails.innerHTML = `
 
-                    <h1 class="post-title"
+                    <h1
+                        class="post-title"
                         style="
                             font-size:2.3rem;
                             margin-bottom:30px;
-                        ">
+                        "
+                    >
 
                         ${issue.title}
 
@@ -364,30 +578,42 @@
                 `;
 
 
-                container.appendChild(projectDetails);
+                container.appendChild(
+                    projectDetails
+                );
 
 
             } catch (error) {
 
                 console.error(error);
 
+
                 container.innerHTML = `
 
                     <p class="no-posts">
 
-                        Oops! This project detail could not be loaded.
+                        Oops! This project detail
+                        could not be loaded.
 
-                        <a href="projects.html"
-                           style="color:var(--accent-color);">
+                        <a
+                            href="projects.html"
+                            style="
+                                color:var(--accent-color);
+                            "
+                        >
 
                             Return to projects grid
 
                         </a>
 
                     </p>
+
                 `;
+
             }
+
         }
+
 
 
         initProjects();
@@ -398,4 +624,5 @@
     <script src="script.js"></script>
 
 </body>
+
 </html>
