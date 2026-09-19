@@ -9,22 +9,22 @@
 
     <title>About Me | Kaagaaz</title>
 
+    <meta name="description" content="Kaagaaz — future cybersecurity specialist, professional daydreamer. Tech, manga, music and gacha luck.">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
     <!-- Font Awesome -->
-    <link rel="stylesheet" 
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
     <!-- CSS -->
-    <link rel="stylesheet" href="style.css?v=2">
-
+    <link rel="stylesheet" href="style.css?v=3">
 
 </head>
 
 
-
 <body>
-
 
 <!-- Prevent theme flicker -->
 <script>
@@ -36,16 +36,11 @@ if(localStorage.getItem("theme") !== "light"){
 </script>
 
 
-
-
-
 <header class="navbar">
-
 
     <!-- ==========================
          HOME PAGE MUSIC SYSTEM
          ========================== -->
-
 
     <audio id="bgm" loop>
 
@@ -53,202 +48,160 @@ if(localStorage.getItem("theme") !== "light"){
 
     </audio>
 
+    <button id="music-toggle" class="music-btn" aria-label="Toggle music">
 
+        <i class="fa-solid fa-headphones"></i>
 
-   <button id="music-toggle" class="music-btn">
-
-    <i class="fa-solid fa-headphones"></i>
-
-   </button> 
-
-
-
-
-
+    </button>
 
 
     <!-- Navigation -->
 
+    <nav class="nav-links-group">
 
-    <div class="nav-links-group">
-
-
-
-        <a href="index.html" class="nav-item">
+        <a href="index.html" class="nav-item active">
             ABOUT ME
         </a>
-
-
-
-        <a href="blog.html" class="nav-item">
-            BLOG
-        </a>
-
-
 
         <a href="projects.html" class="nav-item">
             PROJECTS
         </a>
 
-
-
-
+        <a href="blog.html" class="nav-item">
+            BLOG
+        </a>
 
         <!-- Theme Button -->
 
-        <button id="theme-toggle" class="theme-btn">
+        <button id="theme-toggle" class="theme-btn" aria-label="Toggle theme">
 
             <i class="fa-solid fa-moon"></i>
 
         </button>
 
-
-
-    </div>
-
-
+    </nav>
 
 </header>
 
 
+<main>
 
 
+    <!-- ==========================
+         ABOUT SECTION
+         ========================== -->
 
+    <section id="about" class="about-section">
 
+        <div class="accent-shape" aria-hidden="true"></div>
 
+        <div class="content">
 
+            <p class="intro">
+                Welcome here, I'm
+            </p>
 
-<!-- Main Profile Section -->
+            <h1 class="name">
+                Kaagaaz
+            </h1>
 
+            <p class="bio">
+                Future cybersecurity specialist by day, professional daydreamer by night.
+                I run entirely on high-voltage coffee and pure luck.
+                When I'm not learning how to protect the digital frontier,
+                you’ll find me searching for peace in my favorite escapes:
+            </p>
 
-<div class="profile-container">
+            <div class="escapes">
 
+                <div class="escape-card">
 
-    <div class="accent-shape"></div>
+                    <span class="escape-label">Deep Dives</span>
 
+                    <p>Getting lost in manga, novels, and anime.</p>
 
+                </div>
 
-    <div class="content">
+                <div class="escape-card">
 
+                    <span class="escape-label">Soundtrack</span>
 
+                    <p>Music always on, volume up.</p>
 
-        <p class="intro">
+                </div>
 
-            Welcome here, I'm
+                <div class="escape-card">
 
-        </p>
+                    <span class="escape-label">The Grind</span>
 
+                    <p>Testing my luck (and crying over pity pulls) in gacha games.</p>
 
+                </div>
 
+            </div>
 
+            <p class="bio-outro">
+                Just a tech-minded soul finding quiet moments in fictional worlds.
+                Let's chat tech or trade gacha luck!
+            </p>
 
-        <h1 class="name">
 
-            Kaagaaz
+            <!-- Social Links -->
 
-        </h1>
+            <div class="social-icons">
 
+                <a href="https://discord.com/users/1470676347805503501"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   title="Discord">
+                    <i class="fab fa-discord"></i>
+                </a>
 
+                <a href="https://www.instagram.com/kaagaaz_the_bukky"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   title="Instagram">
+                    <i class="fab fa-instagram"></i>
+                </a>
 
+                <a href="https://x.com/The_kaagaaz"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   title="X">
+                    <i class="fab fa-x-twitter"></i>
+                </a>
 
+                <a href="https://github.com/Kaagaaz"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   title="GitHub">
+                    <i class="fab fa-github"></i>
+                </a>
 
-
-
-        <p class="bio">
-
-            Future cybersecurity specialist by day, professional daydreamer by night.
-            I run entirely on high-voltage coffee and pure luck.
-
-            When I'm not learning how to protect the digital frontier,
-            you’ll find me searching for peace in my favorite escapes:
-
-            Deep Dives: Getting lost in manga, novels, and anime.
-
-            Soundtrack: Music always on, volume up.
-
-            The Grind: Testing my luck (and crying over pity pulls) in gacha games.
-
-            Just a tech-minded soul finding quiet moments in fictional worlds.
-
-            Let's chat tech or trade gacha luck!
-
-        </p>
-
-
-
-
-
-
-
-        <!-- Social Links -->
-
-
-        <div class="social-icons">
-
-
-
-            <a href="https://discord.com/users/1470676347805503501"
-   target="_blank"
-   rel="noopener noreferrer"
-   title="Discord">
-    <i class="fab fa-discord"></i>
-            </a>
-
-
-
-
-
-            <a href="https://www.instagram.com/kaagaaz_the_bukky"
-            target="_blank"
-            rel="noopener noreferrer"
-            title="Instagram">
-
-                <i class="fab fa-instagram"></i>
-
-            </a>
-
-
-
-
-
-            <a href="https://x.com/The_kaagaaz"
-            target="_blank"
-            rel="noopener noreferrer"
-            title="X">
-
-                <i class="fab fa-x-twitter"></i>
-
-            </a>
-
-<a href="https://github.com/Kaagaaz"
-target="_blank"
-rel="noopener noreferrer"
-title="GitHub">
-
-    <i class="fab fa-github"></i>
-
-</a>
+            </div>
 
         </div>
 
+    </section>
 
 
-    </div>
+</main>
 
 
+<footer class="site-footer">
 
-</div>
+    <p>
+        © 2026 Kaagaaz · blogs &amp; projects stream live from
+        <a href="https://github.com/Kaagaaz/Kaagaaz.github.io/issues"
+           target="_blank"
+           rel="noopener noreferrer">GitHub issues</a>
+    </p>
 
-
-
-
-
+</footer>
 
 
 <!-- JavaScript -->
-
-<script src="script.js"></script>
-
+<script src="script.js?v=3"></script>
 
 
 </body>

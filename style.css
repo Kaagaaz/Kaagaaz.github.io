@@ -1,93 +1,194 @@
 /* =========================================================
-   PROJECTS PAGE ONLY
+   KAAGAAZ.GITHUB.IO — CYBER DREAMSCAPE
+   Single page: About / Projects / Blog
+   Dark mode is default (kept from the old site).
    ========================================================= */
 
 
 /* =========================================================
-   1. PROJECT PAGE BASE
+   1. THEME TOKENS
    ========================================================= */
 
-.projects-layout {
+:root {
 
-    display: block;
+    --bg: #f4f6fd;
 
-    min-height: 100vh;
+    --bg-2: #e9edfb;
 
-    padding: 60px 20px;
+    --text-color: #1c2340;
+
+    --text-soft: rgba(28, 35, 64, 0.72);
+
+    --accent-color: #0091d5;
+
+    --accent-soft: rgba(0, 145, 213, 0.14);
+
+    --nav-bg: rgba(255, 255, 255, 0.75);
+
+    --card-bg: rgba(255, 255, 255, 0.72);
+
+    --card-border: rgba(28, 35, 64, 0.1);
+
+    --grid-line: rgba(28, 35, 64, 0.05);
+
+    --toggle-bg: rgba(255, 255, 255, 0.85);
+
+    --toggle-text: #1c2340;
+
+    --shadow: 0 10px 30px rgba(28, 35, 64, 0.08);
+
+    --wing-a: rgba(0, 191, 255, 0.55);
+
+    --wing-b: rgba(186, 112, 255, 0.45);
+
+}
+
+
+body.dark-mode {
+
+    --bg: #06070f;
+
+    --bg-2: #0b0f22;
+
+    --text-color: #e6ecff;
+
+    --text-soft: rgba(230, 236, 255, 0.68);
+
+    --accent-color: #00bfff;
+
+    --accent-soft: rgba(0, 191, 255, 0.12);
+
+    --nav-bg: rgba(6, 7, 15, 0.72);
+
+    --card-bg: rgba(255, 255, 255, 0.035);
+
+    --card-border: rgba(255, 255, 255, 0.07);
+
+    --grid-line: rgba(0, 191, 255, 0.05);
+
+    --toggle-bg: rgba(255, 255, 255, 0.06);
+
+    --toggle-text: #e6ecff;
+
+    --shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
+
+    --wing-a: rgba(0, 191, 255, 0.8);
+
+    --wing-b: rgba(186, 112, 255, 0.6);
+
+}
+
+
+/* =========================================================
+   2. BASE
+   ========================================================= */
+
+* {
+
+    margin: 0;
+
+    padding: 0;
+
+    box-sizing: border-box;
+
+}
+
+
+html {
+
+    scroll-behavior: smooth;
+
+}
+
+
+body {
+
+    font-family: "Space Grotesk", sans-serif;
+
+    color: var(--text-color);
+
+    line-height: 1.6;
 
     overflow-x: hidden;
 
-}
+    background-color: var(--bg);
 
+    background-image:
 
-/*
- * Everything on the Projects page uses Orbitron.
- *
- * This is intentionally scoped to
- * .projects-layout so it cannot affect
- * index.html or blog.html.
- */
+        linear-gradient(var(--grid-line) 1px, transparent 1px),
 
-.projects-layout,
-.projects-layout * {
+        linear-gradient(90deg, var(--grid-line) 1px, transparent 1px),
 
-    font-family: "Orbitron", sans-serif;
+        radial-gradient(ellipse 80% 50% at 15% -10%, var(--accent-soft), transparent 60%),
 
-}
+        radial-gradient(ellipse 60% 45% at 100% 110%, var(--wing-b), transparent 55%),
 
+        linear-gradient(180deg, var(--bg) 0%, var(--bg-2) 100%);
 
-/* =========================================================
-   2. PROJECT PAGE CONTAINER
-   ========================================================= */
+    background-size: 42px 42px, 42px 42px, auto, auto, auto;
 
-.projects-page {
+    background-attachment: fixed;
 
-    width: 100%;
-
-    min-height: calc(100vh - 120px);
+    transition: background-color 0.5s ease, color 0.5s ease;
 
 }
 
 
-.projects-container {
+a {
 
-    width: 100%;
+    color: var(--accent-color);
 
-    max-width: 900px;
-
-    margin: 0 auto;
-
-}
-
-
-.projects-container.single-project-mode {
-
-    max-width: 750px;
+    text-decoration: none;
 
 }
 
 
 /* =========================================================
-   3. THEME BUTTON
+   3. NAVBAR + BUTTONS
    ========================================================= */
 
-.projects-layout #theme-toggle {
+.navbar {
 
     position: fixed;
 
-    top: 20px;
+    top: 0;
 
-    right: 25px;
+    left: 0;
+
+    right: 0;
 
     z-index: 100;
 
-    width: 40px;
+    display: flex;
 
-    height: 40px;
+    align-items: center;
+
+    justify-content: space-between;
+
+    padding: 14px 28px;
+
+    background: var(--nav-bg);
+
+    backdrop-filter: blur(14px);
+
+    -webkit-backdrop-filter: blur(14px);
+
+    border-bottom: 1px solid var(--card-border);
+
+}
+
+
+.music-btn,
+
+.theme-btn {
+
+    width: 42px;
+
+    height: 42px;
 
     border-radius: 50%;
 
-    border: none;
+    border: 1px solid var(--card-border);
 
     cursor: pointer;
 
@@ -95,234 +196,561 @@
 
     color: var(--toggle-text);
 
+    font-size: 1rem;
+
     display: flex;
 
     align-items: center;
 
     justify-content: center;
 
-}
+    transition:
 
+        transform 0.25s ease,
 
-/* =========================================================
-   4. NAVIGATION
-   ========================================================= */
+        box-shadow 0.25s ease,
 
-.project-nav {
-
-    width: 100%;
-
-    margin-bottom: 40px;
+        color 0.25s ease;
 
 }
 
 
-.project-back-btn {
+.music-btn:hover,
 
-    display: inline-flex;
+.theme-btn:hover {
+
+    color: var(--accent-color);
+
+    transform: translateY(-2px);
+
+    box-shadow: 0 0 18px var(--accent-soft);
+
+}
+
+
+.music-btn.playing {
+
+    color: var(--accent-color);
+
+    box-shadow: 0 0 14px var(--accent-soft);
+
+    animation: pulse 2.2s ease-in-out infinite;
+
+}
+
+
+@keyframes pulse {
+
+    0%, 100% { box-shadow: 0 0 10px var(--accent-soft); }
+
+    50%      { box-shadow: 0 0 22px var(--accent-soft); }
+
+}
+
+
+.nav-links-group {
+
+    display: flex;
 
     align-items: center;
 
-    gap: 8px;
+    gap: 22px;
+
+}
+
+
+/* Pages without the music button keep the nav aligned right */
+
+.nav-full {
+
+    margin-left: auto;
+
+}
+
+
+.nav-item {
+
+    font-family: "Orbitron", sans-serif;
+
+    font-size: 0.72rem;
+
+    font-weight: 600;
+
+    letter-spacing: 2.5px;
+
+    color: var(--text-soft);
+
+    position: relative;
+
+    padding: 6px 2px;
+
+    transition: color 0.25s ease;
+
+}
+
+
+.nav-item::after {
+
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+
+    bottom: 0;
+
+    width: 0;
+
+    height: 2px;
+
+    background: var(--accent-color);
+
+    box-shadow: 0 0 8px var(--accent-color);
+
+    transition: width 0.3s ease;
+
+}
+
+
+.nav-item:hover,
+
+.nav-item.active {
 
     color: var(--text-color);
 
-    text-decoration: none;
-
-    font-size: 0.9rem;
-
-    font-weight: 500;
-
-    letter-spacing: 0.3px;
-
-    transition:
-        color 0.2s ease,
-        transform 0.2s ease;
-
 }
 
 
-.project-back-btn:hover {
+.nav-item:hover::after,
 
-    color: var(--accent-color);
+.nav-item.active::after {
 
-    transform: translateX(-3px);
-
-}
-
-
-.project-back-btn i {
-
-    font-family:
-        "Font Awesome 6 Free" !important;
-
-    font-weight: 900;
+    width: 100%;
 
 }
 
 
 /* =========================================================
-   5. PROJECT HEADER
+   4. ABOUT SECTION
    ========================================================= */
 
-.projects-header {
+main {
 
-    margin-bottom: 50px;
-
-}
-
-
-.projects-header h1 {
-
-    margin: 0 0 12px 0;
-
-    color: var(--accent-color);
-
-    font-size: 3.5rem;
-
-    font-weight: 700;
-
-    line-height: 1.15;
-
-    letter-spacing: 1px;
+    position: relative;
 
 }
 
 
-.projects-header p {
+.about-section {
 
-    margin: 0;
+    position: relative;
+
+    min-height: 100vh;
+
+    display: flex;
+
+    align-items: center;
+
+    padding: 120px 24px 80px;
+
+    overflow: hidden;
+
+}
+
+
+.accent-shape {
+
+    position: absolute;
+
+    top: 12%;
+
+    right: -140px;
+
+    width: 420px;
+
+    height: 420px;
+
+    border-radius: 50%;
+
+    background:
+
+        radial-gradient(circle at 35% 35%, var(--accent-soft), transparent 65%),
+
+        conic-gradient(from 90deg, var(--accent-soft), transparent 40%, var(--wing-b) 75%, transparent);
+
+    filter: blur(2px);
+
+    opacity: 0.9;
+
+    animation: drift 14s ease-in-out infinite alternate;
+
+    pointer-events: none;
+
+}
+
+
+@keyframes drift {
+
+    from { transform: translateY(-25px) rotate(0deg); }
+
+    to   { transform: translateY(30px) rotate(35deg); }
+
+}
+
+
+.content {
+
+    position: relative;
+
+    width: 100%;
+
+    max-width: 760px;
+
+    margin: 0 auto;
+
+}
+
+
+.intro {
+
+    font-family: "JetBrains Mono", monospace;
 
     font-size: 0.95rem;
 
-    font-weight: 400;
+    letter-spacing: 1px;
 
-    opacity: 0.75;
+    color: var(--text-soft);
 
-    line-height: 1.7;
+    margin-bottom: 10px;
+
+}
+
+
+.intro::before {
+
+    content: "> ";
+
+    color: var(--accent-color);
+
+}
+
+
+.name {
+
+    font-family: "Orbitron", sans-serif;
+
+    font-size: clamp(2.8rem, 8vw, 5.2rem);
+
+    font-weight: 800;
+
+    letter-spacing: 3px;
+
+    line-height: 1.1;
+
+    color: var(--text-color);
+
+    text-shadow: 0 0 30px var(--accent-soft);
+
+    margin-bottom: 24px;
+
+}
+
+
+.name::after {
+
+    content: "_";
+
+    color: var(--accent-color);
+
+    animation: blink 1.2s steps(1) infinite;
+
+}
+
+
+@keyframes blink {
+
+    50% { opacity: 0; }
+
+}
+
+
+.bio {
+
+    font-size: 1.02rem;
+
+    color: var(--text-soft);
+
+    max-width: 620px;
+
+    margin-bottom: 28px;
+
+}
+
+
+.escapes {
+
+    display: grid;
+
+    grid-template-columns: repeat(3, 1fr);
+
+    gap: 18px;
+
+    margin-bottom: 28px;
+
+}
+
+
+.escape-card {
+
+    background: var(--card-bg);
+
+    border: 1px solid var(--card-border);
+
+    border-left: 3px solid var(--accent-color);
+
+    border-radius: 14px;
+
+    padding: 18px;
+
+    backdrop-filter: blur(8px);
+
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+
+}
+
+
+.escape-card:hover {
+
+    transform: translateY(-4px);
+
+    box-shadow: var(--shadow);
+
+}
+
+
+.escape-label {
+
+    display: block;
+
+    font-family: "JetBrains Mono", monospace;
+
+    font-size: 0.68rem;
+
+    letter-spacing: 2px;
+
+    text-transform: uppercase;
+
+    color: var(--accent-color);
+
+    margin-bottom: 8px;
+
+}
+
+
+.escape-card p {
+
+    font-size: 0.85rem;
+
+    color: var(--text-soft);
+
+    line-height: 1.6;
+
+}
+
+
+.bio-outro {
+
+    font-size: 1.02rem;
+
+    color: var(--text-soft);
+
+    max-width: 620px;
+
+    margin-bottom: 34px;
+
+}
+
+
+/* Social Links */
+
+.social-icons {
+
+    display: flex;
+
+    gap: 16px;
+
+}
+
+
+.social-icons a {
+
+    width: 48px;
+
+    height: 48px;
+
+    border-radius: 50%;
+
+    border: 1px solid var(--card-border);
+
+    background: var(--card-bg);
+
+    color: var(--text-color);
+
+    font-size: 1.2rem;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    transition:
+
+        transform 0.25s ease,
+
+        color 0.25s ease,
+
+        box-shadow 0.25s ease;
+
+}
+
+
+.social-icons a:hover {
+
+    color: var(--accent-color);
+
+    transform: translateY(-4px) scale(1.05);
+
+    box-shadow: 0 0 20px var(--accent-soft);
 
 }
 
 
 /* =========================================================
-   6. PROJECT GRID
+   5. FEED PAGES (PROJECTS + BLOG)
    ========================================================= */
+
+.feed-wrap {
+
+    min-height: 100vh;
+
+}
+
+
+/* =========================================================
+   5b. FEED SECTIONS
+   ========================================================= */
+
+.feed-section {
+
+    position: relative;
+
+    padding: 90px 24px 90px;
+
+    max-width: 1000px;
+
+    margin: 0 auto;
+
+    scroll-margin-top: 70px;
+
+}
+
+
+.section-head {
+
+    margin-bottom: 44px;
+
+}
+
+
+.section-kicker {
+
+    font-family: "JetBrains Mono", monospace;
+
+    font-size: 0.72rem;
+
+    letter-spacing: 3px;
+
+    color: var(--accent-color);
+
+    opacity: 0.85;
+
+    margin-bottom: 10px;
+
+}
+
+
+.section-title {
+
+    font-family: "Orbitron", sans-serif;
+
+    font-size: clamp(2rem, 5vw, 3rem);
+
+    font-weight: 700;
+
+    letter-spacing: 1px;
+
+    margin-bottom: 10px;
+
+}
+
+
+.section-sub {
+
+    color: var(--text-soft);
+
+    font-size: 0.95rem;
+
+}
+
+
+.feed-message,
+
+.no-posts {
+
+    font-family: "JetBrains Mono", monospace;
+
+    font-size: 0.9rem;
+
+    color: var(--text-soft);
+
+    opacity: 0.8;
+
+}
+
+
+/* ---------- Project cards ---------- */
 
 .projects-grid {
 
     display: grid;
 
-    grid-template-columns:
-        repeat(
-            auto-fill,
-            minmax(300px, 1fr)
-        );
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
 
-    gap: 30px;
-
-    width: 100%;
+    gap: 26px;
 
 }
 
-
-.projects-empty {
-
-    width: 100%;
-
-    display: flex;
-
-    flex-direction: column;
-
-    align-items: flex-start;
-
-    gap: 25px;
-
-}
-
-
-.projects-message {
-
-    font-size: 0.9rem;
-
-    line-height: 1.7;
-
-    opacity: 0.7;
-
-}
-
-
-/* =========================================================
-   7. PROJECT CARD
-   ========================================================= */
 
 .project-card {
 
     position: relative;
 
-    min-height: 250px;
+    min-height: 240px;
 
-    background-color:
-        rgba(255, 255, 255, 0.15);
+    background: var(--card-bg);
 
-    border: 1px solid
-        rgba(0, 0, 0, 0.05);
+    border: 1px solid var(--card-border);
 
-    border-left:
-        3px solid var(--accent-color);
+    border-left: 3px solid var(--accent-color);
 
     border-radius: 16px;
 
-    padding: 25px;
+    padding: 24px;
 
-    text-align: left;
+    backdrop-filter: blur(8px);
 
-    box-shadow:
-        0 4px 15px
-        rgba(0, 0, 0, 0.02);
-
-    clip-path:
-        polygon(
-            0 0,
-            100% 0,
-            100% calc(100% - 15px),
-            calc(100% - 15px) 100%,
-            0 100%
-        );
-
-    transition:
-        transform 0.2s
-        cubic-bezier(0.25, 1, 0.5, 1),
-        box-shadow 0.2s;
-
-}
-
-
-body.dark-mode .project-card {
-
-    background-color:
-        rgba(255, 255, 255, 0.03);
-
-    border-color:
-        rgba(255, 255, 255, 0.05);
-
-    border-left:
-        3px solid var(--accent-color);
-
-}
-
-
-.project-card:hover {
-
-    transform: translateY(-4px);
-
-    box-shadow:
-        0 8px 25px
-        rgba(0, 191, 255, 0.12);
-
-}
-
-
-.project-card-inner {
+    clip-path: polygon(0 0, 100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0 100%);
 
     display: flex;
 
@@ -330,14 +758,25 @@ body.dark-mode .project-card {
 
     justify-content: space-between;
 
-    min-height: 200px;
+    gap: 18px;
+
+    transition:
+
+        transform 0.25s cubic-bezier(0.25, 1, 0.5, 1),
+
+        box-shadow 0.25s ease;
 
 }
 
 
-/* =========================================================
-   8. CARD TOP SYSTEM BAR
-   ========================================================= */
+.project-card:hover {
+
+    transform: translateY(-5px);
+
+    box-shadow: 0 10px 28px var(--accent-soft);
+
+}
+
 
 .project-card-top {
 
@@ -349,15 +788,13 @@ body.dark-mode .project-card {
 
     gap: 10px;
 
-    margin-bottom: 20px;
+    font-family: "JetBrains Mono", monospace;
 
-    font-size: 0.65rem;
+    font-size: 0.62rem;
 
-    line-height: 1.4;
+    letter-spacing: 1px;
 
-    letter-spacing: 0.5px;
-
-    opacity: 0.55;
+    color: var(--text-soft);
 
 }
 
@@ -368,33 +805,26 @@ body.dark-mode .project-card {
 
     letter-spacing: 2px;
 
-}
-
-
-/* =========================================================
-   9. CARD CONTENT
-   ========================================================= */
-
-.project-card-content {
-
-    flex: 1;
+    color: var(--accent-color);
 
 }
 
 
 .project-card h2 {
 
-    margin: 0 0 12px 0;
+    font-family: "Orbitron", sans-serif;
 
-    color: var(--accent-color);
-
-    font-size: 1.25rem;
+    font-size: 1.12rem;
 
     font-weight: 600;
 
-    line-height: 1.4;
-
     letter-spacing: 0.3px;
+
+    line-height: 1.45;
+
+    color: var(--accent-color);
+
+    margin-bottom: 10px;
 
     overflow-wrap: anywhere;
 
@@ -403,198 +833,287 @@ body.dark-mode .project-card {
 
 .project-card-body {
 
-    margin: 0 0 25px 0;
+    font-size: 0.84rem;
 
-    font-size: 0.82rem;
-
-    font-weight: 400;
+    color: var(--text-soft);
 
     line-height: 1.7;
 
-    opacity: 0.8;
+    margin-bottom: 20px;
+
+    flex: 1;
 
 }
 
 
-/* =========================================================
-   10. VIEW BUTTON
-   ========================================================= */
+.project-view-btn,
 
-.project-view-btn {
+.btn {
 
     display: inline-flex;
 
     align-items: center;
 
-    justify-content: center;
-
     align-self: flex-start;
 
-    width: fit-content;
+    padding: 8px 20px;
 
-    padding: 8px 18px;
-
-    background-color:
-        var(--accent-color);
+    background: var(--accent-color);
 
     color: #ffffff;
 
-    text-decoration: none;
+    font-family: "Orbitron", sans-serif;
 
-    font-size: 0.78rem;
+    font-size: 0.72rem;
 
-    font-weight: 500;
+    font-weight: 600;
+
+    letter-spacing: 1px;
 
     border-radius: 25px;
 
-    clip-path:
-        polygon(
-            0 0,
-            93% 0,
-            100% 30%,
-            100% 100%,
-            7% 100%,
-            0 70%
-        );
+    clip-path: polygon(0 0, 93% 0, 100% 30%, 100% 100%, 7% 100%, 0 70%);
 
-    transition:
-        transform 0.2s ease,
-        opacity 0.2s ease,
-        box-shadow 0.2s ease;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
 
 }
 
 
-.project-view-btn:hover {
+.project-view-btn:hover,
 
-    transform:
-        translateY(-2px)
-        scale(1.02);
+.btn:hover {
 
-    opacity: 0.9;
+    transform: translateY(-2px);
 
-    box-shadow:
-        0 0 15px
-        rgba(0, 191, 255, 0.3);
+    box-shadow: 0 0 16px var(--accent-soft);
+
+}
+
+
+/* ---------- Blog cards ---------- */
+
+.blog-list {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 20px;
+
+}
+
+
+.blog-post {
+
+    background: var(--card-bg);
+
+    border: 1px solid var(--card-border);
+
+    border-left: 3px solid var(--accent-color);
+
+    border-radius: 14px;
+
+    padding: 24px 26px;
+
+    backdrop-filter: blur(8px);
+
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+
+}
+
+
+.blog-post:hover {
+
+    transform: translateX(6px);
+
+    box-shadow: var(--shadow);
+
+}
+
+
+.post-title {
+
+    font-family: "Orbitron", sans-serif;
+
+    font-size: 1.25rem;
+
+    font-weight: 600;
+
+    color: var(--accent-color);
+
+    margin-bottom: 6px;
+
+    overflow-wrap: anywhere;
+
+}
+
+
+.post-date {
+
+    font-family: "JetBrains Mono", monospace;
+
+    font-size: 0.72rem;
+
+    letter-spacing: 1px;
+
+    color: var(--text-soft);
+
+    margin-bottom: 14px;
+
+}
+
+
+.post-snippet {
+
+    font-family: "JetBrains Mono", monospace;
+
+    font-size: 0.84rem;
+
+    line-height: 1.65;
+
+    color: var(--text-soft);
+
+    margin-bottom: 20px;
 
 }
 
 
 /* =========================================================
-   11. SINGLE PROJECT VIEW
+   6. SINGLE VIEWS (FULL POST / FULL PROJECT)
    ========================================================= */
 
-.single-project-container {
+.single-view {
 
-    width: 100%;
+    max-width: 750px;
 
-}
+    margin: 0 auto;
 
-
-.full-project {
-
-    width: 100%;
+    scroll-margin-top: 90px;
 
 }
 
 
-.full-project-title {
+.single-view[hidden] {
 
-    margin: 0 0 30px 0;
+    display: none;
 
-    color: var(--accent-color);
+}
 
-    font-size: 2.3rem;
+
+.full-title {
+
+    font-family: "Orbitron", sans-serif;
+
+    font-size: clamp(1.6rem, 4vw, 2.3rem);
 
     font-weight: 700;
 
     line-height: 1.35;
 
-    overflow-wrap: anywhere;
+    color: var(--accent-color);
 
-}
-
-
-.full-project-body {
-
-    font-size: 0.92rem;
-
-    line-height: 1.8;
+    margin-bottom: 8px;
 
     overflow-wrap: anywhere;
 
 }
 
 
-.full-project-body p {
+.back-link {
 
-    margin: 0 0 18px 0;
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    font-family: "JetBrains Mono", monospace;
+
+    font-size: 0.82rem;
+
+    color: var(--text-soft);
+
+    margin-bottom: 30px;
+
+    transition: color 0.2s ease, transform 0.2s ease;
 
 }
 
 
-.full-project-body h1,
-.full-project-body h2,
-.full-project-body h3,
-.full-project-body h4 {
+.back-link:hover {
 
     color: var(--accent-color);
 
-    margin-top: 30px;
+    transform: translateX(-3px);
 
-    margin-bottom: 15px;
+}
+
+
+.post-body {
+
+    font-size: 0.95rem;
+
+    line-height: 1.8;
+
+    color: var(--text-color);
+
+    overflow-wrap: anywhere;
+
+}
+
+
+.post-body p {
+
+    margin-bottom: 18px;
+
+}
+
+
+.post-body h1,
+
+.post-body h2,
+
+.post-body h3,
+
+.post-body h4 {
+
+    font-family: "Orbitron", sans-serif;
+
+    color: var(--accent-color);
+
+    margin: 30px 0 15px;
 
     line-height: 1.4;
 
 }
 
 
-.full-project-body h1 {
+.post-body h1 { font-size: 1.7rem; }
 
-    font-size: 1.8rem;
+.post-body h2 { font-size: 1.45rem; }
 
-}
+.post-body h3 { font-size: 1.2rem; }
 
-
-.full-project-body h2 {
-
-    font-size: 1.5rem;
-
-}
+.post-body h4 { font-size: 1.05rem; }
 
 
-.full-project-body h3 {
+.post-body ul,
 
-    font-size: 1.25rem;
+.post-body ol {
+
+    margin: 0 0 20px 25px;
 
 }
 
 
-.full-project-body ul,
-.full-project-body ol {
-
-    margin:
-
-        0 0 20px 25px;
-
-}
-
-
-.full-project-body li {
+.post-body li {
 
     margin-bottom: 8px;
 
 }
 
 
-.full-project-body a {
-
-    color: var(--accent-color);
-
-}
-
-
-.full-project-body img {
+.post-body img {
 
     display: block;
 
@@ -604,29 +1123,27 @@ body.dark-mode .project-card {
 
     margin: 25px auto;
 
-    border-radius: 8px;
+    border-radius: 10px;
 
 }
 
 
-.full-project-body blockquote {
+.post-body blockquote {
 
     margin: 20px 0;
 
     padding: 12px 18px;
 
-    border-left:
-        3px solid var(--accent-color);
+    border-left: 3px solid var(--accent-color);
 
-    background:
-        rgba(255, 255, 255, 0.04);
+    background: var(--accent-soft);
 
-    opacity: 0.85;
+    border-radius: 0 8px 8px 0;
 
 }
 
 
-.full-project-body pre {
+.post-body pre {
 
     width: 100%;
 
@@ -638,175 +1155,320 @@ body.dark-mode .project-card {
 
     border-radius: 10px;
 
-    background:
-        rgba(0, 0, 0, 0.12);
+    background: rgba(0, 0, 0, 0.35);
 
-    font-family:
-        "JetBrains Mono",
-        monospace !important;
+    border: 1px solid var(--card-border);
 
-}
+    font-family: "JetBrains Mono", monospace;
 
-
-.full-project-body code {
-
-    font-family:
-        "JetBrains Mono",
-        monospace !important;
+    font-size: 0.84rem;
 
 }
 
 
-.full-project-body :not(pre) > code {
+body:not(.dark-mode) .post-body pre {
 
-    padding: 2px 5px;
+    background: rgba(28, 35, 64, 0.06);
+
+}
+
+
+.post-body code {
+
+    font-family: "JetBrains Mono", monospace;
+
+}
+
+
+.post-body :not(pre) > code {
+
+    padding: 2px 6px;
 
     border-radius: 4px;
 
-    background:
-        rgba(127, 127, 127, 0.15);
+    background: var(--accent-soft);
 
 }
 
 
 /* =========================================================
-   12. DARK MODE SINGLE PROJECT
+   7. FOOTER
    ========================================================= */
 
-body.dark-mode .full-project-body blockquote {
+.site-footer {
 
-    background:
-        rgba(255, 255, 255, 0.03);
+    padding: 30px 24px 40px;
+
+    text-align: center;
+
+    font-family: "JetBrains Mono", monospace;
+
+    font-size: 0.75rem;
+
+    color: var(--text-soft);
+
+    border-top: 1px solid var(--card-border);
+
+}
+
+
+.site-footer a {
+
+    color: var(--accent-color);
 
 }
 
 
 /* =========================================================
-   13. MOBILE
+   8. THEME ANIMATION — BLUE FLASH + BUTTERFLIES
    ========================================================= */
+
+.theme-animation {
+
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 9999;
+
+    pointer-events: none;
+
+    overflow: hidden;
+
+    background:
+
+        radial-gradient(circle at 50% 45%, rgba(0, 191, 255, 0.16), transparent 55%);
+
+    animation: flashFade 2.4s ease forwards;
+
+}
+
+
+@keyframes flashFade {
+
+    0%   { opacity: 0; }
+
+    20%  { opacity: 1; }
+
+    100% { opacity: 0; }
+
+}
+
+
+.butterfly {
+
+    position: absolute;
+
+    left: 50%;
+
+    top: 50%;
+
+    width: calc(16px * var(--size, 1));
+
+    height: calc(14px * var(--size, 1));
+
+    transform: translate(-50%, -50%);
+
+    opacity: 0;
+
+    animation: flutter 2.4s cubic-bezier(0.2, 0.7, 0.3, 1) forwards;
+
+}
+
+
+@keyframes flutter {
+
+    0% {
+
+        opacity: 0;
+
+        transform: translate(-50%, -50%) scale(0.2) rotate(0deg);
+
+    }
+
+    15% {
+
+        opacity: 1;
+
+    }
+
+    100% {
+
+        opacity: 0;
+
+        transform:
+
+            translate(calc(-50% + var(--x, 0px)), calc(-50% + var(--y, 0px)))
+
+            scale(1)
+
+            rotate(20deg);
+
+    }
+
+}
+
+
+.butterfly .wing {
+
+    position: absolute;
+
+    top: 0;
+
+    width: calc(9px * var(--size, 1));
+
+    height: calc(14px * var(--size, 1));
+
+    background: linear-gradient(135deg, var(--wing-a), var(--wing-b));
+
+    border-radius: 90% 10% 90% 10%;
+
+    animation: flap 0.28s ease-in-out infinite alternate;
+
+}
+
+
+.butterfly .wing.left {
+
+    left: 0;
+
+    transform-origin: right center;
+
+    border-radius: 10% 90% 10% 90%;
+
+}
+
+
+.butterfly .wing.right {
+
+    right: 0;
+
+    transform-origin: left center;
+
+}
+
+
+@keyframes flap {
+
+    from { transform: rotateY(15deg); }
+
+    to   { transform: rotateY(65deg); }
+
+}
+
+
+.butterfly .body {
+
+    position: absolute;
+
+    left: 50%;
+
+    top: 10%;
+
+    width: 2px;
+
+    height: 80%;
+
+    background: var(--accent-color);
+
+    border-radius: 2px;
+
+    transform: translateX(-50%);
+
+}
+
+
+/* =========================================================
+   9. RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 900px) {
+
+    .escapes {
+
+        grid-template-columns: repeat(3, 1fr);
+
+        gap: 12px;
+
+    }
+
+}
+
 
 @media (max-width: 700px) {
 
-    .projects-layout {
+    .navbar {
 
-        padding:
-            60px 20px 40px 20px;
-
-    }
-
-
-    .projects-header {
-
-        margin-bottom: 35px;
+        padding: 12px 16px;
 
     }
 
+    .nav-links-group {
 
-    .projects-header h1 {
-
-        font-size: 2.7rem;
+        gap: 14px;
 
     }
 
+    .nav-item {
+
+        letter-spacing: 1.5px;
+
+        font-size: 0.62rem;
+
+    }
+
+    .music-btn,
+
+    .theme-btn {
+
+        width: 38px;
+
+        height: 38px;
+
+        font-size: 0.9rem;
+
+    }
+
+    .about-section {
+
+        padding-top: 130px;
+
+    }
+
+    .escapes {
+
+        grid-template-columns: 1fr;
+
+    }
 
     .projects-grid {
 
         grid-template-columns: 1fr;
 
-        gap: 20px;
+        gap: 18px;
 
     }
 
+    .feed-section {
 
-    .project-card {
-
-        min-height: 230px;
-
-        padding: 22px;
-
-    }
-
-
-    .project-card-top {
-
-        font-size: 0.58rem;
-
-    }
-
-
-    .project-card h2 {
-
-        font-size: 1.1rem;
-
-    }
-
-
-    .project-card-body {
-
-        font-size: 0.78rem;
-
-    }
-
-
-    .full-project-title {
-
-        font-size: 1.8rem;
-
-    }
-
-
-    .full-project-body {
-
-        font-size: 0.86rem;
-
-    }
-
-
-    .projects-layout #theme-toggle {
-
-        top: 20px;
-
-        right: 15px;
+        padding: 70px 18px;
 
     }
 
 }
 
 
-/* =========================================================
-   14. VERY SMALL SCREENS
-   ========================================================= */
+@media (max-width: 420px) {
 
-@media (max-width: 400px) {
+    .nav-links-group {
 
-    .projects-layout {
-
-        padding-left: 15px;
-
-        padding-right: 15px;
+        gap: 10px;
 
     }
-
-
-    .projects-header h1 {
-
-        font-size: 2.3rem;
-
-    }
-
 
     .project-card {
 
         padding: 18px;
-
-    }
-
-
-    .project-card-top {
-
-        flex-direction: column;
-
-        align-items: flex-start;
 
     }
 
