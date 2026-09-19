@@ -1,3 +1,12 @@
+@font-face {
+    font-family: "Terminus";
+    src: url("https://cdn.jsdelivr.net/gh/haabe/retro-fonts@master/terminus/Terminus.woff2") format("woff2");
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+}
+
+
 @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,500&display=swap');
 
 /* =========================================================
@@ -1464,4 +1473,28 @@ body:not(.dark-mode) .post-body pre {
 
     }
 
+}
+
+
+/* =========================================================
+   TERMINUS FONT — BLOG + PROJECTS
+   ========================================================= */
+
+body.blog-page,
+body.projects-page {
+    font-family: "Terminus", monospace;
+}
+
+/* Everything inside Blog and Projects */
+body.blog-page *,
+body.projects-page * {
+    font-family: "Terminus", monospace;
+}
+
+/* Keep Font Awesome icons as icons */
+body.blog-page .fa-solid,
+body.blog-page .fa-brands,
+body.projects-page .fa-solid,
+body.projects-page .fa-brands {
+    font-family: "Font Awesome 6 Free", "Font Awesome 6 Brands" !important;
 }
