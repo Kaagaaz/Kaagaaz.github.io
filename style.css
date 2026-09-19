@@ -1477,24 +1477,40 @@ body:not(.dark-mode) .post-body pre {
 
 
 /* =========================================================
-   TERMINUS FONT — BLOG + PROJECTS
+   TERMINUS FONT — BLOG + PROJECT CONTENT ONLY
    ========================================================= */
 
-body.blog-page,
-body.projects-page {
+/* Main Blog/Projects content */
+body.blog-page .feed-section,
+body.projects-page .feed-section,
+body.blog-page .feed-section *,
+body.projects-page .feed-section * {
     font-family: "Terminus", monospace;
 }
 
-/* Everything inside Blog and Projects */
-body.blog-page *,
-body.projects-page * {
-    font-family: "Terminus", monospace;
+/* Keep the existing navigation font unchanged */
+body.blog-page .navbar *,
+body.projects-page .navbar * {
+    /* Do not force Terminus here */
 }
 
-/* Keep Font Awesome icons as icons */
+/* Keep Font Awesome icons working */
 body.blog-page .fa-solid,
 body.blog-page .fa-brands,
 body.projects-page .fa-solid,
 body.projects-page .fa-brands {
-    font-family: "Font Awesome 6 Free", "Font Awesome 6 Brands" !important;
+    font-family: "Font Awesome 6 Free" !important;
+}
+
+body.blog-page .fa-brands,
+body.projects-page .fa-brands {
+    font-family: "Font Awesome 6 Brands" !important;
+}
+
+/* Footer can use Terminus */
+body.blog-page .site-footer,
+body.projects-page .site-footer,
+body.blog-page .site-footer *,
+body.projects-page .site-footer * {
+    font-family: "Terminus", monospace;
 }
