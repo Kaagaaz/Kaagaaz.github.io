@@ -1489,9 +1489,15 @@ body.projects-page .feed-section * {
 }
 
 /* Keep the existing navigation font unchanged */
-body.blog-page .navbar *,
-body.projects-page .navbar * {
-    /* Do not force Terminus here */
+body.blog-page .nav-item,
+body.projects-page .nav-item {
+    font-family: "Orbitron", sans-serif;
+}
+
+/* Keep the theme button font unchanged */
+body.blog-page .theme-btn,
+body.projects-page .theme-btn {
+    font-family: "Space Grotesk", sans-serif;
 }
 
 /* Keep Font Awesome icons working */
