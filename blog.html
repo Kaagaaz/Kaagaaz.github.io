@@ -19,7 +19,6 @@
 </head>
 <body>
 
-<!-- Prevent theme flicker -->
 <script>
 if(localStorage.getItem("theme") !== "light"){
     document.body.classList.add("dark-mode");
@@ -62,19 +61,9 @@ if(localStorage.getItem("theme") !== "light"){
             Notes on tech, cybersecurity learnings, anime, and late-night thoughts.
         </p>
 
-        <!-- Post Stream -->
+        <!-- Dynamic Container where GitHub Issues labeled 'blog' get rendered -->
         <div class="blog-list">
-            <article class="blog-item">
-                <span class="blog-date">2026.09.23</span>
-                <h2 class="blog-title"><a href="#">First Steps into Cybersecurity Labs</a></h2>
-                <p class="blog-snippet">Setting up isolated virtual networks and diving headfirst into security protocols...</p>
-            </article>
-
-            <article class="blog-item">
-                <span class="blog-date">2026.09.15</span>
-                <h2 class="blog-title"><a href="#">Soundtracks &amp; Late-Night Code Sessions</a></h2>
-                <p class="blog-snippet">Why background music and smooth UI design go hand-in-hand for deep focus...</p>
-            </article>
+            <p class="bio-paragraph">Loading blog posts...</p>
         </div>
     </section>
 </main>
@@ -83,7 +72,6 @@ if(localStorage.getItem("theme") !== "light"){
     <p>© 2026 Kaagaaz · blogs &amp; projects stream live</p>
 </footer>
 
-<!-- JavaScript -->
 <script src="script.js?v=4"></script>
 
 </body>
