@@ -93,7 +93,7 @@ body {
   color: var(--text-primary);
 }
 
-/* Sections & Typography */
+/* Sections & Headers */
 .about-hero {
   padding: 40px 0 20px;
 }
@@ -137,8 +137,88 @@ body {
   transform: translateY(-2px);
 }
 
-/* Lists */
-.projects-grid, 
+/* ==========================================
+   Projects Card Grid Layout
+   ========================================== */
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+  margin-top: 32px;
+}
+
+.project-card {
+  background-color: transparent;
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  cursor: pointer;
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.project-card:hover {
+  transform: translateY(-3px);
+  border-color: var(--text-secondary);
+}
+
+.card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.card-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  line-height: 1.4;
+}
+
+.card-icon {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  transition: transform 0.2s ease;
+}
+
+.project-card:hover .card-icon {
+  transform: translate(2px, -2px);
+  color: var(--text-primary);
+}
+
+.card-desc {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+
+.card-footer {
+  display: flex;
+  align-items: center;
+}
+
+.card-tag {
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: color 0.2s ease;
+}
+
+.project-card:hover .card-tag {
+  color: var(--text-primary);
+}
+
+/* ==========================================
+   Blog Feed List Layout
+   ========================================== */
 .blog-list {
   display: flex;
   flex-direction: column;
@@ -146,31 +226,20 @@ body {
   margin-top: 32px;
 }
 
-.project-item, 
 .blog-item {
   border-bottom: 1px solid var(--border-color);
   padding-bottom: 24px;
   transition: opacity 0.2s ease;
 }
 
-.project-item:last-child, 
 .blog-item:last-child {
   border-bottom: none;
 }
 
-.project-item:hover, 
 .blog-item:hover {
   opacity: 0.8;
 }
 
-.project-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 6px;
-}
-
-.project-title, 
 .blog-title {
   font-size: 1.15rem;
   font-weight: 500;
@@ -182,12 +251,6 @@ body {
   text-decoration: none;
 }
 
-.project-link {
-  color: var(--text-secondary);
-  font-size: 1rem;
-}
-
-.project-desc, 
 .blog-snippet {
   color: var(--text-secondary);
   font-size: 0.95rem;
@@ -202,7 +265,9 @@ body {
   margin-bottom: 4px;
 }
 
-/* Single Post View & Markdown Styles */
+/* ==========================================
+   Single Post/Project View & Markdown Styles
+   ========================================== */
 .single-view {
   padding: 20px 0 40px;
   width: 100%;
@@ -228,6 +293,7 @@ body {
   color: var(--text-secondary);
 }
 
+/* Constrain dynamic post images so they don't break layout */
 .markdown-body img {
   max-width: 100% !important;
   height: auto !important;
