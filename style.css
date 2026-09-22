@@ -380,3 +380,87 @@ body {
   border-top: 1px solid var(--border-color);
   margin-top: 60px;
 }
+
+/* ==========================================
+   Mobile Responsive Adjustments (< 768px)
+   ========================================== */
+@media (max-width: 768px) {
+  body {
+    font-size: 16px; /* Scales down base text on smaller screens */
+    line-height: 1.7;
+  }
+
+  .container,
+  .navbar {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  .navbar {
+    padding-top: 24px;
+    padding-bottom: 24px;
+  }
+
+  .about-hero {
+    padding-top: 32px;
+    padding-bottom: 20px;
+  }
+
+  .name {
+    font-size: 2.2rem; /* Reduces large title size on phones */
+    margin-bottom: 16px;
+  }
+
+  .bio-paragraph {
+    font-size: 1rem;
+    line-height: 1.7;
+    margin-bottom: 28px;
+  }
+
+  /* Projects Grid on Mobile */
+  .projects-grid {
+    grid-template-columns: 1fr; /* Single column card grid */
+    gap: 16px;
+    margin-top: 24px;
+  }
+
+  .project-card {
+    padding: 20px;
+  }
+
+  .card-title {
+    font-size: 1.15rem;
+  }
+
+  .card-desc {
+    font-size: 0.95rem;
+    margin-bottom: 16px;
+  }
+
+  /* Blog Items on Mobile */
+  .blog-list {
+    gap: 24px;
+    margin-top: 24px;
+  }
+
+  .blog-title {
+    font-size: 1.2rem;
+  }
+
+  .blog-snippet {
+    font-size: 0.95rem;
+  }
+
+  /* Markdown Content on Mobile */
+  .markdown-body {
+    font-size: 1rem;
+  }
+
+  .markdown-body h1 { font-size: 1.5rem; }
+  .markdown-body h2 { font-size: 1.3rem; }
+  .markdown-body h3 { font-size: 1.1rem; }
+
+  .markdown-body pre {
+    padding: 14px;
+  }
+}
