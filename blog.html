@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Blog | Kaagaaz</title>
-    <meta name="description" content="Thoughts, notes, and writings by Kaagaaz.">
+    <meta name="description" content="Kaagaaz's blog — projects, thoughts, and lo-fi updates, streamed from GitHub issues.">
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -14,11 +14,15 @@
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
+    <!-- Markdown parser (blogs stream from GitHub issues) -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
     <!-- CSS -->
     <link rel="stylesheet" href="style.css?v=4">
 </head>
-<body>
+<body class="blog-page">
 
+<!-- Prevent theme flicker -->
 <script>
 if(localStorage.getItem("theme") !== "light"){
     document.body.classList.add("dark-mode");
@@ -51,20 +55,20 @@ if(localStorage.getItem("theme") !== "light"){
 </header>
 
 <main class="container">
-    <section class="about-hero">
-        <div class="hero-header">
-            <span class="greeting">Stream of Consciousness</span>
-            <h1 class="name">Blog</h1>
-        </div>
+    <section id="blog" class="about-hero feed-section blog-section">
+        <header class="hero-header" id="blog-header-area">
+            <span class="greeting">[ LOG_ARCHIVE ]</span>
+            <h1 class="name">My blogs</h1>
+            <p class="bio-paragraph">Sharing my projects, thoughts, and lo-fi updates.</p>
+        </header>
 
-        <p class="bio-paragraph">
-            Notes on tech, cybersecurity learnings, anime, and late-night thoughts.
-        </p>
+        <!-- Container for GitHub Issue Cards -->
+        <section id="blog-posts-container" class="blog-list">
+            <p class="feed-message">Booting up the logs...</p>
+        </section>
 
-        <!-- Dynamic Container where GitHub Issues labeled 'blog' get rendered -->
-        <div class="blog-list">
-            <p class="bio-paragraph">Loading blog posts...</p>
-        </div>
+        <!-- Detailed Single View -->
+        <article id="blog-detail" class="single-view" hidden></article>
     </section>
 </main>
 
@@ -72,6 +76,7 @@ if(localStorage.getItem("theme") !== "light"){
     <p>© 2026 Kaagaaz · blogs &amp; projects stream live</p>
 </footer>
 
+<!-- JavaScript -->
 <script src="script.js?v=4"></script>
 
 </body>
