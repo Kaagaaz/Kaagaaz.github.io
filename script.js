@@ -1,220 +1,121 @@
-// =========================================
-// KAAGAAZ.GITHUB.IO — SITE SCRIPT
-// Theme + butterflies + music + GitHub-issues CMS
-// Separate pages: index / projects / blog
-// =========================================
+/* =========================================================
+   KAAGAAZ — SITE JAVASCRIPT
+   ========================================================= */
 
 
-// --- GLOBAL THEME SYSTEM ---
+/* =========================================================
+   CONFIGURATION
+   ========================================================= */
+
+const GITHUB_USERNAME = "Kaagaaz";
+const REPO_NAME = "Kaagaaz.github.io";
 
 
-// Apply saved theme
+/* =========================================================
+   THEME
+   ========================================================= */
+
+function getCurrentTheme() {
+    return localStorage.getItem("theme") || "dark";
+}
+
+
 function applyTheme() {
 
-    const savedTheme = localStorage.getItem("theme");
-    const body = document.body;
+    const theme = getCurrentTheme();
 
-    if (savedTheme === "light") {
-        body.classList.remove("dark-mode");
-        updateToggleIcon(false);
-    } else {
-        body.classList.add("dark-mode");
-        updateToggleIcon(true);
-    }
+    const isDark = theme === "dark";
 
+    document.body.classList.toggle(
+        "dark-mode",
+        isDark
+    );
+
+    updateThemeIcon(isDark);
 }
 
 
+function updateThemeIcon(isDark) {
 
-// Change moon/sun icon
-function updateToggleIcon(isDark) {
-
-    const icon = document.querySelector("#theme-toggle i");
-
-    if (icon) {
-        icon.className = isDark
-            ? "fas fa-sun"
-            : "fas fa-moon";
-    }
-
-}
-
-
-
-// Blue flash + butterfly transition
-function showThemeAnimation() {
-
-
-    const animation = document.createElement("div");
-
-    animation.className = "theme-animation";
-
-
-    // Number of butterflies
-    const butterflyCount = 30;
-
-
-    for (let i = 0; i < butterflyCount; i++) {
-
-
-        const butterfly = document.createElement("div");
-
-        butterfly.className = "butterfly";
-
-
-        // Butterfly structure
-        butterfly.innerHTML = `
-            <span class="wing left"></span>
-            <span class="wing right"></span>
-            <span class="body"></span>
-        `;
-
-
-        // Random scattering distance
-        const x =
-            (Math.random() - 0.5) * window.innerWidth * 1.2;
-
-        const y =
-            (Math.random() - 0.5) * window.innerHeight * 1.2;
-
-
-        butterfly.style.setProperty("--x", x + "px");
-
-        butterfly.style.setProperty("--y", y + "px");
-
-
-        // Random butterfly size
-        butterfly.style.setProperty(
-            "--size",
-            0.5 + Math.random() * 0.3
+    const icon =
+        document.querySelector(
+            "#theme-toggle i"
         );
 
+    if (!icon) return;
 
-        // Random flying delay
-        butterfly.style.animationDelay =
-            Math.random() * 0.7 + "s";
-
-
-        animation.appendChild(butterfly);
-
-    }
-
-
-    document.body.appendChild(animation);
-
-
-    setTimeout(() => {
-        animation.remove();
-    }, 3000);
-
+    icon.className = isDark
+        ? "fa-solid fa-sun"
+        : "fa-solid fa-moon";
 }
 
 
+/* =========================================================
+   MUSIC
+   ========================================================= */
 
-// Load theme on opening
-applyTheme();
+function setupMusic() {
 
+    const music =
+        document.getElementById("bgm");
 
+    const button =
+        document.getElementById("music-toggle");
 
-// Fix browser cache issue
-window.addEventListener("pageshow", () => {
-    applyTheme();
-});
+    if (!music || !button) return;
 
-
-
-// Theme toggle button
-document.addEventListener("DOMContentLoaded", () => {
-
-
-    const themeToggleBtn =
-        document.getElementById("theme-toggle");
+    const icon =
+        button.querySelector("i");
 
 
-    if (themeToggleBtn) {
+    button.addEventListener(
+        "click",
+        async () => {
 
-        themeToggleBtn.addEventListener("click", () => {
+            try {
 
+                if (music.paused) {
 
-            const isDark =
-                document.body.classList.toggle("dark-mode");
+                    await music.play();
 
+                    icon.className =
+                        "fa-solid fa-pause";
 
-            localStorage.setItem(
-                "theme",
-                isDark ? "dark" : "light"
-            );
+                    button.setAttribute(
+                        "aria-label",
+                        "Pause music"
+                    );
 
+                } else {
 
-            updateToggleIcon(isDark);
+                    music.pause();
 
+                    icon.className =
+                        "fa-solid fa-headphones";
 
-            // Start butterfly effect
-            showThemeAnimation();
+                    button.setAttribute(
+                        "aria-label",
+                        "Play music"
+                    );
+                }
 
-        });
+            } catch (error) {
 
-    }
-
-
-});
-
-
-
-// --- MUSIC SYSTEM (index page) ---
-
-document.addEventListener("DOMContentLoaded", () => {
-
-
-    const music = document.getElementById("bgm");
-
-    const musicBtn = document.getElementById("music-toggle");
-
-
-    if (music && musicBtn) {
-
-
-        const icon = musicBtn.querySelector("i");
-
-
-        musicBtn.addEventListener("click", () => {
-
-
-            if (music.paused) {
-
-                music.play();
-
-                icon.className = "fa-solid fa-pause";
-
-                musicBtn.classList.add("playing");
-
-            } else {
-
-                music.pause();
-
-                icon.className = "fa-solid fa-play";
-
-                musicBtn.classList.remove("playing");
+                console.warn(
+                    "Music could not start:",
+                    error
+                );
 
             }
 
-        });
-
-    }
-
-});
+        }
+    );
+}
 
 
-
-// =========================================
-// FEED SYSTEM — BLOGS & PROJECTS FROM ISSUES
-// =========================================
-
-
-const GITHUB_USERNAME = "Kaagaaz";
-
-const REPO_NAME = "Kaagaaz.github.io";
-
+/* =========================================================
+   GITHUB API
+   ========================================================= */
 
 const feedCache = {};
 
@@ -227,223 +128,377 @@ async function fetchIssues(label) {
 
 
     const url =
-        `https://api.github.com/repos/${GITHUB_USERNAME}/${REPO_NAME}/issues?labels=${label}&state=open`;
+        `https://api.github.com/repos/` +
+        `${GITHUB_USERNAME}/` +
+        `${REPO_NAME}/issues` +
+        `?labels=${encodeURIComponent(label)}` +
+        `&state=open`;
 
 
-    const response = await fetch(url);
+    const response =
+        await fetch(url);
 
 
     if (!response.ok) {
-        throw new Error("Failed to load " + label + " feed");
+
+        throw new Error(
+            `GitHub API error: ${response.status}`
+        );
+
     }
 
 
-    const issues = await response.json();
+    const issues =
+        await response.json();
 
-    feedCache[label] = issues;
+
+    feedCache[label] =
+        issues;
+
 
     return issues;
-
 }
 
 
-// Cleans up Markdown to create a neat text snippet
-function createSnippet(markdownText) {
+/* =========================================================
+   SECURITY / HTML ESCAPING
+   ========================================================= */
 
-    if (!markdownText) return "No preview available.";
+function escapeHTML(text) {
 
+    const element =
+        document.createElement("div");
 
-    let cleanText = markdownText
+    element.textContent =
+        text || "";
 
-        .replace(/<!--[\s\S]*?-->/g, "")  // HTML comments
-        .replace(/<[^>]*>/g, "")          // HTML tags
-        .replace(/!\[.*?\]\(.*?\)/g, '')  // images
-        .replace(/\[.*?\]\(.*?\)/g, '')   // hyper-links
-        .replace(/`{3}[\s\S]*?`{3}/g, '') // code blocks
-        .replace(/`.*?`/g, '')            // inline code
-        .replace(/[#*_-]/g, '')           // markdown symbols
-        .trim();
+    return element.innerHTML;
+}
 
 
-    if (cleanText.length > 140) {
-        return cleanText.substring(0, 140) + "...";
+/* =========================================================
+   TEXT PREVIEW
+   ========================================================= */
+
+function createSnippet(text) {
+
+    if (!text) {
+        return "No preview available.";
     }
 
 
-    return cleanText || "View full entry for details.";
+    const cleanText =
+        text
 
+            .replace(
+                /<!--[\s\S]*?-->/g,
+                ""
+            )
+
+            .replace(
+                /<[^>]*>/g,
+                ""
+            )
+
+            .replace(
+                /!\[.*?\]\(.*?\)/g,
+                ""
+            )
+
+            .replace(
+                /\[.*?\]\(.*?\)/g,
+                ""
+            )
+
+            .replace(
+                /```[\s\S]*?```/g,
+                ""
+            )
+
+            .replace(
+                /`.*?`/g,
+                ""
+            )
+
+            .replace(
+                /[#*_~-]/g,
+                ""
+            )
+
+            .replace(
+                /\s+/g,
+                " "
+            )
+
+            .trim();
+
+
+    if (!cleanText) {
+
+        return "View the full entry for details.";
+
+    }
+
+
+    if (cleanText.length > 180) {
+
+        return (
+            cleanText.substring(0, 180) +
+            "..."
+        );
+
+    }
+
+
+    return cleanText;
 }
 
 
-// Prevents GitHub issue titles from becoming HTML
-function escapeHTML(text) {
+/* =========================================================
+   DATE FORMAT
+   ========================================================= */
 
-    const div = document.createElement("div");
+function formatDate(date) {
 
-    div.textContent = text || "";
-
-    return div.innerHTML;
-
+    return new Date(date)
+        .toLocaleDateString(
+            "en-US",
+            {
+                year: "numeric",
+                month: "short",
+                day: "numeric"
+            }
+        );
 }
 
 
-function formatDate(isoString) {
-
-    return new Date(isoString).toLocaleDateString('en-US', {
-
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric'
-
-    });
-
-}
-
-
-
-// ---------- BLOG PAGE ----------
-
+/* =========================================================
+   BLOG / NOTES
+   ========================================================= */
 
 async function loadBlogList() {
 
     const container =
-        document.getElementById('blog-posts-container');
+        document.getElementById(
+            "blog-posts-container"
+        );
+
+
+    if (!container) return;
 
 
     try {
 
-
-        const issues = await fetchIssues('blog');
-
-        container.innerHTML = '';
+        const issues =
+            await fetchIssues("blog");
 
 
-        if (issues.length === 0) {
+        container.innerHTML = "";
 
-            container.innerHTML =
-                `<p class="no-posts">No updates posted yet. Come back soon!</p>`;
+
+        if (!issues.length) {
+
+            container.innerHTML = `
+                <p class="no-posts">
+                    No notes yet.
+                    Check back soon.
+                </p>
+            `;
 
             return;
-
         }
 
 
         issues.forEach(issue => {
 
-
-            const postCard = document.createElement('article');
-
-            postCard.className = 'blog-post';
-
-
-            const snippet = createSnippet(issue.body);
+            const post =
+                document.createElement(
+                    "article"
+                );
 
 
-            postCard.innerHTML = `
+            post.className =
+                "blog-post";
 
-                <h2 class="post-title">${escapeHTML(issue.title)}</h2>
 
-                <p class="post-date">Logged on ${formatDate(issue.created_at)}</p>
+            post.innerHTML = `
 
-                <p class="post-snippet">${escapeHTML(snippet)}</p>
+                <h2 class="post-title">
+                    ${escapeHTML(issue.title)}
+                </h2>
 
-                <a href="blog.html?post=${issue.number}" class="btn">Read Full Post →</a>
+
+                <p class="post-date">
+                    ${formatDate(issue.created_at)}
+                </p>
+
+
+                <p class="post-snippet">
+                    ${escapeHTML(
+                        createSnippet(issue.body)
+                    )}
+                </p>
+
+
+                <a
+                    href="blog.html?post=${issue.number}"
+                    class="btn"
+                >
+                    read note →
+                </a>
 
             `;
 
 
-            container.appendChild(postCard);
+            container.appendChild(post);
 
         });
-
 
     } catch (error) {
 
         console.error(error);
 
-        container.innerHTML =
-            `<p class="no-posts">Oops! Failed to connect to the digital archive.</p>`;
+
+        container.innerHTML = `
+            <p class="no-posts">
+                Couldn't connect to the
+                notes archive.
+            </p>
+        `;
 
     }
 
 }
 
 
-
-// ---------- BLOG SINGLE ----------
-
+/* =========================================================
+   SINGLE BLOG POST
+   ========================================================= */
 
 async function showSingleBlogPost(id) {
 
-    const container = document.getElementById('blog-posts-container');
+    const container =
+        document.getElementById(
+            "blog-posts-container"
+        );
 
-    const headerArea = document.getElementById('blog-header-area');
 
-    const detail = document.getElementById('blog-detail');
+    const header =
+        document.getElementById(
+            "blog-header-area"
+        );
+
+
+    const detail =
+        document.getElementById(
+            "blog-detail"
+        );
 
 
     if (!detail) return;
 
 
-    if (container) container.style.display = 'none';
+    if (container) {
+        container.style.display =
+            "none";
+    }
 
-    if (headerArea) headerArea.style.display = 'none';
+
+    if (header) {
+        header.style.display =
+            "none";
+    }
+
 
     detail.hidden = false;
 
 
-    detail.innerHTML =
-        `<p class="feed-message">Opening the log entry...</p>`;
-
-
-    const url =
-        `https://api.github.com/repos/${GITHUB_USERNAME}/${REPO_NAME}/issues/${id}`;
+    detail.innerHTML = `
+        <p class="feed-message">
+            Opening note...
+        </p>
+    `;
 
 
     try {
 
-
-        const response = await fetch(url);
-
-
-        if (!response.ok) throw new Error("Entry missing");
-
-
-        const issue = await response.json();
+        const response =
+            await fetch(
+                `https://api.github.com/repos/` +
+                `${GITHUB_USERNAME}/` +
+                `${REPO_NAME}/issues/${id}`
+            );
 
 
-        const parsedBody =
-            marked.parse(issue.body || "No content written.");
+        if (!response.ok) {
+
+            throw new Error(
+                "Note not found"
+            );
+
+        }
+
+
+        const issue =
+            await response.json();
 
 
         detail.innerHTML = `
 
-            <a href="blog.html" class="back-link">
-
-                <i class="fas fa-arrow-left"></i> back to all blogs
-
+            <a
+                href="blog.html"
+                class="back-link"
+            >
+                <i class="fas fa-arrow-left"></i>
+                all notes
             </a>
 
-            <h1 class="full-title">${escapeHTML(issue.title)}</h1>
 
-            <p class="post-date">Logged on ${formatDate(issue.created_at)}</p>
+            <h1 class="full-title">
+                ${escapeHTML(issue.title)}
+            </h1>
 
-            <div class="post-body">${parsedBody}</div>
+
+            <p class="post-date">
+                ${formatDate(issue.created_at)}
+            </p>
+
+
+            <div class="post-body">
+
+                ${
+                    typeof marked !== "undefined"
+                        ? marked.parse(
+                            issue.body || ""
+                        )
+                        : escapeHTML(
+                            issue.body || ""
+                        )
+                }
+
+            </div>
 
         `;
-
 
     } catch (error) {
 
         console.error(error);
 
+
         detail.innerHTML = `
 
             <p class="no-posts">
 
-                Oops! This log entry couldn't be found.
+                This note couldn't be found.
 
-                <a href="blog.html">Return to logs</a>
+                <br><br>
+
+                <a
+                    class="back-link"
+                    href="blog.html"
+                >
+                    ← return to notes
+                </a>
 
             </p>
 
@@ -454,92 +509,114 @@ async function showSingleBlogPost(id) {
 }
 
 
-
-// ---------- PROJECTS PAGE ----------
-
+/* =========================================================
+   PROJECTS
+   ========================================================= */
 
 async function loadProjectsList() {
 
     const container =
-        document.getElementById('projects-grid-container');
+        document.getElementById(
+            "projects-grid-container"
+        );
+
+
+    if (!container) return;
 
 
     try {
 
-
-        const issues = await fetchIssues('project');
-
-        container.innerHTML = '';
+        const issues =
+            await fetchIssues("project");
 
 
-        if (issues.length === 0) {
+        container.innerHTML = "";
+
+
+        if (!issues.length) {
 
             container.innerHTML = `
-
                 <p class="feed-message">
-
-                    No projects showcased yet. Check back soon!
-
+                    No projects showcased yet.
                 </p>
-
             `;
 
             return;
-
         }
 
 
         issues.forEach(issue => {
 
-
-            const projectCard = document.createElement("article");
-
-            projectCard.className = "project-card";
-
-
-            const snippet = createSnippet(issue.body);
+            const card =
+                document.createElement(
+                    "article"
+                );
 
 
-            projectCard.innerHTML = `
+            card.className =
+                "project-card";
+
+
+            card.innerHTML = `
 
                 <div class="project-card-top">
 
-                    <span>[ SYSTEM_FILE: PROJ_${issue.number} ]</span>
+                    <span>
+                        PROJECT_${String(
+                            issue.number
+                        ).padStart(2, "0")}
+                    </span>
 
-                    <span class="gacha-stars">✦ ✦ ✦ ✦ ✦</span>
+
+                    <span class="gacha-stars">
+                        ✦ ✦ ✦
+                    </span>
 
                 </div>
+
 
                 <div class="project-card-content">
 
-                    <h2>${escapeHTML(issue.title)}</h2>
+                    <h2>
+                        ${escapeHTML(issue.title)}
+                    </h2>
 
-                    <p class="project-card-body">${escapeHTML(snippet)}</p>
+
+                    <p class="project-card-body">
+                        ${escapeHTML(
+                            createSnippet(
+                                issue.body
+                            )
+                        )}
+                    </p>
 
                 </div>
 
-                <a href="projects.html?project=${issue.number}" class="project-view-btn">View →</a>
+
+                <a
+                    href="projects.html?project=${issue.number}"
+                    class="project-view-btn"
+                >
+                    view project →
+                </a>
 
             `;
 
 
-            container.appendChild(projectCard);
+            container.appendChild(card);
 
         });
-
 
     } catch (error) {
 
         console.error(error);
 
+
         container.innerHTML = `
-
             <p class="feed-message">
-
-                Oops! Failed to connect to the creations grid.
-
+                Couldn't connect to the
+                project archive.
             </p>
-
         `;
 
     }
@@ -547,81 +624,129 @@ async function loadProjectsList() {
 }
 
 
-
-// ---------- PROJECT SINGLE ----------
-
+/* =========================================================
+   SINGLE PROJECT
+   ========================================================= */
 
 async function showSingleProject(id) {
 
     const container =
-        document.getElementById('projects-grid-container');
+        document.getElementById(
+            "projects-grid-container"
+        );
 
-    const headerArea =
-        document.getElementById('projects-header-area');
 
-    const detail = document.getElementById('project-detail');
+    const header =
+        document.getElementById(
+            "projects-header-area"
+        );
+
+
+    const detail =
+        document.getElementById(
+            "project-detail"
+        );
 
 
     if (!detail) return;
 
 
-    if (container) container.style.display = 'none';
+    if (container) {
+        container.style.display =
+            "none";
+    }
 
-    if (headerArea) headerArea.style.display = 'none';
+
+    if (header) {
+        header.style.display =
+            "none";
+    }
+
 
     detail.hidden = false;
 
 
-    detail.innerHTML =
-        `<p class="feed-message">Booting project file...</p>`;
-
-
-    const url =
-        `https://api.github.com/repos/${GITHUB_USERNAME}/${REPO_NAME}/issues/${id}`;
+    detail.innerHTML = `
+        <p class="feed-message">
+            Opening project...
+        </p>
+    `;
 
 
     try {
 
-
-        const response = await fetch(url);
-
-
-        if (!response.ok) throw new Error("Project not found");
-
-
-        const issue = await response.json();
+        const response =
+            await fetch(
+                `https://api.github.com/repos/` +
+                `${GITHUB_USERNAME}/` +
+                `${REPO_NAME}/issues/${id}`
+            );
 
 
-        const parsedContent =
-            marked.parse(issue.body || "No documentation supplied.");
+        if (!response.ok) {
+
+            throw new Error(
+                "Project not found"
+            );
+
+        }
+
+
+        const issue =
+            await response.json();
 
 
         detail.innerHTML = `
 
-            <a href="projects.html" class="back-link">
-
-                <i class="fas fa-arrow-left"></i> back to all projects
-
+            <a
+                href="projects.html"
+                class="back-link"
+            >
+                <i class="fas fa-arrow-left"></i>
+                all projects
             </a>
 
-            <h1 class="full-title">${escapeHTML(issue.title)}</h1>
 
-            <div class="post-body">${parsedContent}</div>
+            <h1 class="full-title">
+                ${escapeHTML(issue.title)}
+            </h1>
+
+
+            <div class="post-body">
+
+                ${
+                    typeof marked !== "undefined"
+                        ? marked.parse(
+                            issue.body || ""
+                        )
+                        : escapeHTML(
+                            issue.body || ""
+                        )
+                }
+
+            </div>
 
         `;
-
 
     } catch (error) {
 
         console.error(error);
 
+
         detail.innerHTML = `
 
             <p class="no-posts">
 
-                Oops! This project detail could not be loaded.
+                This project couldn't be loaded.
 
-                <a href="projects.html">Return to projects</a>
+                <br><br>
+
+                <a
+                    class="back-link"
+                    href="projects.html"
+                >
+                    ← return to projects
+                </a>
 
             </p>
 
@@ -632,55 +757,71 @@ async function showSingleProject(id) {
 }
 
 
-
-// ---------- ROUTING ----------
-
-
-/*
-
- * Each page initializes only its own feed:
-
- *   index.html    -> about section only (no feeds)
-
- *   blog.html     -> ?post=N opens one post, otherwise the list
-
- *   projects.html -> ?project=N opens one project, otherwise the grid
-
- */
-
+/* =========================================================
+   PAGE ROUTING
+   ========================================================= */
 
 function routeCurrentPage() {
 
-
     const params =
-        new URLSearchParams(window.location.search);
+        new URLSearchParams(
+            window.location.search
+        );
 
 
-    if (document.getElementById("blog-posts-container")) {
+    /* ---------- BLOG ---------- */
+
+    const blogContainer =
+        document.getElementById(
+            "blog-posts-container"
+        );
 
 
-        const postId = params.get("post");
+    if (blogContainer) {
+
+        const postId =
+            params.get("post");
 
 
         if (postId) {
-            showSingleBlogPost(postId);
+
+            showSingleBlogPost(
+                postId
+            );
+
         } else {
+
             loadBlogList();
+
         }
 
     }
 
 
-    if (document.getElementById("projects-grid-container")) {
+    /* ---------- PROJECTS ---------- */
+
+    const projectsContainer =
+        document.getElementById(
+            "projects-grid-container"
+        );
 
 
-        const projectId = params.get("project");
+    if (projectsContainer) {
+
+        const projectId =
+            params.get("project");
 
 
         if (projectId) {
-            showSingleProject(projectId);
+
+            showSingleProject(
+                projectId
+            );
+
         } else {
+
             loadProjectsList();
+
         }
 
     }
@@ -688,12 +829,69 @@ function routeCurrentPage() {
 }
 
 
+/* =========================================================
+   INITIALIZATION
+   ========================================================= */
 
-// ---------- INITIALIZE ----------
+document.addEventListener(
+    "DOMContentLoaded",
+    () => {
+
+        /* Theme */
+
+        applyTheme();
 
 
-document.addEventListener("DOMContentLoaded", () => {
+        const themeButton =
+            document.getElementById(
+                "theme-toggle"
+            );
 
-    routeCurrentPage();
 
-});
+        if (themeButton) {
+
+            themeButton.addEventListener(
+                "click",
+                () => {
+
+                    const isDark =
+                        !document.body.classList.contains(
+                            "dark-mode"
+                        );
+
+
+                    document.body.classList.toggle(
+                        "dark-mode",
+                        isDark
+                    );
+
+
+                    localStorage.setItem(
+                        "theme",
+                        isDark
+                            ? "dark"
+                            : "light"
+                    );
+
+
+                    updateThemeIcon(
+                        isDark
+                    );
+
+                }
+            );
+
+        }
+
+
+        /* Music */
+
+        setupMusic();
+
+
+        /* GitHub feeds */
+
+        routeCurrentPage();
+
+    }
+);
