@@ -2,10 +2,14 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
-    <title>Projects | Kaagaaz</title>
+    <title>Projects — Kaagaaz</title>
 
+    <!-- JetBrains Mono -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
@@ -14,13 +18,16 @@
         rel="stylesheet"
     >
 
+    <!-- Font Awesome -->
     <link
         rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
     >
 
+    <!-- Main CSS -->
     <link rel="stylesheet" href="style.css">
 
+    <!-- Prevent theme flash -->
     <script>
         if (localStorage.getItem("theme") !== "light") {
             document.documentElement.classList.add("dark-mode");
@@ -30,77 +37,134 @@
 
 <body>
 
-    <!-- Header -->
+    <!-- ================================================
+         HEADER
+         ================================================ -->
+
     <header class="site-header">
+
         <div class="header-inner">
 
-            <a href="index.html" class="brand">
-                kaagaaz.
+            <a
+                href="index.html"
+                class="brand"
+            >
+                kaagaaz<span>.</span>
             </a>
 
+
             <nav class="main-nav">
-                <a href="index.html">about</a>
-                <a href="projects.html" class="active">projects</a>
-                <a href="blog.html">notes</a>
+
+                <a href="index.html">
+                    about
+                </a>
+
+                <a
+                    href="projects.html"
+                    class="active"
+                >
+                    projects
+                </a>
+
+                <a href="blog.html">
+                    notes
+                </a>
+
             </nav>
 
-            <button
-                id="theme-toggle"
-                class="icon-button"
-                type="button"
-                aria-label="Toggle theme"
-            >
-                <i class="fa-solid fa-moon"></i>
-            </button>
+
+            <div class="header-actions">
+
+                <button
+                    id="theme-toggle"
+                    class="icon-button"
+                    type="button"
+                    aria-label="Toggle theme"
+                >
+                    <i class="fa-solid fa-moon"></i>
+                </button>
+
+            </div>
 
         </div>
+
     </header>
 
 
-    <!-- Main -->
-    <main class="feed-wrap">
+    <!-- ================================================
+         MAIN
+         ================================================ -->
 
-        <!-- Projects Header -->
-        <section class="feed-section" id="projects-header-area">
+    <main>
 
-            <div class="page-label">
-                / projects
-            </div>
-
-            <h1 class="page-title">
-                Things I've built.
-            </h1>
-
-            <p class="page-description">
-                A collection of projects, experiments, tools, and ideas
-                I've worked on while exploring technology and cybersecurity.
-            </p>
-
-        </section>
+        <div class="feed-wrap">
 
 
-        <!-- Project List -->
-        <section
-            id="projects-grid-container"
-            class="projects-grid"
-        >
-            <div class="loading-state">
-                Loading projects...
-            </div>
-        </section>
+            <!-- =========================================
+                 PAGE INTRO
+                 ========================================= -->
+
+            <section
+                class="feed-section"
+                id="projects-header-area"
+            >
+
+                <div class="page-label">
+                    / projects
+                </div>
 
 
-        <!-- Single Project -->
-        <article
-            id="project-detail"
-            class="single-view"
-            hidden
-        ></article>
+                <h1 class="page-title">
+                    Things I've built.
+                </h1>
+
+
+                <p class="page-description">
+                    Software, experiments, security projects,
+                    and other things I've built while learning
+                    and exploring technology.
+                </p>
+
+            </section>
+
+
+            <!-- =========================================
+                 PROJECT LIST
+                 ========================================= -->
+
+            <section
+                id="projects-grid-container"
+                class="projects-grid"
+                aria-label="Projects"
+            >
+
+                <div class="loading-state">
+                    Loading projects...
+                </div>
+
+            </section>
+
+
+            <!-- =========================================
+                 SINGLE PROJECT
+                 ========================================= -->
+
+            <article
+                id="project-detail"
+                class="single-view"
+                hidden
+            ></article>
+
+
+        </div>
 
     </main>
 
 
-    <!-- Footer -->
+    <!-- ================================================
+         FOOTER
+         ================================================ -->
+
     <footer class="site-footer">
 
         <div class="footer-inner">
@@ -118,10 +182,16 @@
     </footer>
 
 
-    <!-- Markdown -->
-    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <!-- ================================================
+         SCRIPTS
+         ================================================ -->
 
-    <!-- Main Script -->
+    <!-- Markdown renderer -->
+    <script
+        src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"
+    ></script>
+
+    <!-- Main script -->
     <script src="script.js"></script>
 
 </body>
