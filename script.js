@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const GITHUB_USERNAME = "Kaagaaz";
   const GITHUB_REPO = "kaagaaz.github.io";
 
-  // 1. Theme Toggle Logic
+  // 1. Theme Toggle
   const themeToggleBtn = document.getElementById("theme-toggle");
   const themeIcon = themeToggleBtn ? themeToggleBtn.querySelector("i") : null;
 
@@ -24,7 +24,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // 2. Audio Toggle Logic
+  // 2. Audio Toggle
   const bgm = document.getElementById("bgm");
   const musicToggleBtn = document.getElementById("music-toggle");
 
@@ -40,7 +40,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // 3. Projects Page Loader & Dynamic Views
+  // 3. Projects Page
   const projectsGrid = document.getElementById("projects-grid-container");
   const projectDetail = document.getElementById("project-detail");
   const projectsHeader = document.getElementById("projects-header-area");
@@ -64,7 +64,7 @@ document.addEventListener("DOMContentLoaded", () => {
               <h2 class="project-title">${escapeHTML(issue.title)}</h2>
               <span class="project-link"><i class="fa-solid fa-arrow-right"></i></span>
             </div>
-            <p class="project-desc">${escapeHTML(issue.body ? issue.body.slice(0, 140) + "..." : "No description provided.")}</p>
+            <p class="project-desc">${cleanSnippet(issue.body, 140)}</p>
           `;
 
           item.addEventListener("click", () => {
@@ -80,7 +80,7 @@ document.addEventListener("DOMContentLoaded", () => {
       });
   }
 
-  // 4. Blog Page Loader & Dynamic Views
+  // 4. Blog Page
   const blogList = document.getElementById("blog-posts-container");
   const blogDetail = document.getElementById("blog-detail");
   const blogHeader = document.getElementById("blog-header-area");
@@ -107,7 +107,7 @@ document.addEventListener("DOMContentLoaded", () => {
           item.innerHTML = `
             <span class="blog-date">${createdDate}</span>
             <h2 class="blog-title"><a>${escapeHTML(issue.title)}</a></h2>
-            <p class="blog-snippet">${escapeHTML(issue.body ? issue.body.slice(0, 160) + "..." : "")}</p>
+            <p class="blog-snippet">${cleanSnippet(issue.body, 160)}</p>
           `;
 
           item.addEventListener("click", () => {
@@ -124,7 +124,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 });
 
-// Helper: Fetch GitHub Issues
+// Fetch Issues API
 async function fetchIssues(owner, repo, label) {
   const response = await fetch(
     `https://api.github.com/repos/${owner}/${repo}/issues?labels=${label}&state=open`
@@ -133,10 +133,11 @@ async function fetchIssues(owner, repo, label) {
   return await response.json();
 }
 
-// Helper: Dedicated Single Page View Renderer
+// Single View Render Routine
 function showSingleView(issue, listContainer, detailContainer, headerArea) {
-  listContainer.hidden = true;
-  if (headerArea) headerArea.hidden = true;
+  // Completely hide list & section headers
+  listContainer.style.display = "none";
+  if (headerArea) headerArea.style.display = "none";
 
   const parsedContent = typeof marked !== "undefined" && marked.parse 
     ? marked.parse(issue.body || "") 
@@ -148,6 +149,8 @@ function showSingleView(issue, listContainer, detailContainer, headerArea) {
     .replace(/-/g, ".");
 
   detailContainer.hidden = false;
+  detailContainer.style.display = "block";
+
   detailContainer.innerHTML = `
     <button id="back-btn" class="icon-btn" style="margin-bottom: 24px; display: inline-flex; align-items: center; gap: 8px; font-size: 0.95rem; cursor: pointer;">
       <i class="fa-solid fa-arrow-left"></i> Back
@@ -156,17 +159,31 @@ function showSingleView(issue, listContainer, detailContainer, headerArea) {
       <span class="greeting">${createdDate}</span>
       <h1 class="name">${escapeHTML(issue.title)}</h1>
     </div>
-    <div class="markdown-body bio-paragraph" style="margin-top: 24px; line-height: 1.8;">
+    <div class="markdown-body" style="margin-top: 24px;">
       ${parsedContent}
     </div>
   `;
 
   document.getElementById("back-btn").addEventListener("click", () => {
     detailContainer.hidden = true;
+    detailContainer.style.display = "none";
     detailContainer.innerHTML = "";
-    listContainer.hidden = false;
-    if (headerArea) headerArea.hidden = false;
+    
+    // Restore list & headers
+    listContainer.style.display = "flex";
+    if (headerArea) headerArea.style.display = "block";
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   });
+}
+
+function cleanSnippet(str, length) {
+  if (!str) return "";
+  // Strip HTML and Markdown images/links from card preview text
+  const clean = str
+    .replace(/<[^>]*>?/gm, '')
+    .replace(/!\[.*?\]\(.*?\)/g, '')
+    .trim();
+  return escapeHTML(clean.slice(0, length)) + (clean.length > length ? "..." : "");
 }
 
 function escapeHTML(str) {
