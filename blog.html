@@ -1,121 +1,128 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
     <meta charset="UTF-8">
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Blog | Kaagaaz</title>
+    <title>Notes | Kaagaaz</title>
 
-    <meta name="description" content="Kaagaaz's blog — projects, thoughts, and lo-fi updates, streamed from GitHub issues.">
-
-    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap"
+        rel="stylesheet"
+    >
 
-    <!-- Markdown parser (blogs stream from GitHub issues) -->
-    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    >
 
-    <!-- CSS -->
-    <link rel="stylesheet" href="style.css?v=3">
+    <link rel="stylesheet" href="style.css">
 
+    <script>
+        if (localStorage.getItem("theme") !== "light") {
+            document.documentElement.classList.add("dark-mode");
+        }
+    </script>
 </head>
 
+<body>
 
-<body class="blog-page">
+    <!-- Header -->
+    <header class="site-header">
+        <div class="header-inner">
 
-<!-- Prevent theme flicker -->
-<script>
+            <a href="index.html" class="brand">
+                kaagaaz.
+            </a>
 
-if(localStorage.getItem("theme") !== "light"){
-    document.body.classList.add("dark-mode");
-}
+            <nav class="main-nav">
+                <a href="index.html">about</a>
+                <a href="projects.html">projects</a>
+                <a href="blog.html" class="active">notes</a>
+            </nav>
 
-</script>
+            <button
+                id="theme-toggle"
+                class="icon-button"
+                type="button"
+                aria-label="Toggle theme"
+            >
+                <i class="fa-solid fa-moon"></i>
+            </button>
 
-
-<header class="navbar">
-
-    <!-- Navigation -->
-
-    <nav class="nav-links-group nav-full">
-
-        <a href="index.html" class="nav-item">
-            ABOUT ME
-        </a>
-
-        <a href="projects.html" class="nav-item">
-            PROJECTS
-        </a>
-
-        <a href="blog.html" class="nav-item active">
-            BLOG
-        </a>
-
-        <!-- Theme Button -->
-
-        <button id="theme-toggle" class="theme-btn" aria-label="Toggle theme">
-
-            <i class="fa-solid fa-moon"></i>
-
-        </button>
-
-    </nav>
-
-</header>
+        </div>
+    </header>
 
 
-<main class="feed-wrap">
+    <!-- Main -->
+    <main class="feed-wrap">
 
+        <!-- Notes Header -->
+        <section class="feed-section" id="blog-header-area">
 
-    <!-- ==========================
-         BLOG SECTION
-         ========================== -->
+            <div class="page-label">
+                / notes
+            </div>
 
-    <section id="blog" class="feed-section blog-section">
+            <h1 class="page-title">
+                Things I've learned.
+            </h1>
 
-        <header class="section-head" id="blog-header-area">
-
-            <p class="section-kicker">[ LOG_ARCHIVE ]</p>
-
-            <h2 class="section-title">My blogs</h2>
-
-            <p class="section-sub">Sharing my projects, thoughts, and lo-fi updates.</p>
-
-        </header>
-
-        <section id="blog-posts-container" class="blog-list">
-
-            <p class="feed-message">Booting up the logs...</p>
+            <p class="page-description">
+                Research notes, technical write-ups, experiments,
+                discoveries, and things I find interesting.
+            </p>
 
         </section>
 
-        <article id="blog-detail" class="single-view" hidden></article>
 
-    </section>
-
-
-</main>
-
-
-<footer class="site-footer">
-
-    <p>
-        © 2026 Kaagaaz · blogs &amp; projects stream live 
-    </p>
-
-</footer>
+        <!-- Blog List -->
+        <section
+            id="blog-list-container"
+            class="blog-list"
+        >
+            <div class="loading-state">
+                Loading notes...
+            </div>
+        </section>
 
 
-<!-- JavaScript -->
-<script src="script.js?v=3"></script>
+        <!-- Single Blog Post -->
+        <article
+            id="blog-detail"
+            class="single-view"
+            hidden
+        ></article>
 
+    </main>
+
+
+    <!-- Footer -->
+    <footer class="site-footer">
+
+        <div class="footer-inner">
+
+            <span>
+                © 2026 Kaagaaz
+            </span>
+
+            <span>
+                built with curiosity.
+            </span>
+
+        </div>
+
+    </footer>
+
+
+    <!-- Markdown -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
+    <!-- Main Script -->
+    <script src="script.js"></script>
 
 </body>
-
 </html>
