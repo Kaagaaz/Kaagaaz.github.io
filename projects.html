@@ -3,61 +3,126 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Projects | Kaagaaz</title>
-    <meta name="description" content="Kaagaaz's projects — apps, tools, and tech concepts, streamed from GitHub issues.">
-    <!-- Fonts -->
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <!-- Markdown parser (projects stream from GitHub issues) -->
-    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-    <!-- CSS -->
-    <link rel="stylesheet" href="style.css?v=3">
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap"
+        rel="stylesheet"
+    >
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    >
+
+    <link rel="stylesheet" href="style.css">
+
+    <script>
+        if (localStorage.getItem("theme") !== "light") {
+            document.documentElement.classList.add("dark-mode");
+        }
+    </script>
 </head>
 
-<body class="projects-page">
+<body>
 
-<!-- Prevent theme flicker -->
-<script>
-if(localStorage.getItem("theme") !== "light"){
-    document.body.classList.add("dark-mode");
-}
-</script>
+    <!-- Header -->
+    <header class="site-header">
+        <div class="header-inner">
 
-<header class="navbar">
-    <nav class="nav-links-group nav-full">
-        <a href="index.html" class="nav-item">ABOUT ME</a>
-        <a href="projects.html" class="nav-item active">PROJECTS</a>
-        <a href="blog.html" class="nav-item">BLOG</a>
-        <button id="theme-toggle" class="theme-btn" aria-label="Toggle theme">
-            <i class="fa-solid fa-moon"></i>
-        </button>
-    </nav>
-</header>
+            <a href="index.html" class="brand">
+                kaagaaz.
+            </a>
 
-<main class="feed-wrap">
-    <section id="projects" class="feed-section projects-section">
-        <header class="section-head" id="projects-header-area">
-            <p class="section-kicker">[ SYSTEM_DIRECTORY ]</p>
-            <h2 class="section-title">My Creations</h2>
-            <p class="section-sub">Apps, tools, and tech concepts I build.</p>
-        </header>
-        <section id="projects-grid-container" class="projects-grid">
-            <p class="feed-message">Loading the project boards...</p>
+            <nav class="main-nav">
+                <a href="index.html">about</a>
+                <a href="projects.html" class="active">projects</a>
+                <a href="blog.html">notes</a>
+            </nav>
+
+            <button
+                id="theme-toggle"
+                class="icon-button"
+                type="button"
+                aria-label="Toggle theme"
+            >
+                <i class="fa-solid fa-moon"></i>
+            </button>
+
+        </div>
+    </header>
+
+
+    <!-- Main -->
+    <main class="feed-wrap">
+
+        <!-- Projects Header -->
+        <section class="feed-section" id="projects-header-area">
+
+            <div class="page-label">
+                / projects
+            </div>
+
+            <h1 class="page-title">
+                Things I've built.
+            </h1>
+
+            <p class="page-description">
+                A collection of projects, experiments, tools, and ideas
+                I've worked on while exploring technology and cybersecurity.
+            </p>
+
         </section>
-        <article id="project-detail" class="single-view" hidden></article>
-    </section>
-</main>
 
-<footer class="site-footer">
-    <p>
-        © 2026 Kaagaaz · blogs &amp; projects stream live 
-    </p>
-</footer>
 
-<!-- JavaScript -->
-<script src="script.js?v=3"></script>
+        <!-- Project List -->
+        <section
+            id="projects-grid-container"
+            class="projects-grid"
+        >
+            <div class="loading-state">
+                Loading projects...
+            </div>
+        </section>
+
+
+        <!-- Single Project -->
+        <article
+            id="project-detail"
+            class="single-view"
+            hidden
+        ></article>
+
+    </main>
+
+
+    <!-- Footer -->
+    <footer class="site-footer">
+
+        <div class="footer-inner">
+
+            <span>
+                © 2026 Kaagaaz
+            </span>
+
+            <span>
+                built with curiosity.
+            </span>
+
+        </div>
+
+    </footer>
+
+
+    <!-- Markdown -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
+    <!-- Main Script -->
+    <script src="script.js"></script>
 
 </body>
 </html>
