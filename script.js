@@ -1,48 +1,62 @@
 /* =========================================================
-   KAAGAAZ — SITE JAVASCRIPT
-   ========================================================= */
-
-
-/* =========================================================
-   CONFIGURATION
+   KAAGAAZ — MAIN SCRIPT
    ========================================================= */
 
 const GITHUB_USERNAME = "Kaagaaz";
 const REPO_NAME = "Kaagaaz.github.io";
 
+const API_BASE =
+    `https://api.github.com/repos/${GITHUB_USERNAME}/${REPO_NAME}/issues`;
 
-/* =========================================================
-   THEME
-   ========================================================= */
-
-function getCurrentTheme() {
-    return localStorage.getItem("theme") || "dark";
-}
+const issueCache = {};
 
 
-function applyTheme() {
+// =========================================================
+// THEME
+// =========================================================
 
-    const theme = getCurrentTheme();
+function setupTheme() {
+    const savedTheme = localStorage.getItem("theme");
 
-    const isDark = theme === "dark";
+    if (savedTheme === "light") {
+        document.body.classList.remove("dark-mode");
+    } else {
+        document.body.classList.add("dark-mode");
+    }
 
-    document.body.classList.toggle(
-        "dark-mode",
-        isDark
-    );
+    updateThemeIcon();
 
-    updateThemeIcon(isDark);
-}
+    const themeButton = document.getElementById("theme-toggle");
 
+    if (!themeButton) return;
 
-function updateThemeIcon(isDark) {
+    themeButton.addEventListener("click", () => {
+        document.body.classList.toggle("dark-mode");
 
-    const icon =
-        document.querySelector(
-            "#theme-toggle i"
+        const isDark =
+            document.body.classList.contains("dark-mode");
+
+        localStorage.setItem(
+            "theme",
+            isDark ? "dark" : "light"
         );
 
+        updateThemeIcon();
+    });
+}
+
+
+function updateThemeIcon() {
+    const button = document.getElementById("theme-toggle");
+
+    if (!button) return;
+
+    const icon = button.querySelector("i");
+
     if (!icon) return;
+
+    const isDark =
+        document.body.classList.contains("dark-mode");
 
     icon.className = isDark
         ? "fa-solid fa-sun"
@@ -50,468 +64,360 @@ function updateThemeIcon(isDark) {
 }
 
 
-/* =========================================================
-   MUSIC
-   ========================================================= */
+// =========================================================
+// MUSIC
+// =========================================================
 
 function setupMusic() {
-
-    const music =
-        document.getElementById("bgm");
-
-    const button =
-        document.getElementById("music-toggle");
+    const music = document.getElementById("bgm");
+    const button = document.getElementById("music-toggle");
 
     if (!music || !button) return;
 
-    const icon =
-        button.querySelector("i");
+    const icon = button.querySelector("i");
 
+    button.addEventListener("click", async () => {
 
-    button.addEventListener(
-        "click",
-        async () => {
+        try {
 
-            try {
+            if (music.paused) {
+                await music.play();
 
-                if (music.paused) {
-
-                    await music.play();
-
+                if (icon) {
                     icon.className =
-                        "fa-solid fa-pause";
-
-                    button.setAttribute(
-                        "aria-label",
-                        "Pause music"
-                    );
-
-                } else {
-
-                    music.pause();
-
-                    icon.className =
-                        "fa-solid fa-headphones";
-
-                    button.setAttribute(
-                        "aria-label",
-                        "Play music"
-                    );
+                        "fa-solid fa-volume-high";
                 }
 
-            } catch (error) {
+            } else {
+                music.pause();
 
-                console.warn(
-                    "Music could not start:",
-                    error
-                );
-
+                if (icon) {
+                    icon.className =
+                        "fa-solid fa-volume-xmark";
+                }
             }
 
+        } catch (error) {
+            console.warn("Music could not be played:", error);
         }
-    );
+    });
+
+    music.addEventListener("ended", () => {
+
+        if (icon) {
+            icon.className =
+                "fa-solid fa-volume-xmark";
+        }
+
+    });
 }
 
 
-/* =========================================================
-   GITHUB API
-   ========================================================= */
-
-const feedCache = {};
-
+// =========================================================
+// GITHUB ISSUES
+// =========================================================
 
 async function fetchIssues(label) {
 
-    if (feedCache[label]) {
-        return feedCache[label];
+    if (issueCache[label]) {
+        return issueCache[label];
     }
 
+    try {
 
-    const url =
-        `https://api.github.com/repos/` +
-        `${GITHUB_USERNAME}/` +
-        `${REPO_NAME}/issues` +
-        `?labels=${encodeURIComponent(label)}` +
-        `&state=open`;
-
-
-    const response =
-        await fetch(url);
-
-
-    if (!response.ok) {
-
-        throw new Error(
-            `GitHub API error: ${response.status}`
+        const response = await fetch(
+            `${API_BASE}?labels=${encodeURIComponent(label)}&state=open&per_page=100`
         );
 
-    }
+        if (!response.ok) {
+            throw new Error(
+                `GitHub API returned ${response.status}`
+            );
+        }
 
+        const issues = await response.json();
 
-    const issues =
-        await response.json();
+        /*
+         * GitHub Issues API also returns pull requests.
+         * We don't want those appearing as projects/notes.
+         */
 
-
-    feedCache[label] =
-        issues;
-
-
-    return issues;
-}
-
-
-/* =========================================================
-   SECURITY / HTML ESCAPING
-   ========================================================= */
-
-function escapeHTML(text) {
-
-    const element =
-        document.createElement("div");
-
-    element.textContent =
-        text || "";
-
-    return element.innerHTML;
-}
-
-
-/* =========================================================
-   TEXT PREVIEW
-   ========================================================= */
-
-function createSnippet(text) {
-
-    if (!text) {
-        return "No preview available.";
-    }
-
-
-    const cleanText =
-        text
-
-            .replace(
-                /<!--[\s\S]*?-->/g,
-                ""
-            )
-
-            .replace(
-                /<[^>]*>/g,
-                ""
-            )
-
-            .replace(
-                /!\[.*?\]\(.*?\)/g,
-                ""
-            )
-
-            .replace(
-                /\[.*?\]\(.*?\)/g,
-                ""
-            )
-
-            .replace(
-                /```[\s\S]*?```/g,
-                ""
-            )
-
-            .replace(
-                /`.*?`/g,
-                ""
-            )
-
-            .replace(
-                /[#*_~-]/g,
-                ""
-            )
-
-            .replace(
-                /\s+/g,
-                " "
-            )
-
-            .trim();
-
-
-    if (!cleanText) {
-
-        return "View the full entry for details.";
-
-    }
-
-
-    if (cleanText.length > 180) {
-
-        return (
-            cleanText.substring(0, 180) +
-            "..."
+        const filtered = issues.filter(
+            issue => !issue.pull_request
         );
 
+        issueCache[label] = filtered;
+
+        return filtered;
+
+    } catch (error) {
+
+        console.error(
+            `Failed to load ${label} issues:`,
+            error
+        );
+
+        return [];
+    }
+}
+
+
+// =========================================================
+// HTML SAFETY
+// =========================================================
+
+function escapeHTML(value = "") {
+
+    return value
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+}
+
+
+// =========================================================
+// MARKDOWN
+// =========================================================
+
+function renderMarkdown(markdown = "") {
+
+    if (typeof marked !== "undefined") {
+
+        return marked.parse(markdown, {
+            breaks: true,
+            gfm: true
+        });
+
     }
 
-
-    return cleanText;
+    return `<p>${escapeHTML(markdown)}</p>`;
 }
 
 
-/* =========================================================
-   DATE FORMAT
-   ========================================================= */
+// =========================================================
+// DATE
+// =========================================================
 
-function formatDate(date) {
+function formatDate(dateString) {
 
-    return new Date(date)
-        .toLocaleDateString(
-            "en-US",
-            {
-                year: "numeric",
-                month: "short",
-                day: "numeric"
-            }
-        );
+    if (!dateString) {
+        return "";
+    }
+
+    const date = new Date(dateString);
+
+    return date.toLocaleDateString("en-IN", {
+        day: "2-digit",
+        month: "short",
+        year: "numeric"
+    });
 }
 
 
-/* =========================================================
-   BLOG / NOTES
-   ========================================================= */
+// =========================================================
+// TEXT SNIPPET
+// =========================================================
+
+function createSnippet(text = "", length = 180) {
+
+    const cleanText = text
+        .replace(/[#>*_`~]/g, "")
+        .replace(/\[([^\]]+)\]\([^)]+\)/g, "$1")
+        .replace(/\s+/g, " ")
+        .trim();
+
+    if (cleanText.length <= length) {
+        return cleanText;
+    }
+
+    return cleanText.substring(0, length).trim() + "...";
+}
+
+
+// =========================================================
+// LOADING / ERROR
+// =========================================================
+
+function showError(container, message) {
+
+    if (!container) return;
+
+    container.innerHTML = `
+        <div class="empty-state">
+            <p>${escapeHTML(message)}</p>
+        </div>
+    `;
+}
+
+
+function showLoading(container, message) {
+
+    if (!container) return;
+
+    container.innerHTML = `
+        <div class="loading-state">
+            ${escapeHTML(message)}
+        </div>
+    `;
+}
+
+
+// =========================================================
+// BLOG / NOTES LIST
+// =========================================================
 
 async function loadBlogList() {
 
     const container =
-        document.getElementById(
-            "blog-posts-container"
-        );
-
+        document.getElementById("blog-list-container");
 
     if (!container) return;
 
+    showLoading(container, "Loading notes...");
 
-    try {
+    const posts = await fetchIssues("blog");
 
-        const issues =
-            await fetchIssues("blog");
+    if (!posts.length) {
 
+        showError(
+            container,
+            "No notes found."
+        );
 
-        container.innerHTML = "";
-
-
-        if (!issues.length) {
-
-            container.innerHTML = `
-                <p class="no-posts">
-                    No notes yet.
-                    Check back soon.
-                </p>
-            `;
-
-            return;
-        }
-
-
-        issues.forEach(issue => {
-
-            const post =
-                document.createElement(
-                    "article"
-                );
-
-
-            post.className =
-                "blog-post";
-
-
-            post.innerHTML = `
-
-                <h2 class="post-title">
-                    ${escapeHTML(issue.title)}
-                </h2>
-
-
-                <p class="post-date">
-                    ${formatDate(issue.created_at)}
-                </p>
-
-
-                <p class="post-snippet">
-                    ${escapeHTML(
-                        createSnippet(issue.body)
-                    )}
-                </p>
-
-
-                <a
-                    href="blog.html?post=${issue.number}"
-                    class="btn"
-                >
-                    read note →
-                </a>
-
-            `;
-
-
-            container.appendChild(post);
-
-        });
-
-    } catch (error) {
-
-        console.error(error);
-
-
-        container.innerHTML = `
-            <p class="no-posts">
-                Couldn't connect to the
-                notes archive.
-            </p>
-        `;
-
+        return;
     }
 
+    container.innerHTML = posts.map(post => {
+
+        const title =
+            escapeHTML(post.title);
+
+        const description =
+            escapeHTML(
+                createSnippet(post.body || "")
+            );
+
+        const date =
+            formatDate(post.created_at);
+
+        return `
+            <a
+                class="blog-item"
+                href="blog.html?post=${post.number}"
+            >
+
+                <div class="blog-item-main">
+
+                    <div class="blog-item-title">
+                        ${title}
+                    </div>
+
+                    <div class="blog-item-description">
+                        ${description}
+                    </div>
+
+                </div>
+
+                <div class="blog-item-date">
+                    ${date}
+                </div>
+
+            </a>
+        `;
+
+    }).join("");
 }
 
 
-/* =========================================================
-   SINGLE BLOG POST
-   ========================================================= */
+// =========================================================
+// SINGLE BLOG POST
+// =========================================================
 
-async function showSingleBlogPost(id) {
-
-    const container =
-        document.getElementById(
-            "blog-posts-container"
-        );
-
-
-    const header =
-        document.getElementById(
-            "blog-header-area"
-        );
-
+async function loadSingleBlog(postNumber) {
 
     const detail =
-        document.getElementById(
-            "blog-detail"
-        );
+        document.getElementById("blog-detail");
 
+    const header =
+        document.getElementById("blog-header-area");
+
+    const list =
+        document.getElementById("blog-list-container");
 
     if (!detail) return;
 
-
-    if (container) {
-        container.style.display =
-            "none";
-    }
-
+    if (!postNumber) return;
 
     if (header) {
-        header.style.display =
-            "none";
+        header.style.display = "none";
     }
 
+    if (list) {
+        list.style.display = "none";
+    }
 
     detail.hidden = false;
 
+    showLoading(detail, "Loading note...");
 
-    detail.innerHTML = `
-        <p class="feed-message">
-            Opening note...
-        </p>
-    `;
+    const posts = await fetchIssues("blog");
 
+    const post = posts.find(
+        item => String(item.number) === String(postNumber)
+    );
 
-    try {
+    if (!post) {
 
-        const response =
-            await fetch(
-                `https://api.github.com/repos/` +
-                `${GITHUB_USERNAME}/` +
-                `${REPO_NAME}/issues/${id}`
-            );
+        showError(
+            detail,
+            "This note could not be found."
+        );
 
-
-        if (!response.ok) {
-
-            throw new Error(
-                "Note not found"
-            );
-
-        }
-
-
-        const issue =
-            await response.json();
-
-
-        detail.innerHTML = `
-
-            <a
-                href="blog.html"
-                class="back-link"
-            >
-                <i class="fas fa-arrow-left"></i>
-                all notes
-            </a>
-
-
-            <h1 class="full-title">
-                ${escapeHTML(issue.title)}
-            </h1>
-
-
-            <p class="post-date">
-                ${formatDate(issue.created_at)}
-            </p>
-
-
-            <div class="post-body">
-
-                ${
-                    typeof marked !== "undefined"
-                        ? marked.parse(
-                            issue.body || ""
-                        )
-                        : escapeHTML(
-                            issue.body || ""
-                        )
-                }
-
-            </div>
-
-        `;
-
-    } catch (error) {
-
-        console.error(error);
-
-
-        detail.innerHTML = `
-
-            <p class="no-posts">
-
-                This note couldn't be found.
-
-                <br><br>
-
-                <a
-                    class="back-link"
-                    href="blog.html"
-                >
-                    ← return to notes
-                </a>
-
-            </p>
-
-        `;
-
+        return;
     }
 
+    document.title =
+        `${post.title} | Kaagaaz`;
+
+    detail.innerHTML = `
+
+        <a
+            class="back-link"
+            href="blog.html"
+        >
+            <i class="fa-solid fa-arrow-left"></i>
+            back to notes
+        </a>
+
+        <div class="single-header">
+
+            <div class="page-label">
+                / note
+            </div>
+
+            <h1 class="single-title">
+                ${escapeHTML(post.title)}
+            </h1>
+
+            <div class="single-meta">
+                ${formatDate(post.created_at)}
+            </div>
+
+        </div>
+
+        <div class="markdown-content">
+            ${renderMarkdown(post.body || "")}
+        </div>
+
+    `;
 }
 
 
-/* =========================================================
-   PROJECTS
-   ========================================================= */
+// =========================================================
+// PROJECT LIST
+// =========================================================
 
 async function loadProjectsList() {
 
@@ -520,248 +426,196 @@ async function loadProjectsList() {
             "projects-grid-container"
         );
 
-
     if (!container) return;
 
+    showLoading(
+        container,
+        "Loading projects..."
+    );
 
-    try {
+    const projects =
+        await fetchIssues("project");
 
-        const issues =
-            await fetchIssues("project");
+    if (!projects.length) {
 
+        showError(
+            container,
+            "No projects found."
+        );
 
-        container.innerHTML = "";
+        return;
+    }
 
+    container.innerHTML = projects.map(project => {
 
-        if (!issues.length) {
+        const title =
+            escapeHTML(project.title);
 
-            container.innerHTML = `
-                <p class="feed-message">
-                    No projects showcased yet.
-                </p>
-            `;
+        const description =
+            escapeHTML(
+                createSnippet(project.body || "", 150)
+            );
 
-            return;
-        }
+        const date =
+            formatDate(project.created_at);
 
+        return `
 
-        issues.forEach(issue => {
-
-            const card =
-                document.createElement(
-                    "article"
-                );
-
-
-            card.className =
-                "project-card";
-
-
-            card.innerHTML = `
+            <a
+                class="project-card"
+                href="projects.html?project=${project.number}"
+            >
 
                 <div class="project-card-top">
 
-                    <span>
-                        PROJECT_${String(
-                            issue.number
-                        ).padStart(2, "0")}
+                    <span class="project-number">
+                        #${String(project.number).padStart(2, "0")}
                     </span>
 
-
-                    <span class="gacha-stars">
-                        ✦ ✦ ✦
-                    </span>
+                    <i class="fa-solid fa-arrow-up-right-from-square"></i>
 
                 </div>
 
+                <h2 class="project-card-title">
+                    ${title}
+                </h2>
 
-                <div class="project-card-content">
+                <p class="project-card-description">
+                    ${description}
+                </p>
 
-                    <h2>
-                        ${escapeHTML(issue.title)}
-                    </h2>
-
-
-                    <p class="project-card-body">
-                        ${escapeHTML(
-                            createSnippet(
-                                issue.body
-                            )
-                        )}
-                    </p>
-
+                <div class="project-card-footer">
+                    ${date}
                 </div>
 
+            </a>
 
-                <a
-                    href="projects.html?project=${issue.number}"
-                    class="project-view-btn"
-                >
-                    view project →
-                </a>
-
-            `;
-
-
-            container.appendChild(card);
-
-        });
-
-    } catch (error) {
-
-        console.error(error);
-
-
-        container.innerHTML = `
-            <p class="feed-message">
-                Couldn't connect to the
-                project archive.
-            </p>
         `;
 
-    }
-
+    }).join("");
 }
 
 
-/* =========================================================
-   SINGLE PROJECT
-   ========================================================= */
+// =========================================================
+// SINGLE PROJECT
+// =========================================================
 
-async function showSingleProject(id) {
+async function loadSingleProject(projectNumber) {
 
-    const container =
-        document.getElementById(
-            "projects-grid-container"
-        );
-
+    const detail =
+        document.getElementById("project-detail");
 
     const header =
         document.getElementById(
             "projects-header-area"
         );
 
-
-    const detail =
+    const grid =
         document.getElementById(
-            "project-detail"
+            "projects-grid-container"
         );
-
 
     if (!detail) return;
 
-
-    if (container) {
-        container.style.display =
-            "none";
-    }
-
+    if (!projectNumber) return;
 
     if (header) {
-        header.style.display =
-            "none";
+        header.style.display = "none";
     }
 
+    if (grid) {
+        grid.style.display = "none";
+    }
 
     detail.hidden = false;
 
+    showLoading(
+        detail,
+        "Loading project..."
+    );
 
-    detail.innerHTML = `
-        <p class="feed-message">
-            Opening project...
-        </p>
-    `;
+    const projects =
+        await fetchIssues("project");
 
+    const project =
+        projects.find(
+            item =>
+                String(item.number) ===
+                String(projectNumber)
+        );
 
-    try {
+    if (!project) {
 
-        const response =
-            await fetch(
-                `https://api.github.com/repos/` +
-                `${GITHUB_USERNAME}/` +
-                `${REPO_NAME}/issues/${id}`
-            );
+        showError(
+            detail,
+            "This project could not be found."
+        );
 
-
-        if (!response.ok) {
-
-            throw new Error(
-                "Project not found"
-            );
-
-        }
-
-
-        const issue =
-            await response.json();
-
-
-        detail.innerHTML = `
-
-            <a
-                href="projects.html"
-                class="back-link"
-            >
-                <i class="fas fa-arrow-left"></i>
-                all projects
-            </a>
-
-
-            <h1 class="full-title">
-                ${escapeHTML(issue.title)}
-            </h1>
-
-
-            <div class="post-body">
-
-                ${
-                    typeof marked !== "undefined"
-                        ? marked.parse(
-                            issue.body || ""
-                        )
-                        : escapeHTML(
-                            issue.body || ""
-                        )
-                }
-
-            </div>
-
-        `;
-
-    } catch (error) {
-
-        console.error(error);
-
-
-        detail.innerHTML = `
-
-            <p class="no-posts">
-
-                This project couldn't be loaded.
-
-                <br><br>
-
-                <a
-                    class="back-link"
-                    href="projects.html"
-                >
-                    ← return to projects
-                </a>
-
-            </p>
-
-        `;
-
+        return;
     }
 
+    document.title =
+        `${project.title} | Kaagaaz`;
+
+    detail.innerHTML = `
+
+        <a
+            class="back-link"
+            href="projects.html"
+        >
+            <i class="fa-solid fa-arrow-left"></i>
+            back to projects
+        </a>
+
+        <div class="single-header">
+
+            <div class="page-label">
+                / project #${String(project.number).padStart(2, "0")}
+            </div>
+
+            <h1 class="single-title">
+                ${escapeHTML(project.title)}
+            </h1>
+
+            <div class="single-meta">
+                ${formatDate(project.created_at)}
+            </div>
+
+        </div>
+
+        <div class="markdown-content">
+            ${renderMarkdown(project.body || "")}
+        </div>
+
+        <div class="single-actions">
+
+            <a
+                href="${project.html_url}"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="button button-secondary"
+            >
+                view on GitHub
+                <i class="fa-solid fa-arrow-up-right-from-square"></i>
+            </a>
+
+        </div>
+
+    `;
 }
 
 
-/* =========================================================
-   PAGE ROUTING
-   ========================================================= */
+// =========================================================
+// ROUTING
+// =========================================================
 
 function routeCurrentPage() {
+
+    const path =
+        window.location.pathname
+            .split("/")
+            .pop()
+            .toLowerCase();
 
     const params =
         new URLSearchParams(
@@ -769,128 +623,55 @@ function routeCurrentPage() {
         );
 
 
-    /* ---------- BLOG ---------- */
+    // -------------------------
+    // Blog
+    // -------------------------
 
-    const blogContainer =
-        document.getElementById(
-            "blog-posts-container"
-        );
+    if (path === "blog.html") {
 
-
-    if (blogContainer) {
-
-        const postId =
+        const postNumber =
             params.get("post");
 
-
-        if (postId) {
-
-            showSingleBlogPost(
-                postId
-            );
-
+        if (postNumber) {
+            loadSingleBlog(postNumber);
         } else {
-
             loadBlogList();
-
         }
 
+        return;
     }
 
 
-    /* ---------- PROJECTS ---------- */
+    // -------------------------
+    // Projects
+    // -------------------------
 
-    const projectsContainer =
-        document.getElementById(
-            "projects-grid-container"
-        );
+    if (path === "projects.html") {
 
-
-    if (projectsContainer) {
-
-        const projectId =
+        const projectNumber =
             params.get("project");
 
-
-        if (projectId) {
-
-            showSingleProject(
-                projectId
-            );
-
+        if (projectNumber) {
+            loadSingleProject(projectNumber);
         } else {
-
             loadProjectsList();
-
         }
 
+        return;
     }
-
 }
 
 
-/* =========================================================
-   INITIALIZATION
-   ========================================================= */
+// =========================================================
+// START
+// =========================================================
 
 document.addEventListener(
     "DOMContentLoaded",
     () => {
 
-        /* Theme */
-
-        applyTheme();
-
-
-        const themeButton =
-            document.getElementById(
-                "theme-toggle"
-            );
-
-
-        if (themeButton) {
-
-            themeButton.addEventListener(
-                "click",
-                () => {
-
-                    const isDark =
-                        !document.body.classList.contains(
-                            "dark-mode"
-                        );
-
-
-                    document.body.classList.toggle(
-                        "dark-mode",
-                        isDark
-                    );
-
-
-                    localStorage.setItem(
-                        "theme",
-                        isDark
-                            ? "dark"
-                            : "light"
-                    );
-
-
-                    updateThemeIcon(
-                        isDark
-                    );
-
-                }
-            );
-
-        }
-
-
-        /* Music */
-
+        setupTheme();
         setupMusic();
-
-
-        /* GitHub feeds */
-
         routeCurrentPage();
 
     }
