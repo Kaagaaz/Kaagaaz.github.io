@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Projects | Kaagaaz</title>
-    <meta name="description" content="Projects and digital builds by Kaagaaz.">
+    <meta name="description" content="Kaagaaz's projects — apps, tools, and tech concepts, streamed from GitHub issues.">
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -14,11 +14,15 @@
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
+    <!-- Markdown parser (projects stream from GitHub issues) -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
     <!-- CSS -->
     <link rel="stylesheet" href="style.css?v=4">
 </head>
-<body>
+<body class="projects-page">
 
+<!-- Prevent theme flicker -->
 <script>
 if(localStorage.getItem("theme") !== "light"){
     document.body.classList.add("dark-mode");
@@ -51,20 +55,20 @@ if(localStorage.getItem("theme") !== "light"){
 </header>
 
 <main class="container">
-    <section class="about-hero">
-        <div class="hero-header">
-            <span class="greeting">Selected Work</span>
-            <h1 class="name">Projects</h1>
-        </div>
+    <section id="projects" class="about-hero feed-section projects-section">
+        <header class="hero-header" id="projects-header-area">
+            <span class="greeting">[ SYSTEM_DIRECTORY ]</span>
+            <h1 class="name">My Creations</h1>
+            <p class="bio-paragraph">Apps, tools, and tech concepts I build.</p>
+        </header>
 
-        <p class="bio-paragraph">
-            A minimalist archive of security tools, personal builds, and experimentations in code.
-        </p>
+        <!-- Container for GitHub Issue Cards -->
+        <section id="projects-grid-container" class="projects-grid">
+            <p class="feed-message">Loading the project boards...</p>
+        </section>
 
-        <!-- Dynamic Container where GitHub Issues labeled 'project' get rendered -->
-        <div class="project-list">
-            <p class="bio-paragraph">Loading projects...</p>
-        </div>
+        <!-- Detailed Single View -->
+        <article id="project-detail" class="single-view" hidden></article>
     </section>
 </main>
 
@@ -72,6 +76,7 @@ if(localStorage.getItem("theme") !== "light"){
     <p>© 2026 Kaagaaz · blogs &amp; projects stream live</p>
 </footer>
 
+<!-- JavaScript -->
 <script src="script.js?v=4"></script>
 
 </body>
