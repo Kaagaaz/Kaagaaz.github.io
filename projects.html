@@ -1,411 +1,93 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Me | Kaagaaz</title>
+    <meta name="description" content="Kaagaaz — future cybersecurity specialist, professional daydreamer. Tech, manga, music and gacha luck.">
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
-
-    <title>Projects | Kaagaaz</title>
-
-    <meta
-        name="description"
-        content="Projects and experiments by Kaagaaz."
-    >
-
-    <!-- Google Font -->
-    <link
-        rel="preconnect"
-        href="https://fonts.googleapis.com"
-    >
-
-    <link
-        rel="preconnect"
-        href="https://fonts.gstatic.com"
-        crossorigin
-    >
-
-    <link
-        href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap"
-        rel="stylesheet"
-    >
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 
     <!-- Font Awesome -->
-    <link
-        rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
-    >
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
-    <!-- Main stylesheet -->
-    <link
-        rel="stylesheet"
-        href="style.css"
-    >
-
+    <!-- CSS -->
+    <link rel="stylesheet" href="style.css?v=4">
 </head>
-
-
 <body>
 
+<!-- Prevent theme flicker -->
+<script>
+if(localStorage.getItem("theme") !== "light"){
+    document.body.classList.add("dark-mode");
+}
+</script>
 
-    <!-- =========================
-         HEADER
-    ========================== -->
+<header class="navbar">
+    <div class="nav-container">
+        <a href="index.html" class="brand-logo">Kaagaaz</a>
 
-    <header class="site-header">
+        <nav class="nav-links">
+            <a href="index.html" class="nav-item active">About</a>
+            <a href="projects.html" class="nav-item">Projects</a>
+            <a href="blog.html" class="nav-item">Blog</a>
+        </nav>
 
-        <div class="header-inner">
+        <div class="nav-actions">
+            <button id="music-toggle" class="icon-btn" aria-label="Toggle music" title="Toggle Music">
+                <i class="fa-solid fa-headphones"></i>
+            </button>
+            <button id="theme-toggle" class="icon-btn" aria-label="Toggle theme" title="Toggle Theme">
+                <i class="fa-solid fa-moon"></i>
+            </button>
+        </div>
+    </div>
 
-            <a
-                href="index.html"
-                class="site-logo"
-            >
-                kaagaaz.
+    <audio id="bgm" loop>
+        <source src="bgm.mp3" type="audio/mpeg">
+    </audio>
+</header>
+
+<main class="container">
+    <section id="about" class="about-hero">
+
+        <div class="hero-header">
+            <span class="greeting">Welcome here, I'm</span>
+            <h1 class="name">Kaagaaz</h1>
+        </div>
+
+        <p class="bio-paragraph">
+            Future cybersecurity specialist by day, professional daydreamer by night. I run entirely on high-voltage coffee and pure luck. When I'm not learning how to protect the digital frontier, you’ll find me searching for peace in my favorite escapes: getting lost in manga, novels, and anime, keeping the music always on with the volume up, and testing my luck (and crying over pity pulls) in gacha games. Just a tech-minded soul finding quiet moments in fictional worlds—let's chat tech or trade gacha luck!
+        </p>
+
+        <!-- Social Links -->
+        <div class="social-links">
+            <a href="https://discord.com/users/1470676347805503501" target="_blank" rel="noopener noreferrer" title="Discord" aria-label="Discord">
+                <i class="fab fa-discord"></i>
             </a>
-
-
-            <nav class="site-nav">
-
-                <a href="index.html#about">
-                    about
-                </a>
-
-                <a
-                    href="projects.html"
-                    class="active"
-                >
-                    projects
-                </a>
-
-                <a href="blog.html">
-                    blog
-                </a>
-
-            </nav>
-
-
-            <div class="header-actions">
-
-                <button
-                    id="music-toggle"
-                    class="icon-button"
-                    type="button"
-                    aria-label="Toggle music"
-                    title="Toggle music"
-                >
-                    <i class="fa-solid fa-volume-xmark"></i>
-                </button>
-
-
-                <button
-                    id="theme-toggle"
-                    class="icon-button"
-                    type="button"
-                    aria-label="Toggle theme"
-                    title="Toggle theme"
-                >
-                    <i class="fa-solid fa-sun"></i>
-                </button>
-
-            </div>
-
+            <a href="https://www.instagram.com/kaagaaz_the_bukky" target="_blank" rel="noopener noreferrer" title="Instagram" aria-label="Instagram">
+                <i class="fab fa-instagram"></i>
+            </a>
+            <a href="https://x.com/The_kaagaaz" target="_blank" rel="noopener noreferrer" title="X" aria-label="X">
+                <i class="fab fa-x-twitter"></i>
+            </a>
+            <a href="https://github.com/Kaagaaz" target="_blank" rel="noopener noreferrer" title="GitHub" aria-label="GitHub">
+                <i class="fab fa-github"></i>
+            </a>
         </div>
 
-    </header>
+    </section>
+</main>
 
+<footer class="site-footer">
+    <p>© 2026 Kaagaaz · blogs &amp; projects stream live</p>
+</footer>
 
-
-    <!-- =========================
-         MAIN
-    ========================== -->
-
-    <main class="site-main">
-
-
-        <!-- =========================
-             PROJECT HEADER
-        ========================== -->
-
-        <section
-            id="projects-header-area"
-            class="page-header"
-        >
-
-            <div class="page-label">
-                / projects
-            </div>
-
-
-            <h1 class="page-title">
-                Things I've<br>
-                built.
-            </h1>
-
-
-            <p class="page-description">
-                Experiments, tools, research projects,
-                and things I've built while learning.
-            </p>
-
-        </section>
-
-
-
-        <!-- =========================
-             PROJECT GRID
-        ========================== -->
-
-        <section class="content-section">
-
-            <div
-                id="projects-grid-container"
-                class="projects-grid"
-            >
-
-                <div class="loading-state">
-                    Loading projects...
-                </div>
-
-            </div>
-
-        </section>
-
-
-
-        <!-- =========================
-             SINGLE PROJECT
-        ========================== -->
-
-        <section
-            id="project-detail"
-            class="single-page"
-            hidden
-        >
-
-        </section>
-
-    </main>
-
-
-
-    <!-- =========================
-         FOOTER
-    ========================== -->
-
-    <footer class="site-footer">
-
-        <div class="footer-inner">
-
-            <span>
-                © 2026 Kaagaaz
-            </span>
-
-            <span>
-                built with curiosity.
-            </span>
-
-        </div>
-
-    </footer>
-
-
-
-    <!-- =========================
-         MUSIC
-    ========================== -->
-
-    <audio
-        id="bgm"
-        src="bgm.mp3"
-        loop
-        preload="none"
-    ></audio>
-
-
-
-    <!-- =========================
-         MARKED.JS
-    ========================== -->
-
-    <script
-        src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"
-    ></script>
-
-
-
-    <!-- =========================
-         MAIN SCRIPT
-    ========================== -->
-
-    <script src="script.js"></script>
-
+<!-- JavaScript -->
+<script src="script.js?v=4"></script>
 
 </body>
-
 </html>
-
-Then add these styles to the bottom of "style.css":
-
-/* =========================================================
-   PROJECT CARDS
-   ========================================================= */
-
-.projects-grid {
-    display: grid;
-
-    grid-template-columns:
-        repeat(2, minmax(0, 1fr));
-
-    gap: 18px;
-}
-
-
-/* CARD */
-
-.project-card {
-    position: relative;
-
-    display: flex;
-    flex-direction: column;
-
-    min-height: 280px;
-
-    padding: 26px;
-
-    border: 1px solid var(--border);
-
-    background: var(--surface);
-
-    color: var(--text);
-
-    text-decoration: none;
-
-    transition:
-        transform .3s var(--ease),
-        border-color .3s ease,
-        background-color .3s ease;
-}
-
-
-/* HOVER */
-
-.project-card:hover {
-    transform: translateY(-4px);
-
-    border-color: var(--accent);
-}
-
-
-/* TOP */
-
-.project-card-top {
-    display: flex;
-
-    align-items: center;
-    justify-content: space-between;
-
-    margin-bottom: 55px;
-}
-
-.project-number {
-    color: var(--subtle);
-
-    font-size: .68rem;
-}
-
-.project-card-top i {
-    color: var(--subtle);
-
-    font-size: .75rem;
-
-    transition:
-        transform .3s var(--ease),
-        color .3s ease;
-}
-
-.project-card:hover .project-card-top i {
-    color: var(--accent);
-
-    transform:
-        translate(3px, -3px);
-}
-
-
-/* TITLE */
-
-.project-card-title {
-    margin: 0 0 14px;
-
-    font-size: 1.15rem;
-
-    line-height: 1.35;
-
-    letter-spacing: -.025em;
-}
-
-
-/* DESCRIPTION */
-
-.project-card-description {
-    margin: 0;
-
-    max-width: 600px;
-
-    color: var(--muted);
-
-    font-size: .76rem;
-
-    line-height: 1.75;
-}
-
-
-/* FOOTER */
-
-.project-card-footer {
-    margin-top: auto;
-
-    padding-top: 35px;
-
-    color: var(--subtle);
-
-    font-size: .65rem;
-}
-
-
-/* MOBILE */
-
-@media (max-width: 750px) {
-
-    .projects-grid {
-        grid-template-columns: 1fr;
-
-        gap: 14px;
-    }
-
-    .project-card {
-        min-height: 250px;
-
-        padding: 22px;
-    }
-
-}
-
-Result
-
-The Projects page will now have a clear card layout:
-
-┌──────────────────────────┐  ┌──────────────────────────┐
-│ #01                   ↗  │  │ #02                   ↗  │
-│                          │  │                          │
-│ Waypoint                 │  │ DDLC Research Hub       │
-│                          │  │                          │
-│ A lightweight...         │  │ Research into...        │
-│                          │  │                          │
-│ 23 Sep 2026              │  │ 20 Sep 2026              │
-└──────────────────────────┘  └──────────────────────────┘
-
-The cards are intentionally square-ish and restrained, rather than the typical rounded/shadow-heavy portfolio cards. This should fit the minimal JetBrains Mono aesthetic much better.
