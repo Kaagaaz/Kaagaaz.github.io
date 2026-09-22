@@ -40,7 +40,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // 3. Projects Page
+  // 3. Projects Page (Card Grid)
   const projectsGrid = document.getElementById("projects-grid-container");
   const projectDetail = document.getElementById("project-detail");
   const projectsHeader = document.getElementById("projects-header-area");
@@ -56,15 +56,19 @@ document.addEventListener("DOMContentLoaded", () => {
 
         issues.forEach((issue) => {
           const item = document.createElement("article");
-          item.className = "project-item";
-          item.style.cursor = "pointer";
+          item.className = "project-card";
 
           item.innerHTML = `
-            <div class="project-header">
-              <h2 class="project-title">${escapeHTML(issue.title)}</h2>
-              <span class="project-link"><i class="fa-solid fa-arrow-right"></i></span>
+            <div class="card-content">
+              <div class="card-top">
+                <h3 class="card-title">${escapeHTML(issue.title)}</h3>
+                <i class="fa-solid fa-arrow-up-right-from-square card-icon"></i>
+              </div>
+              <p class="card-desc">${cleanSnippet(issue.body, 110)}</p>
             </div>
-            <p class="project-desc">${cleanSnippet(issue.body, 140)}</p>
+            <div class="card-footer">
+              <span class="card-tag">View Project <i class="fa-solid fa-arrow-right"></i></span>
+            </div>
           `;
 
           item.addEventListener("click", () => {
@@ -80,7 +84,7 @@ document.addEventListener("DOMContentLoaded", () => {
       });
   }
 
-  // 4. Blog Page
+  // 4. Blog Page (List)
   const blogList = document.getElementById("blog-posts-container");
   const blogDetail = document.getElementById("blog-detail");
   const blogHeader = document.getElementById("blog-header-area");
@@ -135,7 +139,6 @@ async function fetchIssues(owner, repo, label) {
 
 // Single View Render Routine
 function showSingleView(issue, listContainer, detailContainer, headerArea) {
-  // Completely hide list & section headers
   listContainer.style.display = "none";
   if (headerArea) headerArea.style.display = "none";
 
@@ -169,8 +172,8 @@ function showSingleView(issue, listContainer, detailContainer, headerArea) {
     detailContainer.style.display = "none";
     detailContainer.innerHTML = "";
     
-    // Restore list & headers
-    listContainer.style.display = "flex";
+    // Restore layout
+    listContainer.style.display = listContainer.classList.contains("projects-grid") ? "grid" : "flex";
     if (headerArea) headerArea.style.display = "block";
     window.scrollTo({ top: 0, behavior: 'smooth' });
   });
@@ -178,7 +181,6 @@ function showSingleView(issue, listContainer, detailContainer, headerArea) {
 
 function cleanSnippet(str, length) {
   if (!str) return "";
-  // Strip HTML and Markdown images/links from card preview text
   const clean = str
     .replace(/<[^>]*>?/gm, '')
     .replace(/!\[.*?\]\(.*?\)/g, '')
