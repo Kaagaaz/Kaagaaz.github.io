@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About Me | Kaagaaz</title>
-    <meta name="description" content="Kaagaaz — future cybersecurity specialist, professional daydreamer. Tech, manga, music and gacha luck.">
+    <title>Projects | Kaagaaz</title>
+    <meta name="description" content="Projects and digital builds by Kaagaaz.">
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -31,8 +31,8 @@ if(localStorage.getItem("theme") !== "light"){
         <a href="index.html" class="brand-logo">Kaagaaz</a>
 
         <nav class="nav-links">
-            <a href="index.html" class="nav-item active">About</a>
-            <a href="projects.html" class="nav-item">Projects</a>
+            <a href="index.html" class="nav-item">About</a>
+            <a href="projects.html" class="nav-item active">Projects</a>
             <a href="blog.html" class="nav-item">Blog</a>
         </nav>
 
@@ -52,33 +52,38 @@ if(localStorage.getItem("theme") !== "light"){
 </header>
 
 <main class="container">
-    <section id="about" class="about-hero">
-
+    <section class="about-hero">
         <div class="hero-header">
-            <span class="greeting">Welcome here, I'm</span>
-            <h1 class="name">Kaagaaz</h1>
+            <span class="greeting">Selected Work</span>
+            <h1 class="name">Projects</h1>
         </div>
 
         <p class="bio-paragraph">
-            Future cybersecurity specialist by day, professional daydreamer by night. I run entirely on high-voltage coffee and pure luck. When I'm not learning how to protect the digital frontier, you’ll find me searching for peace in my favorite escapes: getting lost in manga, novels, and anime, keeping the music always on with the volume up, and testing my luck (and crying over pity pulls) in gacha games. Just a tech-minded soul finding quiet moments in fictional worlds—let's chat tech or trade gacha luck!
+            A minimalist archive of security tools, personal builds, and experimentations in code.
         </p>
 
-        <!-- Social Links -->
-        <div class="social-links">
-            <a href="https://discord.com/users/1470676347805503501" target="_blank" rel="noopener noreferrer" title="Discord" aria-label="Discord">
-                <i class="fab fa-discord"></i>
-            </a>
-            <a href="https://www.instagram.com/kaagaaz_the_bukky" target="_blank" rel="noopener noreferrer" title="Instagram" aria-label="Instagram">
-                <i class="fab fa-instagram"></i>
-            </a>
-            <a href="https://x.com/The_kaagaaz" target="_blank" rel="noopener noreferrer" title="X" aria-label="X">
-                <i class="fab fa-x-twitter"></i>
-            </a>
-            <a href="https://github.com/Kaagaaz" target="_blank" rel="noopener noreferrer" title="GitHub" aria-label="GitHub">
-                <i class="fab fa-github"></i>
-            </a>
-        </div>
+        <!-- Minimalist Project List -->
+        <div class="project-list">
+            <article class="project-item">
+                <div class="project-header">
+                    <h2 class="project-title">CyberSecurity Lab Setup</h2>
+                    <a href="https://github.com/Kaagaaz" target="_blank" rel="noopener noreferrer" class="project-link">
+                        <i class="fa-brands fa-github"></i>
+                    </a>
+                </div>
+                <p class="project-desc">A custom virtualized environment for penetration testing and threat analysis experimentations.</p>
+            </article>
 
+            <article class="project-item">
+                <div class="project-header">
+                    <h2 class="project-title">Minimal Portfolio &amp; Site</h2>
+                    <a href="https://github.com/Kaagaaz" target="_blank" rel="noopener noreferrer" class="project-link">
+                        <i class="fa-brands fa-github"></i>
+                    </a>
+                </div>
+                <p class="project-desc">A lightweight, lightning-fast static personal hub built with pure HTML, CSS, and JS.</p>
+            </article>
+        </div>
     </section>
 </main>
 
