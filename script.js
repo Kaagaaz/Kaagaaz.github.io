@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const GITHUB_USERNAME = "Kaagaaz";
   const GITHUB_REPO = "kaagaaz.github.io";
 
-  // 1. Theme Toggle
+  // 1. Theme Toggle Logic
   const themeToggleBtn = document.getElementById("theme-toggle");
   const themeIcon = themeToggleBtn ? themeToggleBtn.querySelector("i") : null;
 
@@ -24,7 +24,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // 2. Audio Toggle
+  // 2. Audio Toggle Logic
   const bgm = document.getElementById("bgm");
   const musicToggleBtn = document.getElementById("music-toggle");
 
@@ -40,7 +40,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // 3. Projects Page (Card Grid)
+  // 3. Projects Page Loader
   const projectsGrid = document.getElementById("projects-grid-container");
   const projectDetail = document.getElementById("project-detail");
   const projectsHeader = document.getElementById("projects-header-area");
@@ -64,10 +64,10 @@ document.addEventListener("DOMContentLoaded", () => {
                 <h3 class="card-title">${escapeHTML(issue.title)}</h3>
                 <i class="fa-solid fa-arrow-up-right-from-square card-icon"></i>
               </div>
-              <p class="card-desc">${cleanSnippet(issue.body, 110)}</p>
+              <p class="card-desc">${cleanSnippet(issue.body, 120)}</p>
             </div>
             <div class="card-footer">
-              <span class="card-tag">View Project <i class="fa-solid fa-arrow-right"></i></span>
+              <span class="card-tag">View Details <i class="fa-solid fa-arrow-right"></i></span>
             </div>
           `;
 
@@ -84,7 +84,7 @@ document.addEventListener("DOMContentLoaded", () => {
       });
   }
 
-  // 4. Blog Page (List)
+  // 4. Blog Page Loader
   const blogList = document.getElementById("blog-posts-container");
   const blogDetail = document.getElementById("blog-detail");
   const blogHeader = document.getElementById("blog-header-area");
@@ -155,14 +155,14 @@ function showSingleView(issue, listContainer, detailContainer, headerArea) {
   detailContainer.style.display = "block";
 
   detailContainer.innerHTML = `
-    <button id="back-btn" class="icon-btn" style="margin-bottom: 24px; display: inline-flex; align-items: center; gap: 8px; font-size: 0.95rem; cursor: pointer;">
+    <button id="back-btn" class="icon-btn" style="margin-bottom: 28px; display: inline-flex; align-items: center; gap: 8px; font-size: 1rem; cursor: pointer;">
       <i class="fa-solid fa-arrow-left"></i> Back
     </button>
     <div class="hero-header">
       <span class="greeting">${createdDate}</span>
       <h1 class="name">${escapeHTML(issue.title)}</h1>
     </div>
-    <div class="markdown-body" style="margin-top: 24px;">
+    <div class="markdown-body" style="margin-top: 28px;">
       ${parsedContent}
     </div>
   `;
@@ -171,8 +171,7 @@ function showSingleView(issue, listContainer, detailContainer, headerArea) {
     detailContainer.hidden = true;
     detailContainer.style.display = "none";
     detailContainer.innerHTML = "";
-    
-    // Restore layout
+
     listContainer.style.display = listContainer.classList.contains("projects-grid") ? "grid" : "flex";
     if (headerArea) headerArea.style.display = "block";
     window.scrollTo({ top: 0, behavior: 'smooth' });
