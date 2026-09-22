@@ -1,206 +1,342 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
     <meta charset="UTF-8">
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>About Me | Kaagaaz</title>
+    <title>Kaagaaz — About</title>
 
-    <meta name="description" content="Kaagaaz — future cybersecurity specialist, professional daydreamer. Tech, manga, music and gacha luck.">
+    <meta
+        name="description"
+        content="Kaagaaz — technology, cybersecurity, software and things worth exploring."
+    >
 
-    <!-- Fonts -->
+    <!-- JetBrains Mono -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
+    <link
+        href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap"
+        rel="stylesheet"
+    >
+
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    >
 
-    <!-- CSS -->
-    <link rel="stylesheet" href="style.css?v=3">
-
+    <link rel="stylesheet" href="style.css">
 </head>
-
 
 <body>
 
-<!-- Prevent theme flicker -->
-<script>
+    <!-- ================= HEADER ================= -->
 
-if(localStorage.getItem("theme") !== "light"){
-    document.body.classList.add("dark-mode");
-}
+    <header class="site-header">
 
-</script>
-
-
-<header class="navbar">
-
-    <!-- ==========================
-         HOME PAGE MUSIC SYSTEM
-         ========================== -->
-
-    <audio id="bgm" loop>
-
-        <source src="bgm.mp3" type="audio/mpeg">
-
-    </audio>
-
-    <button id="music-toggle" class="music-btn" aria-label="Toggle music">
-
-        <i class="fa-solid fa-headphones"></i>
-
-    </button>
-
-
-    <!-- Navigation -->
-
-    <nav class="nav-links-group">
-
-        <a href="index.html" class="nav-item active">
-            ABOUT ME
+        <a href="index.html" class="brand">
+            kaagaaz<span>.</span>
         </a>
 
-        <a href="projects.html" class="nav-item">
-            PROJECTS
-        </a>
+        <nav class="nav">
+            <a href="index.html" class="active">about</a>
+            <a href="projects.html">projects</a>
+            <a href="blog.html">notes</a>
+        </nav>
 
-        <a href="blog.html" class="nav-item">
-            BLOG
-        </a>
+        <div class="header-actions">
 
-        <!-- Theme Button -->
+            <button
+                id="music-toggle"
+                class="icon-button"
+                aria-label="Toggle music"
+            >
+                <i class="fa-solid fa-headphones"></i>
+            </button>
 
-        <button id="theme-toggle" class="theme-btn" aria-label="Toggle theme">
-
-            <i class="fa-solid fa-moon"></i>
-
-        </button>
-
-    </nav>
-
-</header>
-
-
-<main>
-
-
-    <!-- ==========================
-         ABOUT SECTION
-         ========================== -->
-
-    <section id="about" class="about-section">
-
-        <div class="accent-shape" aria-hidden="true"></div>
-
-        <div class="content">
-
-            <p class="intro">
-                Welcome here, I'm
-            </p>
-
-            <h1 class="name">
-                Kaagaaz
-            </h1>
-
-            <p class="bio">
-                Future cybersecurity specialist by day, professional daydreamer by night.
-                I run entirely on high-voltage coffee and pure luck.
-                When I'm not learning how to protect the digital frontier,
-                you’ll find me searching for peace in my favorite escapes:
-            </p>
-
-            <div class="escapes">
-
-                <div class="escape-card">
-
-                    <span class="escape-label">Deep Dives</span>
-
-                    <p>Getting lost in manga, novels, and anime.</p>
-
-                </div>
-
-                <div class="escape-card">
-
-                    <span class="escape-label">Soundtrack</span>
-
-                    <p>Music always on, volume up.</p>
-
-                </div>
-
-                <div class="escape-card">
-
-                    <span class="escape-label">The Grind</span>
-
-                    <p>Testing my luck (and crying over pity pulls) in gacha games.</p>
-
-                </div>
-
-            </div>
-
-            <p class="bio-outro">
-                Just a tech-minded soul finding quiet moments in fictional worlds.
-                Let's chat tech or trade gacha luck!
-            </p>
-
-
-            <!-- Social Links -->
-
-            <div class="social-icons">
-
-                <a href="https://discord.com/users/1470676347805503501"
-                   target="_blank"
-                   rel="noopener noreferrer"
-                   title="Discord">
-                    <i class="fab fa-discord"></i>
-                </a>
-
-                <a href="https://www.instagram.com/kaagaaz_the_bukky"
-                   target="_blank"
-                   rel="noopener noreferrer"
-                   title="Instagram">
-                    <i class="fab fa-instagram"></i>
-                </a>
-
-                <a href="https://x.com/The_kaagaaz"
-                   target="_blank"
-                   rel="noopener noreferrer"
-                   title="X">
-                    <i class="fab fa-x-twitter"></i>
-                </a>
-
-                <a href="https://github.com/Kaagaaz"
-                   target="_blank"
-                   rel="noopener noreferrer"
-                   title="GitHub">
-                    <i class="fab fa-github"></i>
-                </a>
-
-            </div>
+            <button
+                id="theme-toggle"
+                class="icon-button"
+                aria-label="Toggle theme"
+            >
+                <i class="fa-solid fa-moon"></i>
+            </button>
 
         </div>
 
-    </section>
+        <audio id="bgm" loop>
+            <source src="bgm.mp3" type="audio/mpeg">
+        </audio>
+
+    </header>
 
 
-</main>
+    <!-- ================= MAIN ================= -->
+
+    <main>
+
+        <!-- HERO -->
+
+        <section class="hero">
+
+            <div class="hero-copy">
+
+                <p class="eyebrow">
+                    / about
+                </p>
+
+                <h1>
+                    Hi, I'm <span>Kaagaaz.</span>
+                </h1>
+
+                <p class="hero-description">
+                    A tech enthusiast exploring cybersecurity, software,
+                    open source, and whatever interesting rabbit hole
+                    comes next.
+                </p>
+
+                <div class="hero-actions">
+
+                    <a
+                        href="projects.html"
+                        class="button button-primary"
+                    >
+                        view projects
+                        <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                    </a>
+
+                    <a
+                        href="blog.html"
+                        class="button button-ghost"
+                    >
+                        read notes
+                    </a>
+
+                </div>
+
+            </div>
 
 
-<footer class="site-footer">
+            <!-- STATUS CARD -->
 
-    <p>
-        © 2026 Kaagaaz · blogs &amp; projects stream live 
-    </p>
+            <aside class="status-card">
 
-</footer>
+                <div class="status-line">
+
+                    <span class="status-dot"></span>
+
+                    <span>
+                        currently exploring
+                    </span>
+
+                </div>
+
+                <div class="status-main">
+                    cybersecurity
+                </div>
+
+                <div class="status-meta">
+                    <span>India</span>
+                    <span>·</span>
+                    <span>open source</span>
+                </div>
+
+            </aside>
+
+        </section>
 
 
-<!-- JavaScript -->
-<script src="script.js?v=3"></script>
+        <!-- ABOUT -->
 
+        <section class="content-section">
+
+            <div class="section-label">
+                01 — about
+            </div>
+
+            <div class="about-grid">
+
+                <div>
+
+                    <h2>
+                        Curious by default.
+                    </h2>
+
+                </div>
+
+                <div class="about-text">
+
+                    <p>
+                        I'm interested in understanding how things work —
+                        from software and networks to security research
+                        and the small details people usually overlook.
+                    </p>
+
+                    <p>
+                        I like building practical projects, experimenting
+                        with new technologies, and documenting the things
+                        I learn along the way.
+                    </p>
+
+                    <p>
+                        Outside tech, you'll usually find me with music,
+                        manga, anime, or a game open somewhere.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- INTERESTS -->
+
+        <section class="content-section">
+
+            <div class="section-label">
+                02 — interests
+            </div>
+
+            <div class="interest-grid">
+
+                <article>
+
+                    <span>01</span>
+
+                    <h3>
+                        Cybersecurity
+                    </h3>
+
+                    <p>
+                        Security research, defensive tooling,
+                        digital forensics and learning how systems fail.
+                    </p>
+
+                </article>
+
+
+                <article>
+
+                    <span>02</span>
+
+                    <h3>
+                        Building
+                    </h3>
+
+                    <p>
+                        Small tools, experiments, websites and
+                        open-source projects built to solve problems.
+                    </p>
+
+                </article>
+
+
+                <article>
+
+                    <span>03</span>
+
+                    <h3>
+                        Curiosity
+                    </h3>
+
+                    <p>
+                        Anime lore, manga, music, games and random
+                        technical rabbit holes that somehow become projects.
+                    </p>
+
+                </article>
+
+            </div>
+
+        </section>
+
+
+        <!-- SOCIAL -->
+
+        <section class="content-section contact-section">
+
+            <div class="section-label">
+                03 — elsewhere
+            </div>
+
+            <div class="social-row">
+
+                <a
+                    href="https://github.com/Kaagaaz"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    <i class="fab fa-github"></i>
+
+                    <span>GitHub</span>
+
+                    <i class="fa-solid fa-arrow-up-right-from-square external"></i>
+                </a>
+
+
+                <a
+                    href="https://discord.com/users/1470676347805503501"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    <i class="fab fa-discord"></i>
+
+                    <span>Discord</span>
+
+                    <i class="fa-solid fa-arrow-up-right-from-square external"></i>
+                </a>
+
+
+                <a
+                    href="https://www.instagram.com/kaagaaz_the_bukky"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    <i class="fab fa-instagram"></i>
+
+                    <span>Instagram</span>
+
+                    <i class="fa-solid fa-arrow-up-right-from-square external"></i>
+                </a>
+
+
+                <a
+                    href="https://x.com/The_kaagaaz"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    <i class="fa-brands fa-x-twitter"></i>
+
+                    <span>X</span>
+
+                    <i class="fa-solid fa-arrow-up-right-from-square external"></i>
+                </a>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- ================= FOOTER ================= -->
+
+    <footer class="site-footer">
+
+        <span>
+            © 2026 Kaagaaz
+        </span>
+
+        <span>
+            built with curiosity.
+        </span>
+
+    </footer>
+
+
+    <script src="script.js"></script>
 
 </body>
-
 </html>
