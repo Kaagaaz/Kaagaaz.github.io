@@ -1,106 +1,208 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Notes | Kaagaaz</title>
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <title>Blog | Kaagaaz</title>
+
+    <meta
+        name="description"
+        content="Blog posts, research, experiments."
+    >
+
+    <!-- Google Font -->
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+    >
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
 
     <link
         href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap"
         rel="stylesheet"
     >
 
+    <!-- Font Awesome -->
     <link
         rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
     >
 
-    <link rel="stylesheet" href="style.css">
+    <!-- Main stylesheet -->
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
 
-    <script>
-        if (localStorage.getItem("theme") !== "light") {
-            document.documentElement.classList.add("dark-mode");
-        }
-    </script>
 </head>
+
 
 <body>
 
-    <!-- Header -->
+
+    <!-- =========================
+         HEADER
+    ========================== -->
+
     <header class="site-header">
+
         <div class="header-inner">
 
-            <a href="index.html" class="brand">
+
+            <!-- LOGO -->
+
+            <a
+                href="index.html"
+                class="site-logo"
+            >
                 kaagaaz.
             </a>
 
-            <nav class="main-nav">
-                <a href="index.html">about</a>
-                <a href="projects.html">projects</a>
-                <a href="blog.html" class="active">notes</a>
+
+            <!-- NAVIGATION -->
+
+            <nav class="site-nav">
+
+                <a href="index.html#about">
+                    about
+                </a>
+
+                <a href="projects.html">
+                    projects
+                </a>
+
+                <a
+                    href="blog.html"
+                    class="active"
+                >
+                    blog
+                </a>
+
             </nav>
 
-            <button
-                id="theme-toggle"
-                class="icon-button"
-                type="button"
-                aria-label="Toggle theme"
-            >
-                <i class="fa-solid fa-moon"></i>
-            </button>
+
+            <!-- ACTIONS -->
+
+            <div class="header-actions">
+
+                <button
+                    id="music-toggle"
+                    class="icon-button"
+                    type="button"
+                    aria-label="Toggle music"
+                    title="Toggle music"
+                >
+                    <i class="fa-solid fa-volume-xmark"></i>
+                </button>
+
+
+                <button
+                    id="theme-toggle"
+                    class="icon-button"
+                    type="button"
+                    aria-label="Toggle theme"
+                    title="Toggle theme"
+                >
+                    <i class="fa-solid fa-sun"></i>
+                </button>
+
+            </div>
 
         </div>
+
     </header>
 
 
-    <!-- Main -->
-    <main class="feed-wrap">
 
-        <!-- Notes Header -->
-        <section class="feed-section" id="blog-header-area">
+    <!-- =========================
+         MAIN
+    ========================== -->
+
+    <main class="site-main">
+
+
+        <!-- =========================
+             BLOG HEADER
+        ========================== -->
+
+        <section
+            id="blog-header-area"
+            class="page-header"
+        >
 
             <div class="page-label">
-                / notes
+                / blog
             </div>
 
+
             <h1 class="page-title">
-                Things I've learned.
+                Things I find<br>
+                interesting.
             </h1>
 
+
             <p class="page-description">
-                Research notes, technical write-ups, experiments,
-                discoveries, and things I find interesting.
+                Research, experiments, technical notes,
+                and things worth documenting.
             </p>
 
         </section>
 
 
-        <!-- Blog List -->
-        <section
-            id="blog-list-container"
-            class="blog-list"
-        >
-            <div class="loading-state">
-                Loading notes...
+
+        <!-- =========================
+             BLOG LIST
+        ========================== -->
+
+        <section class="content-section">
+
+            <div
+                id="blog-list-container"
+                class="blog-list"
+            >
+
+                <div class="loading-state">
+                    Loading blog...
+                </div>
+
             </div>
+
         </section>
 
 
-        <!-- Single Blog Post -->
-        <article
+
+        <!-- =========================
+             SINGLE BLOG POST
+        ========================== -->
+
+        <section
             id="blog-detail"
-            class="single-view"
+            class="single-page"
             hidden
-        ></article>
+        >
+
+        </section>
 
     </main>
 
 
-    <!-- Footer -->
+
+    <!-- =========================
+         FOOTER
+    ========================== -->
+
     <footer class="site-footer">
 
         <div class="footer-inner">
@@ -118,11 +220,50 @@
     </footer>
 
 
-    <!-- Markdown -->
-    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 
-    <!-- Main Script -->
+    <!-- =========================
+         BACKGROUND MUSIC
+    ========================== -->
+
+    <audio
+        id="bgm"
+        src="bgm.mp3"
+        loop
+        preload="none"
+    ></audio>
+
+
+
+    <!-- =========================
+         MARKED.JS
+    ========================== -->
+
+    <script
+        src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"
+    ></script>
+
+
+
+    <!-- =========================
+         MAIN SCRIPT
+    ========================== -->
+
     <script src="script.js"></script>
 
+
 </body>
+
 </html>
+
+This keeps the terminology consistent:
+
+- About
+- Projects → card layout
+- Blog → clean article list
+- "/blog.html"
+- "/blog.html?post=NUMBER"
+- GitHub Issues with the "blog" label
+- Individual posts rendered with Markdown
+- Same dark/light theme
+- Same music control
+- Same JetBrains Mono typography
