@@ -9,22 +9,22 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
-    <!-- Markdown parser (blogs stream from GitHub issues) -->
+    <!-- Markdown Parser -->
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 
     <!-- CSS -->
-    <link rel="stylesheet" href="style.css?v=4">
+    <link rel="stylesheet" href="style.css?v=6">
 </head>
 <body class="blog-page">
 
-<!-- Prevent theme flicker -->
+<!-- Prevent Theme Flicker -->
 <script>
-if(localStorage.getItem("theme") !== "light"){
+if (localStorage.getItem("theme") !== "light") {
     document.body.classList.add("dark-mode");
 }
 </script>
@@ -62,7 +62,7 @@ if(localStorage.getItem("theme") !== "light"){
             <p class="bio-paragraph">Sharing my projects, thoughts, and lo-fi updates.</p>
         </header>
 
-        <!-- Container for GitHub Issue Cards -->
+        <!-- Blog Feed List -->
         <section id="blog-posts-container" class="blog-list">
             <p class="feed-message">Booting up the logs...</p>
         </section>
@@ -77,7 +77,7 @@ if(localStorage.getItem("theme") !== "light"){
 </footer>
 
 <!-- JavaScript -->
-<script src="script.js?v=4"></script>
+<script src="script.js?v=6"></script>
 
 </body>
 </html>
