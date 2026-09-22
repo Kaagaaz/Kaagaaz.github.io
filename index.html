@@ -3,262 +3,91 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Me | Kaagaaz</title>
+    <meta name="description" content="Kaagaaz — future cybersecurity specialist, professional daydreamer. Tech, manga, music and gacha luck.">
 
-    <title>Kaagaaz — About</title>
-
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 
-    <link
-        href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap"
-        rel="stylesheet"
-    >
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
-    <link
-        rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
-    >
-
-    <link rel="stylesheet" href="style.css">
-
-    <script>
-        if (localStorage.getItem("theme") !== "light") {
-            document.documentElement.classList.add("dark-mode");
-        }
-    </script>
+    <!-- CSS -->
+    <link rel="stylesheet" href="style.css?v=4">
 </head>
-
 <body>
 
-    <!-- Header -->
-    <header class="site-header">
-        <div class="header-inner">
+<!-- Prevent theme flicker -->
+<script>
+if(localStorage.getItem("theme") !== "light"){
+    document.body.classList.add("dark-mode");
+}
+</script>
 
-            <a href="index.html" class="brand">
-                kaagaaz<span>.</span>
-            </a>
+<header class="navbar">
+    <div class="nav-container">
+        <a href="index.html" class="brand-logo">Kaagaaz</a>
 
-            <nav class="main-nav">
-                <a href="index.html" class="active">about</a>
-                <a href="projects.html">projects</a>
-                <a href="blog.html">notes</a>
-            </nav>
+        <nav class="nav-links">
+            <a href="index.html" class="nav-item active">About</a>
+            <a href="projects.html" class="nav-item">Projects</a>
+            <a href="blog.html" class="nav-item">Blog</a>
+        </nav>
 
-            <div class="header-actions">
-
-                <button
-                    id="music-toggle"
-                    class="icon-button"
-                    type="button"
-                    aria-label="Toggle music"
-                >
-                    <i class="fa-solid fa-headphones"></i>
-                </button>
-
-                <button
-                    id="theme-toggle"
-                    class="icon-button"
-                    type="button"
-                    aria-label="Toggle theme"
-                >
-                    <i class="fa-solid fa-moon"></i>
-                </button>
-
-            </div>
-
+        <div class="nav-actions">
+            <button id="music-toggle" class="icon-btn" aria-label="Toggle music" title="Toggle Music">
+                <i class="fa-solid fa-headphones"></i>
+            </button>
+            <button id="theme-toggle" class="icon-btn" aria-label="Toggle theme" title="Toggle Theme">
+                <i class="fa-solid fa-moon"></i>
+            </button>
         </div>
-    </header>
+    </div>
 
-
-    <!-- Music -->
     <audio id="bgm" loop>
         <source src="bgm.mp3" type="audio/mpeg">
     </audio>
+</header>
 
+<main class="container">
+    <section id="about" class="about-hero">
 
-    <main>
-
-        <!-- Hero -->
-        <section class="hero">
-
-            <div class="hero-label">
-                / about
-            </div>
-
-            <div class="hero-content">
-
-                <h1>
-                    Curious by default.
-                </h1>
-
-                <p class="hero-description">
-                    A tech enthusiast exploring cybersecurity, software,
-                    open source, and whatever interesting rabbit hole
-                    comes next.
-                </p>
-
-                <div class="hero-links">
-
-                    <a href="projects.html" class="text-link">
-                        view projects
-                        <i class="fa-solid fa-arrow-up-right-from-square"></i>
-                    </a>
-
-                    <a href="blog.html" class="text-link muted-link">
-                        read notes
-                        <i class="fa-solid fa-arrow-right"></i>
-                    </a>
-
-                </div>
-
-            </div>
-
-        </section>
-
-
-        <!-- About -->
-        <section class="minimal-section">
-
-            <div class="section-label">
-                01 — about
-            </div>
-
-            <div class="about-text">
-
-                <p>
-                    I'm interested in understanding how things work —
-                    from software and networks to security research and
-                    the small details people usually overlook. I like
-                    building practical projects, experimenting with new
-                    technologies, and documenting the things I learn
-                    along the way. Outside tech, you'll usually find me
-                    with music, manga, anime, or a game open somewhere.
-                </p>
-
-            </div>
-
-        </section>
-
-
-        <!-- Interests -->
-        <section class="minimal-section">
-
-            <div class="section-label">
-                02 — interests
-            </div>
-
-            <div class="interest-list">
-
-                <div class="interest-row">
-                    <span>01</span>
-                    <strong>Cybersecurity</strong>
-                    <p>security research · networks · digital forensics</p>
-                </div>
-
-                <div class="interest-row">
-                    <span>02</span>
-                    <strong>Building</strong>
-                    <p>software · open source · experiments</p>
-                </div>
-
-                <div class="interest-row">
-                    <span>03</span>
-                    <strong>Curiosity</strong>
-                    <p>reverse engineering · rabbit holes · learning</p>
-                </div>
-
-            </div>
-
-        </section>
-
-
-        <!-- Elsewhere -->
-        <section class="minimal-section">
-
-            <div class="section-label">
-                03 — elsewhere
-            </div>
-
-            <div class="social-list">
-
-                <a
-                    href="https://github.com/Kaagaaz"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="social-row"
-                >
-                    <span>
-                        <i class="fa-brands fa-github"></i>
-                        GitHub
-                    </span>
-
-                    <i class="fa-solid fa-arrow-up-right-from-square"></i>
-                </a>
-
-                <a
-                    href="https://discord.com/users/1470676347805503501"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="social-row"
-                >
-                    <span>
-                        <i class="fa-brands fa-discord"></i>
-                        Discord
-                    </span>
-
-                    <i class="fa-solid fa-arrow-up-right-from-square"></i>
-                </a>
-
-                <a
-                    href="https://www.instagram.com/kaagaaz_the_bukky"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="social-row"
-                >
-                    <span>
-                        <i class="fa-brands fa-instagram"></i>
-                        Instagram
-                    </span>
-
-                    <i class="fa-solid fa-arrow-up-right-from-square"></i>
-                </a>
-
-                <a
-                    href="https://x.com/The_kaagaaz"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="social-row"
-                >
-                    <span>
-                        <i class="fa-brands fa-x-twitter"></i>
-                        X
-                    </span>
-
-                    <i class="fa-solid fa-arrow-up-right-from-square"></i>
-                </a>
-
-            </div>
-
-        </section>
-
-    </main>
-
-
-    <!-- Footer -->
-    <footer class="site-footer">
-
-        <div class="footer-inner">
-
-            <span>© 2026 Kaagaaz</span>
-
-            <span>built with curiosity.</span>
-
+        <div class="hero-header">
+            <span class="greeting">Welcome here, I'm</span>
+            <h1 class="name">Kaagaaz</h1>
         </div>
 
-    </footer>
+        <p class="bio-paragraph">
+            Future cybersecurity specialist by day, professional daydreamer by night. I run entirely on high-voltage coffee and pure luck. When I'm not learning how to protect the digital frontier, you’ll find me searching for peace in my favorite escapes: getting lost in manga, novels, and anime, keeping the music always on with the volume up, and testing my luck (and crying over pity pulls) in gacha games. Just a tech-minded soul finding quiet moments in fictional worlds—let's chat tech or trade gacha luck!
+        </p>
 
+        <!-- Social Links -->
+        <div class="social-links">
+            <a href="https://discord.com/users/1470676347805503501" target="_blank" rel="noopener noreferrer" title="Discord" aria-label="Discord">
+                <i class="fab fa-discord"></i>
+            </a>
+            <a href="https://www.instagram.com/kaagaaz_the_bukky" target="_blank" rel="noopener noreferrer" title="Instagram" aria-label="Instagram">
+                <i class="fab fa-instagram"></i>
+            </a>
+            <a href="https://x.com/The_kaagaaz" target="_blank" rel="noopener noreferrer" title="X" aria-label="X">
+                <i class="fab fa-x-twitter"></i>
+            </a>
+            <a href="https://github.com/Kaagaaz" target="_blank" rel="noopener noreferrer" title="GitHub" aria-label="GitHub">
+                <i class="fab fa-github"></i>
+            </a>
+        </div>
 
-    <script src="script.js"></script>
+    </section>
+</main>
+
+<footer class="site-footer">
+    <p>© 2026 Kaagaaz · blogs &amp; projects stream live</p>
+</footer>
+
+<!-- JavaScript -->
+<script src="script.js?v=4"></script>
 
 </body>
 </html>
