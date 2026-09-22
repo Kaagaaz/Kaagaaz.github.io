@@ -1,936 +1,360 @@
 /* =========================================================
-   KAAGAAZ — MAIN SCRIPT
+   BLOG POST — ARTICLE VIEW
    ========================================================= */
 
-const GITHUB_USERNAME = "Kaagaaz";
-const REPO_NAME = "Kaagaaz.github.io";
-
-const API_BASE =
-    `https://api.github.com/repos/${GITHUB_USERNAME}/${REPO_NAME}/issues`;
-
-const issueCache = {};
+.single-page {
+    max-width: 820px;
+    margin: 0 auto;
+    padding: 35px 0 110px;
+}
 
 
-// =========================================================
-// THEME
-// =========================================================
+/* BACK LINK */
 
-function setupTheme() {
+.back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
 
-    const savedTheme =
-        localStorage.getItem("theme");
+    margin-bottom: 70px;
 
-    const isLight =
-        savedTheme === "light";
+    color: var(--muted);
+    text-decoration: none;
 
-    // Keep <html> and <body> synchronized
-    document.documentElement.classList.toggle(
-        "dark-mode",
-        !isLight
+    font-size: 0.72rem;
+
+    transition:
+        color 0.2s ease,
+        gap 0.2s ease;
+}
+
+.back-link:hover {
+    color: var(--text);
+    gap: 13px;
+}
+
+
+/* ARTICLE HEADER */
+
+.single-header {
+    margin-bottom: 55px;
+}
+
+.single-header .page-label {
+    margin-bottom: 18px;
+}
+
+.single-title {
+    margin: 0 0 18px;
+
+    max-width: 900px;
+
+    font-size: clamp(
+        2.1rem,
+        5vw,
+        4rem
     );
 
-    document.body.classList.toggle(
-        "dark-mode",
-        !isLight
-    );
+    line-height: 1.08;
 
-    updateThemeIcon();
+    letter-spacing: -0.055em;
 
-    const themeButton =
-        document.getElementById("theme-toggle");
+    font-weight: 600;
+}
 
-    if (!themeButton) return;
+.single-meta {
+    color: var(--subtle);
 
-    themeButton.addEventListener("click", () => {
-
-        const currentlyDark =
-            document.documentElement.classList.contains(
-                "dark-mode"
-            );
-
-        const nextTheme =
-            currentlyDark ? "light" : "dark";
-
-
-        /*
-         * Temporarily enable transitions so the
-         * theme changes smoothly.
-         */
-
-        document.documentElement.classList.add(
-            "theme-transition"
-        );
-
-        document.body.classList.add(
-            "theme-transition"
-        );
-
-
-        // Change theme
-        document.documentElement.classList.toggle(
-            "dark-mode",
-            nextTheme === "dark"
-        );
-
-        document.body.classList.toggle(
-            "dark-mode",
-            nextTheme === "dark"
-        );
-
-
-        // Remember theme
-        localStorage.setItem(
-            "theme",
-            nextTheme
-        );
-
-
-        // Update icon
-        updateThemeIcon();
-
-
-        // Remove transition helper
-        setTimeout(() => {
-
-            document.documentElement.classList.remove(
-                "theme-transition"
-            );
-
-            document.body.classList.remove(
-                "theme-transition"
-            );
-
-        }, 500);
-
-    });
+    font-size: 0.7rem;
 }
 
 
-function updateThemeIcon() {
+/* ARTICLE CONTENT */
 
-    const button =
-        document.getElementById("theme-toggle");
+.markdown-content {
+    color: var(--text);
 
-    if (!button) return;
+    font-size: 0.88rem;
 
-    const icon =
-        button.querySelector("i");
-
-    if (!icon) return;
-
-    const isDark =
-        document.documentElement.classList.contains(
-            "dark-mode"
-        );
-
-    icon.className = isDark
-        ? "fa-solid fa-sun"
-        : "fa-solid fa-moon";
+    line-height: 1.9;
 }
 
 
-// =========================================================
-// MUSIC
-// =========================================================
+/* PARAGRAPHS */
 
-function setupMusic() {
-
-    const music =
-        document.getElementById("bgm");
-
-    const button =
-        document.getElementById("music-toggle");
-
-    if (!music || !button) return;
-
-    const icon =
-        button.querySelector("i");
-
-
-    button.addEventListener("click", async () => {
-
-        try {
-
-            if (music.paused) {
-
-                await music.play();
-
-                if (icon) {
-                    icon.className =
-                        "fa-solid fa-volume-high";
-                }
-
-            } else {
-
-                music.pause();
-
-                if (icon) {
-                    icon.className =
-                        "fa-solid fa-volume-xmark";
-                }
-
-            }
-
-        } catch (error) {
-
-            console.warn(
-                "Music could not be played:",
-                error
-            );
-
-        }
-
-    });
-
-
-    music.addEventListener("ended", () => {
-
-        if (icon) {
-            icon.className =
-                "fa-solid fa-volume-xmark";
-        }
-
-    });
-
+.markdown-content p {
+    margin: 0 0 25px;
 }
 
 
-// =========================================================
-// GITHUB ISSUES
-// =========================================================
+/* HEADINGS */
 
-async function fetchIssues(label) {
+.markdown-content h1,
+.markdown-content h2,
+.markdown-content h3,
+.markdown-content h4 {
+    margin-top: 55px;
+    margin-bottom: 20px;
 
-    // Use cached results when available
-    if (issueCache[label]) {
-        return issueCache[label];
-    }
+    line-height: 1.3;
 
+    letter-spacing: -0.025em;
+}
 
-    try {
+.markdown-content h1 {
+    font-size: 1.7rem;
+}
 
-        const response = await fetch(
-            `${API_BASE}?labels=${encodeURIComponent(label)}&state=open&per_page=100`
-        );
+.markdown-content h2 {
+    font-size: 1.35rem;
+}
 
+.markdown-content h3 {
+    font-size: 1.1rem;
+}
 
-        if (!response.ok) {
-
-            throw new Error(
-                `GitHub API returned ${response.status}`
-            );
-
-        }
-
-
-        const issues =
-            await response.json();
-
-
-        /*
-         * GitHub's Issues API also returns pull requests.
-         * Remove them so they don't appear as projects
-         * or notes.
-         */
-
-        const filtered =
-            issues.filter(
-                issue => !issue.pull_request
-            );
-
-
-        issueCache[label] =
-            filtered;
-
-
-        return filtered;
-
-    } catch (error) {
-
-        console.error(
-            `Failed to load ${label} issues:`,
-            error
-        );
-
-        return [];
-
-    }
-
+.markdown-content h4 {
+    font-size: 0.95rem;
 }
 
 
-// =========================================================
-// HTML ESCAPING
-// =========================================================
+/* LINKS */
 
-function escapeHTML(value = "") {
+.markdown-content a {
+    color: var(--accent);
 
-    return String(value)
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#039;");
-
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 3px;
 }
 
 
-// =========================================================
-// MARKDOWN
-// =========================================================
+/* LISTS */
 
-function renderMarkdown(markdown = "") {
+.markdown-content ul,
+.markdown-content ol {
+    margin: 0 0 28px;
 
-    if (
-        typeof marked !== "undefined" &&
-        typeof marked.parse === "function"
-    ) {
+    padding-left: 25px;
+}
 
-        return marked.parse(markdown, {
-            breaks: true,
-            gfm: true
-        });
-
-    }
-
-
-    // Fallback if Marked fails to load
-    return `<p>${escapeHTML(markdown)}</p>`;
-
+.markdown-content li {
+    margin-bottom: 9px;
 }
 
 
-// =========================================================
-// DATE FORMATTING
-// =========================================================
+/* BLOCKQUOTE */
 
-function formatDate(dateString) {
+.markdown-content blockquote {
+    margin: 35px 0;
 
-    if (!dateString) {
-        return "";
-    }
+    padding: 5px 0 5px 20px;
 
+    border-left: 2px solid var(--border);
 
-    const date =
-        new Date(dateString);
-
-
-    return date.toLocaleDateString(
-        "en-IN",
-        {
-            day: "2-digit",
-            month: "short",
-            year: "numeric"
-        }
-    );
-
+    color: var(--muted);
 }
 
 
-// =========================================================
-// CREATE TEXT SNIPPET
-// =========================================================
+/* CODE */
 
-function createSnippet(
-    text = "",
-    length = 180
-) {
+.markdown-content pre {
+    overflow-x: auto;
 
-    const cleanText =
-        String(text)
-            .replace(/[#>*_`~]/g, "")
-            .replace(
-                /\[([^\]]+)\]\([^)]+\)/g,
-                "$1"
-            )
-            .replace(/\s+/g, " ")
-            .trim();
+    margin: 32px 0;
 
+    padding: 22px;
 
-    if (cleanText.length <= length) {
-        return cleanText;
-    }
+    border: 1px solid var(--border);
 
+    background: var(--surface);
 
-    return (
-        cleanText
-            .substring(0, length)
-            .trim() +
-        "..."
-    );
+    font-size: 0.76rem;
 
+    line-height: 1.7;
+}
+
+.markdown-content code {
+    font-family: inherit;
+}
+
+.markdown-content :not(pre) > code {
+    padding: 3px 6px;
+
+    border: 1px solid var(--border);
+
+    background: var(--surface);
+
+    font-size: 0.8em;
 }
 
 
-// =========================================================
-// LOADING / ERROR STATES
-// =========================================================
+/* IMAGES */
 
-function showLoading(
-    container,
-    message
-) {
+.markdown-content img {
+    display: block;
 
-    if (!container) return;
+    max-width: 100%;
+    height: auto;
 
-    container.innerHTML = `
-        <div class="loading-state">
-            ${escapeHTML(message)}
-        </div>
-    `;
+    margin: 38px auto;
 
+    border: 1px solid var(--border);
 }
 
 
-function showError(
-    container,
-    message
-) {
+/* TABLES */
 
-    if (!container) return;
+.markdown-content table {
+    width: 100%;
 
-    container.innerHTML = `
-        <div class="empty-state">
-            <p>${escapeHTML(message)}</p>
-        </div>
-    `;
+    margin: 35px 0;
 
+    border-collapse: collapse;
+
+    font-size: 0.78rem;
+}
+
+.markdown-content th,
+.markdown-content td {
+    padding: 12px 14px;
+
+    border: 1px solid var(--border);
+
+    text-align: left;
+}
+
+.markdown-content th {
+    font-weight: 600;
+
+    background: var(--surface);
 }
 
 
-// =========================================================
-// BLOG / NOTES LIST
-// =========================================================
+/* HORIZONTAL RULE */
 
-async function loadBlogList() {
+.markdown-content hr {
+    margin: 55px 0;
 
-    const container =
-        document.getElementById(
-            "blog-list-container"
-        );
+    border: 0;
 
-
-    if (!container) return;
-
-
-    showLoading(
-        container,
-        "Loading notes..."
-    );
-
-
-    const posts =
-        await fetchIssues("blog");
-
-
-    if (!posts.length) {
-
-        showError(
-            container,
-            "No notes found."
-        );
-
-        return;
-    }
-
-
-    container.innerHTML =
-        posts.map(post => {
-
-            const title =
-                escapeHTML(post.title);
-
-
-            const description =
-                escapeHTML(
-                    createSnippet(
-                        post.body || "",
-                        180
-                    )
-                );
-
-
-            const date =
-                formatDate(
-                    post.created_at
-                );
-
-
-            return `
-
-                <a
-                    class="blog-item"
-                    href="blog.html?post=${post.number}"
-                >
-
-                    <div class="blog-item-main">
-
-                        <div class="blog-item-title">
-                            ${title}
-                        </div>
-
-                        <div class="blog-item-description">
-                            ${description}
-                        </div>
-
-                    </div>
-
-                    <div class="blog-item-date">
-                        ${date}
-                    </div>
-
-                </a>
-
-            `;
-
-        }).join("");
-
+    border-top: 1px solid var(--border);
 }
 
 
-// =========================================================
-// SINGLE BLOG POST
-// =========================================================
+/* ARTICLE ACTION */
 
-async function loadSingleBlog(
-    postNumber
-) {
+.single-actions {
+    display: flex;
 
-    const detail =
-        document.getElementById(
-            "blog-detail"
-        );
+    margin-top: 65px;
 
+    padding-top: 25px;
 
-    const header =
-        document.getElementById(
-            "blog-header-area"
-        );
+    border-top: 1px solid var(--border);
+}
 
+.single-actions .button {
+    display: inline-flex;
 
-    const list =
-        document.getElementById(
-            "blog-list-container"
-        );
-
-
-    if (!detail) return;
-
-    if (!postNumber) return;
-
-
-    // Hide list
-    if (header) {
-        header.style.display = "none";
-    }
-
-    if (list) {
-        list.style.display = "none";
-    }
-
-
-    // Show detail
-    detail.hidden = false;
-
-
-    showLoading(
-        detail,
-        "Loading note..."
-    );
-
-
-    const posts =
-        await fetchIssues("blog");
-
-
-    const post =
-        posts.find(
-            item =>
-                String(item.number) ===
-                String(postNumber)
-        );
-
-
-    if (!post) {
-
-        showError(
-            detail,
-            "This note could not be found."
-        );
-
-        return;
-    }
-
-
-    document.title =
-        `${post.title} | Kaagaaz`;
-
-
-    detail.innerHTML = `
-
-        <a
-            class="back-link"
-            href="blog.html"
-        >
-            <i class="fa-solid fa-arrow-left"></i>
-            back to notes
-        </a>
-
-
-        <div class="single-header">
-
-            <div class="page-label">
-                / note
-            </div>
-
-            <h1 class="single-title">
-                ${escapeHTML(post.title)}
-            </h1>
-
-            <div class="single-meta">
-                ${formatDate(post.created_at)}
-            </div>
-
-        </div>
-
-
-        <div class="markdown-content">
-            ${renderMarkdown(post.body || "")}
-        </div>
-
-    `;
-
+    align-items: center;
+    gap: 10px;
 }
 
 
-// =========================================================
-// PROJECT LIST
-// =========================================================
+/* MOBILE */
 
-async function loadProjectsList() {
+@media (max-width: 700px) {
 
-    const container =
-        document.getElementById(
-            "projects-grid-container"
-        );
-
-
-    if (!container) return;
-
-
-    showLoading(
-        container,
-        "Loading projects..."
-    );
-
-
-    const projects =
-        await fetchIssues("project");
-
-
-    if (!projects.length) {
-
-        showError(
-            container,
-            "No projects found."
-        );
-
-        return;
+    .single-page {
+        padding:
+            25px
+            0
+            80px;
     }
 
-
-    container.innerHTML =
-        projects.map(project => {
-
-            const title =
-                escapeHTML(
-                    project.title
-                );
-
-
-            const description =
-                escapeHTML(
-                    createSnippet(
-                        project.body || "",
-                        150
-                    )
-                );
-
-
-            const date =
-                formatDate(
-                    project.created_at
-                );
-
-
-            const number =
-                String(project.number)
-                    .padStart(2, "0");
-
-
-            return `
-
-                <a
-                    class="project-card"
-                    href="projects.html?project=${project.number}"
-                >
-
-                    <div class="project-card-top">
-
-                        <span class="project-number">
-                            #${number}
-                        </span>
-
-                        <i
-                            class="fa-solid fa-arrow-up-right-from-square"
-                        ></i>
-
-                    </div>
-
-
-                    <h2 class="project-card-title">
-                        ${title}
-                    </h2>
-
-
-                    <p class="project-card-description">
-                        ${description}
-                    </p>
-
-
-                    <div class="project-card-footer">
-                        ${date}
-                    </div>
-
-                </a>
-
-            `;
-
-        }).join("");
-
-}
-
-
-// =========================================================
-// SINGLE PROJECT
-// =========================================================
-
-async function loadSingleProject(
-    projectNumber
-) {
-
-    const detail =
-        document.getElementById(
-            "project-detail"
-        );
-
-
-    const header =
-        document.getElementById(
-            "projects-header-area"
-        );
-
-
-    const grid =
-        document.getElementById(
-            "projects-grid-container"
-        );
-
-
-    if (!detail) return;
-
-    if (!projectNumber) return;
-
-
-    // Hide project list
-    if (header) {
-        header.style.display = "none";
+    .back-link {
+        margin-bottom: 50px;
     }
 
-    if (grid) {
-        grid.style.display = "none";
+    .single-header {
+        margin-bottom: 40px;
     }
 
+    .single-title {
+        font-size: 2rem;
 
-    // Show project
-    detail.hidden = false;
-
-
-    showLoading(
-        detail,
-        "Loading project..."
-    );
-
-
-    const projects =
-        await fetchIssues("project");
-
-
-    const project =
-        projects.find(
-            item =>
-                String(item.number) ===
-                String(projectNumber)
-        );
-
-
-    if (!project) {
-
-        showError(
-            detail,
-            "This project could not be found."
-        );
-
-        return;
+        letter-spacing: -0.045em;
     }
 
+    .markdown-content {
+        font-size: 0.84rem;
 
-    document.title =
-        `${project.title} | Kaagaaz`;
-
-
-    detail.innerHTML = `
-
-        <a
-            class="back-link"
-            href="projects.html"
-        >
-            <i class="fa-solid fa-arrow-left"></i>
-            back to projects
-        </a>
-
-
-        <div class="single-header">
-
-            <div class="page-label">
-                / project #${String(project.number).padStart(2, "0")}
-            </div>
-
-            <h1 class="single-title">
-                ${escapeHTML(project.title)}
-            </h1>
-
-            <div class="single-meta">
-                ${formatDate(project.created_at)}
-            </div>
-
-        </div>
-
-
-        <div class="markdown-content">
-            ${renderMarkdown(project.body || "")}
-        </div>
-
-
-        <div class="single-actions">
-
-            <a
-                href="${project.html_url}"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="button button-secondary"
-            >
-                view on GitHub
-                <i
-                    class="fa-solid fa-arrow-up-right-from-square"
-                ></i>
-            </a>
-
-        </div>
-
-    `;
-
-}
-
-
-// =========================================================
-// PAGE ROUTING
-// =========================================================
-
-function routeCurrentPage() {
-
-    const path =
-        window.location.pathname
-            .split("/")
-            .pop()
-            .toLowerCase();
-
-
-    const params =
-        new URLSearchParams(
-            window.location.search
-        );
-
-
-    // -----------------------------------------
-    // BLOG
-    // -----------------------------------------
-
-    if (path === "blog.html") {
-
-        const postNumber =
-            params.get("post");
-
-
-        if (postNumber) {
-
-            loadSingleBlog(
-                postNumber
-            );
-
-        } else {
-
-            loadBlogList();
-
-        }
-
-
-        return;
+        line-height: 1.85;
     }
 
+    .markdown-content pre {
+        margin-left: -10px;
+        margin-right: -10px;
 
-    // -----------------------------------------
-    // PROJECTS
-    // -----------------------------------------
+        border-left: 0;
+        border-right: 0;
+    }
 
-    if (path === "projects.html") {
+    .markdown-content table {
+        display: block;
 
-        const projectNumber =
-            params.get("project");
+        overflow-x: auto;
 
-
-        if (projectNumber) {
-
-            loadSingleProject(
-                projectNumber
-            );
-
-        } else {
-
-            loadProjectsList();
-
-        }
-
-
-        return;
+        white-space: nowrap;
     }
 
 }
 
+What this changes
 
-// =========================================================
-// INITIALIZATION
-// =========================================================
+Your blog now has two distinct states:
 
-document.addEventListener(
-    "DOMContentLoaded",
-    () => {
+Blog listing
 
-        setupTheme();
+/blog
 
-        setupMusic();
+Things I find
+interesting.
 
-        routeCurrentPage();
+Research, experiments...
 
-    }
-);
+────────────────────────────
+DDLC Deep Dark Iceberg
+Research into...
+20 Sep 2026
+────────────────────────────
+Another Blog Post
+...
+
+Individual post
+
+← back to blog
+
+/blog
+
+DDLC Deep Dark Iceberg
+
+20 Sep 2026
+
+The rabbit hole goes much deeper...
+
+## Hidden Files
+
+...
+
+## Secret Poems
+
+...
+
+────────────────────────────
+view on GitHub
+
+It also properly handles Markdown headings, code blocks, images, tables, lists, links, blockquotes, and horizontal rules, which is useful since your GitHub Issues are acting as the CMS.
+
+Next: we can refine the Projects page so the cards have the sleek look you want without making them overly bulky.
