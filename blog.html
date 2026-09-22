@@ -1,269 +1,90 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
     <meta charset="UTF-8">
-
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Blog | Kaagaaz</title>
+    <meta name="description" content="Thoughts, notes, and writings by Kaagaaz.">
 
-    <meta
-        name="description"
-        content="Blog posts, research, experiments."
-    >
-
-    <!-- Google Font -->
-    <link
-        rel="preconnect"
-        href="https://fonts.googleapis.com"
-    >
-
-    <link
-        rel="preconnect"
-        href="https://fonts.gstatic.com"
-        crossorigin
-    >
-
-    <link
-        href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap"
-        rel="stylesheet"
-    >
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 
     <!-- Font Awesome -->
-    <link
-        rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
-    >
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
-    <!-- Main stylesheet -->
-    <link
-        rel="stylesheet"
-        href="style.css"
-    >
-
+    <!-- CSS -->
+    <link rel="stylesheet" href="style.css?v=4">
 </head>
-
-
 <body>
 
+<!-- Prevent theme flicker -->
+<script>
+if(localStorage.getItem("theme") !== "light"){
+    document.body.classList.add("dark-mode");
+}
+</script>
 
-    <!-- =========================
-         HEADER
-    ========================== -->
+<header class="navbar">
+    <div class="nav-container">
+        <a href="index.html" class="brand-logo">Kaagaaz</a>
 
-    <header class="site-header">
+        <nav class="nav-links">
+            <a href="index.html" class="nav-item">About</a>
+            <a href="projects.html" class="nav-item">Projects</a>
+            <a href="blog.html" class="nav-item active">Blog</a>
+        </nav>
 
-        <div class="header-inner">
+        <div class="nav-actions">
+            <button id="music-toggle" class="icon-btn" aria-label="Toggle music" title="Toggle Music">
+                <i class="fa-solid fa-headphones"></i>
+            </button>
+            <button id="theme-toggle" class="icon-btn" aria-label="Toggle theme" title="Toggle Theme">
+                <i class="fa-solid fa-moon"></i>
+            </button>
+        </div>
+    </div>
 
+    <audio id="bgm" loop>
+        <source src="bgm.mp3" type="audio/mpeg">
+    </audio>
+</header>
 
-            <!-- LOGO -->
-
-            <a
-                href="index.html"
-                class="site-logo"
-            >
-                kaagaaz.
-            </a>
-
-
-            <!-- NAVIGATION -->
-
-            <nav class="site-nav">
-
-                <a href="index.html#about">
-                    about
-                </a>
-
-                <a href="projects.html">
-                    projects
-                </a>
-
-                <a
-                    href="blog.html"
-                    class="active"
-                >
-                    blog
-                </a>
-
-            </nav>
-
-
-            <!-- ACTIONS -->
-
-            <div class="header-actions">
-
-                <button
-                    id="music-toggle"
-                    class="icon-button"
-                    type="button"
-                    aria-label="Toggle music"
-                    title="Toggle music"
-                >
-                    <i class="fa-solid fa-volume-xmark"></i>
-                </button>
-
-
-                <button
-                    id="theme-toggle"
-                    class="icon-button"
-                    type="button"
-                    aria-label="Toggle theme"
-                    title="Toggle theme"
-                >
-                    <i class="fa-solid fa-sun"></i>
-                </button>
-
-            </div>
-
+<main class="container">
+    <section class="about-hero">
+        <div class="hero-header">
+            <span class="greeting">Stream of Consciousness</span>
+            <h1 class="name">Blog</h1>
         </div>
 
-    </header>
+        <p class="bio-paragraph">
+            Notes on tech, cybersecurity learnings, anime, and late-night thoughts.
+        </p>
 
+        <!-- Post Stream -->
+        <div class="blog-list">
+            <article class="blog-item">
+                <span class="blog-date">2026.09.23</span>
+                <h2 class="blog-title"><a href="#">First Steps into Cybersecurity Labs</a></h2>
+                <p class="blog-snippet">Setting up isolated virtual networks and diving headfirst into security protocols...</p>
+            </article>
 
-
-    <!-- =========================
-         MAIN
-    ========================== -->
-
-    <main class="site-main">
-
-
-        <!-- =========================
-             BLOG HEADER
-        ========================== -->
-
-        <section
-            id="blog-header-area"
-            class="page-header"
-        >
-
-            <div class="page-label">
-                / blog
-            </div>
-
-
-            <h1 class="page-title">
-                Things I find<br>
-                interesting.
-            </h1>
-
-
-            <p class="page-description">
-                Research, experiments, technical notes,
-                and things worth documenting.
-            </p>
-
-        </section>
-
-
-
-        <!-- =========================
-             BLOG LIST
-        ========================== -->
-
-        <section class="content-section">
-
-            <div
-                id="blog-list-container"
-                class="blog-list"
-            >
-
-                <div class="loading-state">
-                    Loading blog...
-                </div>
-
-            </div>
-
-        </section>
-
-
-
-        <!-- =========================
-             SINGLE BLOG POST
-        ========================== -->
-
-        <section
-            id="blog-detail"
-            class="single-page"
-            hidden
-        >
-
-        </section>
-
-    </main>
-
-
-
-    <!-- =========================
-         FOOTER
-    ========================== -->
-
-    <footer class="site-footer">
-
-        <div class="footer-inner">
-
-            <span>
-                © 2026 Kaagaaz
-            </span>
-
-            <span>
-                built with curiosity.
-            </span>
-
+            <article class="blog-item">
+                <span class="blog-date">2026.09.15</span>
+                <h2 class="blog-title"><a href="#">Soundtracks &amp; Late-Night Code Sessions</a></h2>
+                <p class="blog-snippet">Why background music and smooth UI design go hand-in-hand for deep focus...</p>
+            </article>
         </div>
+    </section>
+</main>
 
-    </footer>
+<footer class="site-footer">
+    <p>© 2026 Kaagaaz · blogs &amp; projects stream live</p>
+</footer>
 
-
-
-    <!-- =========================
-         BACKGROUND MUSIC
-    ========================== -->
-
-    <audio
-        id="bgm"
-        src="bgm.mp3"
-        loop
-        preload="none"
-    ></audio>
-
-
-
-    <!-- =========================
-         MARKED.JS
-    ========================== -->
-
-    <script
-        src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"
-    ></script>
-
-
-
-    <!-- =========================
-         MAIN SCRIPT
-    ========================== -->
-
-    <script src="script.js"></script>
-
+<!-- JavaScript -->
+<script src="script.js?v=4"></script>
 
 </body>
-
 </html>
-
-This keeps the terminology consistent:
-
-- About
-- Projects → card layout
-- Blog → clean article list
-- "/blog.html"
-- "/blog.html?post=NUMBER"
-- GitHub Issues with the "blog" label
-- Individual posts rendered with Markdown
-- Same dark/light theme
-- Same music control
-- Same JetBrains Mono typography
