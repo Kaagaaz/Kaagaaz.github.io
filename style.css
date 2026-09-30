@@ -92,6 +92,16 @@ body {
 .icon-btn:hover {
   color: var(--text-primary);
 }
+.hero-banner {
+  width: 100%;
+  height: 220px;            /* Adjust height as preferred */
+  object-fit: cover;        /* Prevents image stretching */
+  object-position: center;   /* Keeps the main focus of the image centered */
+  border-radius: 12px;      /* Rounded corners matching your UI */
+  margin-bottom: 24px;      /* Space between banner and "Welcome here..." text */
+  display: block;
+}
+
 
 /* Hero Section Typography */
 .about-hero {
