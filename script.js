@@ -139,6 +139,28 @@ async function fetchIssues(owner, repo, label) {
 
 // Single View Render Routine
 function showSingleView(issue, listContainer, detailContainer, headerArea) {
+  // Push state to browser history so mobile/tablet back gestures know we entered a new view
+  history.pushState({ detailViewActive: true }, "", window.location.href);
+
+  const hideDetail = () => {
+    detailContainer.hidden = true;
+    detailContainer.style.display = "none";
+    detailContainer.innerHTML = "";
+
+    listContainer.style.display = listContainer.classList.contains("projects-grid") ? "grid" : "flex";
+    if (headerArea) headerArea.style.display = "block";
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+
+    window.removeEventListener("popstate", handlePopState);
+  };
+
+  const handlePopState = () => {
+    hideDetail();
+  };
+
+  // Handle native device back button or swipe back
+  window.addEventListener("popstate", handlePopState);
+
   listContainer.style.display = "none";
   if (headerArea) headerArea.style.display = "none";
 
@@ -167,14 +189,9 @@ function showSingleView(issue, listContainer, detailContainer, headerArea) {
     </div>
   `;
 
+  // UI Back Button triggers browser back, firing popstate to execute hideDetail()
   document.getElementById("back-btn").addEventListener("click", () => {
-    detailContainer.hidden = true;
-    detailContainer.style.display = "none";
-    detailContainer.innerHTML = "";
-
-    listContainer.style.display = listContainer.classList.contains("projects-grid") ? "grid" : "flex";
-    if (headerArea) headerArea.style.display = "block";
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    history.back();
   });
 }
 
