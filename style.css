@@ -131,6 +131,18 @@ body {
   line-height: 1.15;
 }
 
+/* Make all links inside paragraphs white */
+p a {
+  color: #ffffff;
+  text-decoration: underline;
+}
+
+/* Ensure links stay white even after being clicked */
+p a:visited {
+  color: #ffffff;
+}
+
+
 .bio-paragraph {
   font-size: 1.05rem;
   color: var(--text-secondary);
