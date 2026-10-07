@@ -95,31 +95,20 @@ if (localStorage.getItem("theme") !== "light") {
     if (!slider) return;
 
     const slides = slider.querySelectorAll(".hero-banner");
-    const dotsBox = document.getElementById("banner-dots");
     const INTERVAL = 5000; // ms between slides
     let current = 0;
     let timer;
 
-    // Build dots
-    slides.forEach((_, i) => {
-        const dot = document.createElement("button");
-        dot.className = "banner-dot" + (i === 0 ? " active" : "");
-        dot.setAttribute("aria-label", "Show banner " + (i + 1));
-        dot.addEventListener("click", () => { goTo(i); restart(); });
-        dotsBox.appendChild(dot);
-    });
-    const dots = dotsBox.querySelectorAll(".banner-dot");
-
     function goTo(index) {
         slides[current].classList.remove("active");
-        dots[current].classList.remove("active");
         current = (index + slides.length) % slides.length;
         slides[current].classList.add("active");
-        dots[current].classList.add("active");
     }
 
-    function start() { clearInterval(timer); timer = setInterval(() => goTo(current + 1), INTERVAL); }
-    function restart() { start(); }
+    function start() {
+        clearInterval(timer);
+        timer = setInterval(() => goTo(current + 1), INTERVAL);
+    }
 
     // Pause while hovering
     slider.addEventListener("mouseenter", () => clearInterval(timer));
