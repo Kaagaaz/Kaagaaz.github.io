@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
     <!-- CSS -->
-    <link rel="stylesheet" href="style.css?v=8">
+    <link rel="stylesheet" href="style.css?v=9">
 </head>
 <body>
 
@@ -99,10 +99,26 @@ if (localStorage.getItem("theme") !== "light") {
     let current = 0;
     let timer;
 
+    // When the old slide finishes sliding out, send it back to the right
+    slides.forEach((slide) => {
+        slide.addEventListener("animationend", () => {
+            if (slide.classList.contains("leaving")) {
+                slide.classList.remove("leaving");
+            }
+        });
+    });
+
     function goTo(index) {
-        slides[current].classList.remove("active");
+        const oldSlide = slides[current];
         current = (index + slides.length) % slides.length;
-        slides[current].classList.add("active");
+        const newSlide = slides[current];
+        if (oldSlide === newSlide) return;
+
+        oldSlide.classList.remove("active", "entering");
+        oldSlide.classList.add("leaving");
+
+        newSlide.classList.remove("leaving");
+        newSlide.classList.add("active", "entering");
     }
 
     function start() {
