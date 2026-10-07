@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -94,9 +95,11 @@ if (localStorage.getItem("theme") !== "light") {
     if (!slider) return;
 
     const slides = slider.querySelectorAll(".hero-banner");
-    const INTERVAL = 3500; // ms between slides
+    const FIRST_DELAY = 2000; // ms before the FIRST slide change (quick, so visitors notice it)
+    const INTERVAL = 3300;    // ms between slides after that (normal loop)
     let current = 0;
     let timer;
+    let firstDone = false;
 
     // When the old slide finishes sliding out, send it back to the right
     slides.forEach((slide) => {
@@ -120,18 +123,25 @@ if (localStorage.getItem("theme") !== "light") {
         newSlide.classList.add("active", "entering");
     }
 
-    function start() {
-        clearInterval(timer);
-        timer = setInterval(() => goTo(current + 1), INTERVAL);
+    function schedule(delay) {
+        clearTimeout(timer);
+        timer = setTimeout(() => {
+            goTo(current + 1);
+            firstDone = true;
+            schedule(INTERVAL);
+        }, delay);
     }
 
+    function start() { schedule(firstDone ? INTERVAL : FIRST_DELAY); }
+    function stop()  { clearTimeout(timer); }
+
     // Pause while hovering
-    slider.addEventListener("mouseenter", () => clearInterval(timer));
+    slider.addEventListener("mouseenter", stop);
     slider.addEventListener("mouseleave", start);
 
     // Pause when the tab is hidden
     document.addEventListener("visibilitychange", () => {
-        document.hidden ? clearInterval(timer) : start();
+        document.hidden ? stop() : start();
     });
 
     if (slides.length > 1) start();
