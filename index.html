@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
     <!-- CSS -->
-    <link rel="stylesheet" href="style.css?v=7">
+    <link rel="stylesheet" href="style.css?v=8">
 </head>
 <body>
 
@@ -51,8 +51,12 @@ if (localStorage.getItem("theme") !== "light") {
 
 <main class="container">
     <!-- Standalone Banner Container -->
-    <div class="banner-wrapper">
-        <img src="Web banner.png" alt="Hero Banner" class="hero-banner">
+    <div class="banner-wrapper" id="banner-slider">
+        <img src="Web banner.png" alt="Hero Banner 1" class="hero-banner active">
+        <img src="banner2.png" alt="Hero Banner 2" class="hero-banner">
+        <img src="banner3.png" alt="Hero Banner 3" class="hero-banner">
+
+        <div class="banner-dots" id="banner-dots"></div>
     </div>
 
     <section class="about-hero">
@@ -85,6 +89,52 @@ if (localStorage.getItem("theme") !== "light") {
 <footer class="site-footer">
     <p>© 2026 Kaagaaz {He/Him} · blogs &amp; projects stream live</p>
 </footer>
+
+<!-- Banner Slideshow -->
+<script>
+(function () {
+    const slider = document.getElementById("banner-slider");
+    if (!slider) return;
+
+    const slides = slider.querySelectorAll(".hero-banner");
+    const dotsBox = document.getElementById("banner-dots");
+    const INTERVAL = 5000; // ms between slides
+    let current = 0;
+    let timer;
+
+    // Build dots
+    slides.forEach((_, i) => {
+        const dot = document.createElement("button");
+        dot.className = "banner-dot" + (i === 0 ? " active" : "");
+        dot.setAttribute("aria-label", "Show banner " + (i + 1));
+        dot.addEventListener("click", () => { goTo(i); restart(); });
+        dotsBox.appendChild(dot);
+    });
+    const dots = dotsBox.querySelectorAll(".banner-dot");
+
+    function goTo(index) {
+        slides[current].classList.remove("active");
+        dots[current].classList.remove("active");
+        current = (index + slides.length) % slides.length;
+        slides[current].classList.add("active");
+        dots[current].classList.add("active");
+    }
+
+    function start() { clearInterval(timer); timer = setInterval(() => goTo(current + 1), INTERVAL); }
+    function restart() { start(); }
+
+    // Pause while hovering
+    slider.addEventListener("mouseenter", () => clearInterval(timer));
+    slider.addEventListener("mouseleave", start);
+
+    // Pause when the tab is hidden
+    document.addEventListener("visibilitychange", () => {
+        document.hidden ? clearInterval(timer) : start();
+    });
+
+    if (slides.length > 1) start();
+})();
+</script>
 
 <!-- JavaScript -->
 <script src="script.js?v=6"></script>
