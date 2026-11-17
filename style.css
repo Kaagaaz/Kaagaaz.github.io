@@ -64,7 +64,7 @@ body {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 14px 22px;
+  gap: 9px 15px;
 }
 
 .webring {
