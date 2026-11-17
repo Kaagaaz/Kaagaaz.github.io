@@ -58,7 +58,7 @@ body {
   color: var(--text-primary);
 }
 
-.webring-section { margin-top: 20px; }
+.webring-section { margin-top: 15px; }
 
 .webring-row {
   display: flex;
