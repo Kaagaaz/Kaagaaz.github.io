@@ -98,9 +98,6 @@ body {
   transition: color 0.2s ease, transform 0.2s ease;
 }
 
-.ring-arrow:hover { color: var(--text-primary); }
-.webring .ring-arrow:first-child:hover { transform: translateX(-2px); }
-.webring .ring-arrow:last-child:hover  { transform: translateX(2px); }
 
 
 
