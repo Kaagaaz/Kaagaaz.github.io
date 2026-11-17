@@ -82,7 +82,7 @@ body {
 
 .my-button img {
   display: block;
-  width: var(--my-button-width, 110px);
+  width: var(--my-button-width, 90px);
   height: auto;
   border: 1px solid #8b8bff;
   transition: transform 0.2s ease;
