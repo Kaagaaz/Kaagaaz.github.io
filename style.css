@@ -741,3 +741,8 @@ ns: 1fr;
     padding: 12px;
   }
 }
+
+.findme-page .projects-grid {
+  grid-template-columns: 1fr;
+  gap: 14px;
+}
