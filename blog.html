@@ -33,11 +33,16 @@ if (localStorage.getItem("theme") !== "light") {
     <div class="nav-container">
         
 
-        <nav class="nav-links">
+        <div class="nav-menu">
+            <button id="menu-toggle" class="icon-btn" aria-label="Open menu" aria-expanded="false" aria-controls="nav-links" title="Menu">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+            <nav class="nav-links" id="nav-links">
             <a href="index.html" class="nav-item">About</a>
             <a href="projects.html" class="nav-item">Projects</a>
             <a href="blog.html" class="nav-item active">Blog</a>
         </nav>
+        </div>
 
         <div class="nav-actions">
             <button id="music-toggle" class="icon-btn" aria-label="Toggle music" title="Toggle Music">
