@@ -47,6 +47,7 @@ body {
 
 .nav-container {
   display: flex;
+  flex-direction: row-reverse; /* menu button right, actions left */
   justify-content: space-between;
   align-items: center;
 }
@@ -92,12 +93,32 @@ body {
 
 
 
+.nav-menu {
+  position: relative;
+}
+
 .nav-links {
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 0;
+  min-width: 150px;
+  display: none;
+  flex-direction: column;
+  gap: 2px;
+  padding: 6px;
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  background: var(--bg-color);
+  z-index: 100;
+}
+
+.nav-links.open {
   display: flex;
-  gap: 20px;
 }
 
 .nav-item {
+  padding: 9px 14px;
+  border-radius: 8px;
   text-decoration: none;
   color: var(--text-secondary);
   font-size: 0.836rem;
@@ -107,6 +128,10 @@ body {
 .nav-item.active, 
 .nav-item:hover {
   color: var(--text-primary);
+}
+
+.nav-item.active {
+  background: var(--border-color);
 }
 
 .nav-actions {
@@ -565,6 +590,13 @@ p a:visited {
   }
 
   .markdown-body h1 { font-size: 1.188rem; }
+  .markdown-body h2 { font-size: 1.012rem; }
+  .markdown-body h3 { font-size: 0.898rem; }
+
+  .markdown-body pre {
+    padding: 12px;
+  }
+}
   .markdown-body h2 { font-size: 1.012rem; }
   .markdown-body h3 { font-size: 0.898rem; }
 
