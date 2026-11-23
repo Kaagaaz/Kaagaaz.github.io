@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Find Me | Kaagaaz</title>
+    <meta name="description" content="Find Kaagaaz across the internet — social profiles and contact.">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="style.css?v=6">
+</head>
+<body class="findme-page">
+
+<!-- Prevent Theme Flicker -->
+<script>
+if (localStorage.getItem("theme") !== "light") {
+    document.body.classList.add("dark-mode");
+}
+</script>
+
+<header class="navbar">
+    <div class="nav-container">
+        
+
+        <div class="nav-menu">
+            <button id="menu-toggle" class="icon-btn" aria-label="Open menu" aria-expanded="false" aria-controls="nav-links" title="Menu">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+            <nav class="nav-links" id="nav-links">
+            <a href="index.html" class="nav-item">About</a>
+            <a href="projects.html" class="nav-item">Projects</a>
+            <a href="blog.html" class="nav-item">Blog</a>
+            <a href="find-me.html" class="nav-item active">Find Me</a>
+        </nav>
+        </div>
+
+        <div class="nav-actions">
+            <button id="music-toggle" class="icon-btn" aria-label="Toggle music" title="Toggle Music">
+                <i class="fa-solid fa-headphones"></i>
+            </button>
+            <button id="theme-toggle" class="icon-btn" aria-label="Toggle theme" title="Toggle Theme">
+                <i class="fa-solid fa-moon"></i>
+            </button>
+        </div>
+    </div>
+
+    <audio id="bgm" loop>
+        <source src="bgm.mp3" type="audio/mpeg">
+    </audio>
+</header>
+
+<main class="container">
+    <section id="find-me" class="about-hero feed-section">
+        <header class="hero-header">
+            <h1 class="name">Find Me</h1>
+            <p class="bio-paragraph">Everywhere I hang out online. Feel free to reach out.</p>
+        </header>
+
+        <section class="projects-grid">
+            <a href="https://discord.com/users/1470676347805503501" target="_blank" rel="noopener" class="project-card find-card">
+                <div class="card-top">
+                    <h3 class="card-title"><i class="fa-brands fa-discord find-icon"></i>Discord</h3>
+                    <i class="fa-solid fa-arrow-up-right-from-square card-icon"></i>
+                </div>
+            </a>
+            <a href="https://x.com/The_kaagaaz" target="_blank" rel="noopener" class="project-card find-card">
+                <div class="card-top">
+                    <h3 class="card-title"><i class="fa-brands fa-x-twitter find-icon"></i>X (Twitter)</h3>
+                    <i class="fa-solid fa-arrow-up-right-from-square card-icon"></i>
+                </div>
+            </a>
+            <a href="https://www.reddit.com/user/Dizzy-Cup2755/" target="_blank" rel="noopener" class="project-card find-card">
+                <div class="card-top">
+                    <h3 class="card-title"><i class="fa-brands fa-reddit-alien find-icon"></i>Reddit</h3>
+                    <i class="fa-solid fa-arrow-up-right-from-square card-icon"></i>
+                </div>
+            </a>
+            <a href="https://github.com/Kaagaaz" target="_blank" rel="noopener" class="project-card find-card">
+                <div class="card-top">
+                    <h3 class="card-title"><i class="fa-brands fa-github find-icon"></i>GitHub</h3>
+                    <i class="fa-solid fa-arrow-up-right-from-square card-icon"></i>
+                </div>
+            </a>
+            <a href="https://www.linkedin.com/in/tishya-chakma" target="_blank" rel="noopener" class="project-card find-card">
+                <div class="card-top">
+                    <h3 class="card-title"><i class="fa-brands fa-linkedin find-icon"></i>LinkedIn</h3>
+                    <i class="fa-solid fa-arrow-up-right-from-square card-icon"></i>
+                </div>
+            </a>
+            <a href="mailto:hii.kaagaaz@gmail.com" class="project-card find-card">
+                <div class="card-top">
+                    <h3 class="card-title"><i class="fa-solid fa-envelope find-icon"></i>Email</h3>
+                    <i class="fa-solid fa-arrow-up-right-from-square card-icon"></i>
+                </div>
+            </a>
+        </section>
+    </section>
+</main>
+
+<footer class="site-footer">
+    <p>© 2026 Kaagaaz {He/Him} · blogs &amp; projects stream live</p>
+</footer>
+
+<script src="script.js?v=6"></script>
+</body>
+</html>
