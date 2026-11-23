@@ -209,3 +209,28 @@ function escapeHTML(str) {
     tag => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[tag] || tag)
   );
 }
+
+
+// Navigation menu toggle
+document.addEventListener("DOMContentLoaded", () => {
+  const btn = document.getElementById("menu-toggle");
+  const menu = document.getElementById("nav-links");
+  if (!btn || !menu) return;
+
+  const setOpen = (open) => {
+    menu.classList.toggle("open", open);
+    btn.setAttribute("aria-expanded", open);
+    btn.querySelector("i").className = open ? "fa-solid fa-xmark" : "fa-solid fa-bars";
+  };
+
+  btn.addEventListener("click", (e) => {
+    e.stopPropagation();
+    setOpen(!menu.classList.contains("open"));
+  });
+  document.addEventListener("click", (e) => {
+    if (!menu.contains(e.target) && !btn.contains(e.target)) setOpen(false);
+  });
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") setOpen(false);
+  });
+});
