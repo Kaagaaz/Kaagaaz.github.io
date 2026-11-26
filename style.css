@@ -1167,9 +1167,6 @@ ns: 1fr;
   color: var(--text-secondary);
 }
 
-.find-card:hover .find-icon {
-  color: var(--text-primary);
-}
 
 .find-card .card-top {
   margin-bottom: 0;
@@ -1246,9 +1243,7 @@ ns: 1fr;
   color: var(--text-secondary);
 }
 
-.find-card:hover .find-icon {
-  color: var(--text-primary);
-}
+
 
 .find-card .card-top {
   margin-bottom: 0;
@@ -1319,9 +1314,7 @@ ns: 1fr;
   color: var(--text-secondary);
 }
 
-.find-card:hover .find-icon {
-  color: var(--text-primary);
-}
+
 ns: 1fr;
     gap: 14px;
     margin-top: 20px;
@@ -1455,9 +1448,7 @@ ns: 1fr;
   color: var(--text-secondary);
 }
 
-.find-card:hover .find-icon {
-  color: var(--text-primary);
-}
+
 
 .find-card .card-top {
   margin-bottom: 0;
@@ -1534,9 +1525,6 @@ ns: 1fr;
   color: var(--text-secondary);
 }
 
-.find-card:hover .find-icon {
-  color: var(--text-primary);
-}
 
 .find-card .card-top {
   margin-bottom: 0;
@@ -1607,9 +1595,7 @@ ns: 1fr;
   color: var(--text-secondary);
 }
 
-.find-card:hover .find-icon {
-  color: var(--text-primary);
-}
+
 ns: 1fr;
     gap: 14px;
     margin-top: 20px;
